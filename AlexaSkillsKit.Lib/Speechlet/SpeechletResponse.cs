@@ -2,6 +2,9 @@
 
 using System;
 using AlexaSkillsKit.UI;
+using System.Collections.Generic;
+using AlexaSkillsKit.UI.Cards;
+using AlexaSkillsKit.UI.Directives;
 
 namespace AlexaSkillsKit.Speechlet
 {
@@ -22,9 +25,17 @@ namespace AlexaSkillsKit.Speechlet
             set;
         }
 
+        public virtual IEnumerable<Directive> Directives
+        {
+            get;
+            set;
+        }
+
         public virtual bool ShouldEndSession {
             get;
             set;
         }
+
+
     }
 }

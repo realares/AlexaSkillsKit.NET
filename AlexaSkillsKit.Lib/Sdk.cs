@@ -2,6 +2,8 @@
 
 using System;
 using Newtonsoft.Json;
+using System.Collections.Generic;
+using Newtonsoft.Json.Serialization;
 
 namespace AlexaSkillsKit
 {
@@ -20,7 +22,12 @@ namespace AlexaSkillsKit
         public const int TIMESTAMP_TOLERANCE_SEC = 150;
 
         public static JsonSerializerSettings DeserializationSettings = new JsonSerializerSettings {
-            MissingMemberHandling = MissingMemberHandling.Ignore
+            MissingMemberHandling = MissingMemberHandling.Ignore,
+            ContractResolver = new CamelCasePropertyNamesContractResolver(),
+            Converters = new List<JsonConverter>
+            {
+                new Newtonsoft.Json.Converters.StringEnumConverter(true)
+            }
         };
     }
 }

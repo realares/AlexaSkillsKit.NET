@@ -3,7 +3,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace AlexaSkillsKit.UI
+namespace AlexaSkillsKit.UI.Cards
 {
     public class StandardCard : Card
     {

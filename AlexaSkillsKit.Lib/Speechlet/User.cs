@@ -7,26 +7,26 @@ namespace AlexaSkillsKit.Speechlet
 {
     public class User
     {
+        public virtual string Id { get; set; }
+
+        public virtual string AccessToken { get; set; }
+
         /// <summary>
         /// 
         /// </summary>
         /// <param name="json"></param>
         /// <returns></returns>
-        public static User FromJson(JObject json) {
+        public static User FromJson(JObject json)
+        {
+            if (json == null)
+                return null;
+
             return new User {
                 Id = json.Value<string>("userId"),
                 AccessToken = json.Value<string>("accessToken")
             };
         }
 
-        public virtual string Id {
-            get;
-            set;
-        }
 
-        public virtual string AccessToken {
-            get;
-            set;
-        }
     }
 }

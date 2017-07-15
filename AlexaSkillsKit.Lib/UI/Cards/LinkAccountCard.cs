@@ -3,11 +3,12 @@
 using System;
 using System.Collections.Generic;
 
-namespace AlexaSkillsKit.UI
+namespace AlexaSkillsKit.UI.Cards
 {
     public class LinkAccountCard : Card
     {
-        public override string Type {
+        public override string Type
+        {
             get { return "LinkAccount"; }
         }
     }

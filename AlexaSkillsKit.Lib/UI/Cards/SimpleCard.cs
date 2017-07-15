@@ -3,15 +3,17 @@
 using System;
 using System.Collections.Generic;
 
-namespace AlexaSkillsKit.UI
+namespace AlexaSkillsKit.UI.Cards
 {
     public class SimpleCard : Card
     {
-        public override string Type {
+        public override string Type
+        {
             get { return "Simple"; }
         }
 
-        public virtual string Content {
+        public virtual string Content
+        {
             get;
             set;
         }

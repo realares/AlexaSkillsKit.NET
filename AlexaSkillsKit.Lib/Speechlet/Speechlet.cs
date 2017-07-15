@@ -10,6 +10,9 @@ using System.Text;
 using Newtonsoft.Json.Linq;
 using AlexaSkillsKit.Authentication;
 using AlexaSkillsKit.Json;
+using AlexaSkillsKit.UI;
+using AlexaSkillsKit.UI.Cards;
+using System.Runtime.InteropServices;
 
 namespace AlexaSkillsKit.Speechlet
 {
@@ -25,8 +28,10 @@ namespace AlexaSkillsKit.Speechlet
             DateTime now = DateTime.UtcNow; // reference time for this request
 
             string chainUrl = null;
+#if !DEBUG
             if (!httpRequest.Headers.Contains(Sdk.SIGNATURE_CERT_URL_REQUEST_HEADER) ||
                 String.IsNullOrEmpty(chainUrl = httpRequest.Headers.GetValues(Sdk.SIGNATURE_CERT_URL_REQUEST_HEADER).First())) {
+
                 validationResult = validationResult | SpeechletRequestValidationResult.NoCertHeader;
             }
 
@@ -36,50 +41,72 @@ namespace AlexaSkillsKit.Speechlet
                 validationResult = validationResult | SpeechletRequestValidationResult.NoSignatureHeader;
             }
 
+#endif
             var alexaBytes = AsyncHelpers.RunSync<byte[]>(() => httpRequest.Content.ReadAsByteArrayAsync());
-            Debug.WriteLine(httpRequest.ToLogString());
+            //Debug.WriteLine(httpRequest.ToLogString());
+            //RequestLog(httpRequest.ToLogString());
 
+#if !DEBUG
             // attempt to verify signature only if we were able to locate certificate and signature headers
             if (validationResult == SpeechletRequestValidationResult.OK) {
-                if (!SpeechletRequestSignatureVerifier.VerifyRequestSignature(alexaBytes, signature, chainUrl)) {
+                if (!SpeechletRequestSignatureVerifier.VerifyRequestSignature(alexaBytes, signature, chainUrl)) 
+                {
                     validationResult = validationResult | SpeechletRequestValidationResult.InvalidSignature;
                 }
             }
+#endif
 
             SpeechletRequestEnvelope alexaRequest = null;
-            try {
+            try
+            {
                 var alexaContent = UTF8Encoding.UTF8.GetString(alexaBytes);
+                alexaContent = alexaContent.Trim();
+                System.IO.File.WriteAllText($@"c:\fku\logs\{DateTime.UtcNow.Ticks.ToString()}_h2.txt", alexaContent);
+                //RequestLog(alexaContent);
                 alexaRequest = SpeechletRequestEnvelope.FromJson(alexaContent);
             }
-            catch (Newtonsoft.Json.JsonReaderException) {
+            catch (Newtonsoft.Json.JsonReaderException e1)
+            {
+                System.IO.File.WriteAllText($@"c:\fku\logs\{DateTime.UtcNow.Ticks.ToString()}_e1.txt", e1.Message);
                 validationResult = validationResult | SpeechletRequestValidationResult.InvalidJson;
             }
-            catch (InvalidCastException) {
+            catch (InvalidCastException e2)
+            {
+                System.IO.File.WriteAllText($@"c:\fku\logs\{DateTime.UtcNow.Ticks.ToString()}_e2.txt", e2.Message + e2.StackTrace);
                 validationResult = validationResult | SpeechletRequestValidationResult.InvalidJson;
             }
 
+#if !DEBUG
             // attempt to verify timestamp only if we were able to parse request body
-            if (alexaRequest != null) {
+            if (alexaRequest != null) 
+            {
                 if (!SpeechletRequestTimestampVerifier.VerifyRequestTimestamp(alexaRequest, now)) {
                     validationResult = validationResult | SpeechletRequestValidationResult.InvalidTimestamp;
                 }
             }
+#endif
 
-            if (alexaRequest == null || !OnRequestValidation(validationResult, now, alexaRequest)) {
-                return new HttpResponseMessage(HttpStatusCode.BadRequest) {
+            if (alexaRequest == null || !OnRequestValidation(validationResult, now, alexaRequest))
+            {
+                return new HttpResponseMessage(HttpStatusCode.BadRequest)
+                {
                     ReasonPhrase = validationResult.ToString()
                 };
             }
 
-            string alexaResponse = DoProcessRequest(alexaRequest);
+            string alexaResponsejson = DoProcessRequest(alexaRequest);
+
+            System.IO.File.WriteAllText($@"c:\fku\logs\{DateTime.UtcNow.Ticks.ToString()}_r1.txt", alexaResponsejson);
 
             HttpResponseMessage httpResponse;
-            if (alexaResponse == null) {
+            if (alexaResponsejson == null)
+            {
                 httpResponse = new HttpResponseMessage(HttpStatusCode.InternalServerError);
             }
-            else {
+            else
+            {
                 httpResponse = new HttpResponseMessage(HttpStatusCode.OK);
-                httpResponse.Content = new StringContent(alexaResponse, Encoding.UTF8, "application/json");
+                httpResponse.Content = new StringContent(alexaResponsejson, Encoding.UTF8, "application/json");
                 Debug.WriteLine(httpResponse.ToLogString());
             }
 
@@ -92,7 +119,8 @@ namespace AlexaSkillsKit.Speechlet
         /// </summary>
         /// <param name="requestContent"></param>
         /// <returns></returns>
-        public virtual string ProcessRequest(string requestContent) {
+        public virtual string ProcessRequest(string requestContent)
+        {
             var requestEnvelope = SpeechletRequestEnvelope.FromJson(requestContent);
             return DoProcessRequest(requestEnvelope);
         }
@@ -109,50 +137,65 @@ namespace AlexaSkillsKit.Speechlet
         }
 
 
+        
         /// <summary>
         /// 
         /// </summary>
         /// <param name="requestEnvelope"></param>
         /// <returns></returns>
-        private string DoProcessRequest(SpeechletRequestEnvelope requestEnvelope) {
+        private string DoProcessRequest(SpeechletRequestEnvelope requestEnvelope)
+        {
             Session session = requestEnvelope.Session;
+            Context context = requestEnvelope.Context;
             SpeechletResponse response = null;
 
-            // process launch request
-            if (requestEnvelope.Request is LaunchRequest) {
-                var request = requestEnvelope.Request as LaunchRequest;
-                if (requestEnvelope.Session.IsNew) {
-                    OnSessionStarted(
-                        new SessionStartedRequest(request.RequestId, request.Timestamp), session);
-                }
-                response = OnLaunch(request, session);
+            switch (requestEnvelope.Request)
+            {
+                case LaunchRequest request:
+                    {
+                        if (requestEnvelope.Session.IsNew)
+                        {
+                            OnSessionStarted(new SessionStartedRequest(request.RequestId, request.Timestamp), session);
+                        }
+                        response = OnLaunch(request, session, context);
+                    }
+                    break;
+
+                case AudioPlayerRequest request:
+                    {
+                        response = OnAudioIntent(request, context);
+                    }
+                    break;
+
+                // process intent request
+                case IntentRequest request:
+                    {
+                        // Do session management prior to calling OnSessionStarted and OnIntentAsync 
+                        // to allow dev to change session values if behavior is not desired
+                        DoSessionManagement(request, session);
+
+                        if (requestEnvelope.Session.IsNew)
+                        {
+                            OnSessionStarted(new SessionStartedRequest(request.RequestId, request.Timestamp), session);
+                        }
+                        response = OnIntent(request, session, requestEnvelope.Context);
+                    }
+                    break;
+
+                // process session ended request
+                case SessionEndedRequest request:  
+                    {
+                        OnSessionEnded(request, session);
+                    }
+                    break;
             }
 
-            // process intent request
-            else if (requestEnvelope.Request is IntentRequest) {
-                var request = requestEnvelope.Request as IntentRequest;
-
-                // Do session management prior to calling OnSessionStarted and OnIntentAsync 
-                // to allow dev to change session values if behavior is not desired
-                DoSessionManagement(request, session);
-
-                if (requestEnvelope.Session.IsNew) {
-                    OnSessionStarted(
-                        new SessionStartedRequest(request.RequestId, request.Timestamp), session);
-                }
-                response = OnIntent(request, session);
-            }
-
-            // process session ended request
-            else if (requestEnvelope.Request is SessionEndedRequest) {
-                var request = requestEnvelope.Request as SessionEndedRequest;
-                OnSessionEnded(request, session);
-            }
-
-            var responseEnvelope = new SpeechletResponseEnvelope {
+            
+            var responseEnvelope = new SpeechletResponseEnvelope
+            {
                 Version = requestEnvelope.Version,
                 Response = response,
-                SessionAttributes = requestEnvelope.Session.Attributes
+                SessionAttributes = requestEnvelope.Session.Attributes ?? new Dictionary<string, string>()
             };
             return responseEnvelope.ToJson();
         }
@@ -189,14 +232,17 @@ namespace AlexaSkillsKit.Speechlet
         /// <returns>true if request processing should continue, otherwise false</returns>
         public virtual bool OnRequestValidation(
             SpeechletRequestValidationResult result, DateTime referenceTimeUtc, SpeechletRequestEnvelope requestEnvelope) {
-            
+
             return result == SpeechletRequestValidationResult.OK;
         }
 
 
-        public abstract SpeechletResponse OnIntent(IntentRequest intentRequest, Session session);
-        public abstract SpeechletResponse OnLaunch(LaunchRequest launchRequest, Session session);
+        public abstract SpeechletResponse OnIntent(IntentRequest intentRequest, Session session, Context context);
+        public abstract SpeechletResponse OnLaunch(LaunchRequest launchRequest, Session session, Context context);
+        public abstract SpeechletResponse OnAudioIntent(AudioPlayerRequest audioRequest, Context context);
         public abstract void OnSessionStarted(SessionStartedRequest sessionStartedRequest, Session session);
         public abstract void OnSessionEnded(SessionEndedRequest sessionEndedRequest, Session session);
+
     }
 }
+    

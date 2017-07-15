@@ -10,33 +10,42 @@ namespace AlexaSkillsKit.Json
 {
     public class SpeechletResponseEnvelope
     {
-        private static JsonSerializerSettings _serializerSettings = new JsonSerializerSettings() {
+        private static JsonSerializerSettings _serializerSettings = new JsonSerializerSettings()
+        {
             NullValueHandling = NullValueHandling.Ignore, 
             ContractResolver = new Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver(),
-            Converters = new List<JsonConverter> { new Newtonsoft.Json.Converters.StringEnumConverter() }
+            Converters = new List<JsonConverter>
+            {
+                new Newtonsoft.Json.Converters.StringEnumConverter(),
+               
+            }
         };
 
-
+        
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        public virtual string ToJson() {
+        public virtual string ToJson()
+        {
             return JsonConvert.SerializeObject(this, _serializerSettings);
         }
 
 
-        public virtual SpeechletResponse Response {
+        public virtual SpeechletResponse Response
+        {
             get;
             set;
         }
 
-        public virtual Dictionary<string, string> SessionAttributes {
+        public virtual Dictionary<string, string> SessionAttributes
+        {
             get;
             set;
         }
 
-        public virtual string Version {
+        public virtual string Version
+        {
             get;
             set;
         }
