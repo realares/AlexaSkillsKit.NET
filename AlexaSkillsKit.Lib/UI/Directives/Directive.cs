@@ -10,7 +10,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, 
 WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
-using AlexaSkillsKit.Speechlet;
+
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using System;
@@ -26,11 +26,11 @@ namespace AlexaSkillsKit.UI.Directives
     {
         public virtual DirectiveTypesEnum Type { get; set; }
 
- 
+
         [JsonConverter(typeof(StringEnumConverter))]
         public enum DirectiveTypesEnum
         {
-            
+
             [EnumMember(Value = "Display.RenderTemplate")]
             Display_RenderTemplate,
 
@@ -38,7 +38,7 @@ namespace AlexaSkillsKit.UI.Directives
             [EnumMember(Value = "VideoApp.Launch")]
             VideoApp_Launch,
 
-            
+
             [EnumMember(Value = "AudioPlayer.Play")]
             AudioPlayer_Play,
 
@@ -76,32 +76,5 @@ namespace AlexaSkillsKit.UI.Directives
         }
 
 
-    }
-
-    public class AudioPlayerDirective : Directive
-    {
-        public virtual string PlayBehavior { get; set; } //TODO: Enum?
-        public virtual AudioItem AudioItem { get; set; }
-
-        public enum PlayBehaviorEnum
-        {
-            REPLACE_ALL,
-            ENQUEUE
-        }
-    }
-
-    public class DialogDirective : Directive
-    {
-       public virtual List<UpdatedIntent> UpdatedIntent { get; set; }
-
-        //public string SlotToElicit { get; set; }
-        //public string SlotToConfirm { get; set; }
-
-    }
-
-    public class DialogDelegateDirective : DialogDirective
-    {
-        public override DirectiveTypesEnum Type { get => DirectiveTypesEnum.Dialog_Delegate;  }
-        public virtual ConfirmationStatusEnum ConfirmationStatus { get; set; }
     }
 }
