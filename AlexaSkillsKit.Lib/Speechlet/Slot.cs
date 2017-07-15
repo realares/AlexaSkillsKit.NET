@@ -24,39 +24,19 @@ namespace AlexaSkillsKit.Speechlet
 {
     public class Slot
     {
+        [JsonProperty("name")]
         public virtual string Name { get; set; }
 
+        [JsonProperty("value")]
         public virtual string Value { get; set; }
 
+        [JsonConverter(typeof(StringEnumConverter))]
+        [JsonProperty("confirmationStatus")]
         public virtual ConfirmationStatusEnum ConfirmationStatus { get; set; }
 
         [JsonIgnore]
+        [JsonProperty("resolutions")]
         public virtual Resolutions Resolutions { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="json"></param>
-        /// <returns></returns>
-        public static Slot FromJson(JObject json)
-        {
-
-            if (json == null)
-                return null;
-
-
-            var slot = new Slot
-            {
-                Name = json.Value<string>("name"),
-                Value = json.Value<string>("value"),
-            };
-
-            if (Enum.TryParse<ConfirmationStatusEnum>(json.Value<string>("confirmationStatus"), out ConfirmationStatusEnum tmp))
-                slot.ConfirmationStatus = tmp;
-
-            return slot;
-        }
-        
 
     }
 }

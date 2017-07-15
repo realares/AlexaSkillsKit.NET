@@ -20,23 +20,14 @@ using System.Text;
 using System.Threading.Tasks;
 using AlexaSkillsKit.Slu;
 using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 
 namespace AlexaSkillsKit.Speechlet
 {
     public class SupportedInterfaces
     {
+        [JsonProperty("audioPlayer")]
         public AudioPlayer AudioPlayer { get; set; }
 
-        public static SupportedInterfaces FromJson(JObject json)
-        {
-            if (json == null)
-                return null;
-
-            return new SupportedInterfaces
-            {
-                AudioPlayer = AudioPlayer.FromJson(json.Value<JObject>("audioPlayer"))
-            };
-
-        }
     }
 }

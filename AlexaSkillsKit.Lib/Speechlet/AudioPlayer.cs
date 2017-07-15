@@ -16,29 +16,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 
 namespace AlexaSkillsKit.Slu
 {
     public class AudioPlayer
     {
+        [JsonProperty("token")]
         public string Token { get; set; }
 
+        [JsonProperty("playerActivity")]
         public string PlayerActivity { get; set; }
+
+        [JsonProperty("offsetInMilliseconds")]
         public long OffsetInMilliseconds { get; set; }
 
-        public static AudioPlayer FromJson(JObject json)
-        {
-            if (json != null)
-            {
-                return new AudioPlayer
-                {
-                    Token = json.Value<string>("token"),
-                    OffsetInMilliseconds = json.Value<long>("offsetInMilliseconds"),
-                    PlayerActivity = json.Value<string>("playerActivity")
-                };
-            }
-
-            return null;
-        }
     }
 }

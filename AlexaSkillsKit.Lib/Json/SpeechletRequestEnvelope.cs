@@ -110,9 +110,9 @@ namespace AlexaSkillsKit.Json
             return new SpeechletRequestEnvelope
             {
                 Request = request,
-                Session = Session.FromJson(json.Value<JObject>("session")),
+                Session = JsonConvert.DeserializeObject<Session>(json["session"].ToString()),// Session.FromJson(json.Value<JObject>("session")),
                 Version = json.Value<string>("version"),
-                Context = Context.FromJson(json.Value<JObject>("context"))
+                Context = JsonConvert.DeserializeObject<Context>(json["context"].ToString()) // Context.FromJson(json.Value<JObject>("context"))
             };
         }
 

@@ -19,24 +19,72 @@ using System;
 using AlexaSkillsKit.Slu;
 using static AlexaSkillsKit.UI.Dialog;
 using Newtonsoft.Json.Linq;
+using AlexaSkillsKit.UI.Directives;
+using System.Collections.Generic;
+using AlexaSkillsKit.UI;
+using Newtonsoft.Json;
 
 namespace AlexaSkillsKit.Speechlet
 {
     public class IntentRequest : SpeechletRequest
     {
-
+        [JsonProperty("intent")]
         public virtual Intent Intent { get; private set; }
 
+        [JsonProperty("dialogState")]
         public DialogStateEnum DialogState { get; set; }
+
+        [JsonProperty("confirmationStatus")]
+        public ConfirmationStatusEnum ConfirmationStatus { get; set; }
 
         public IntentRequest(JObject requestJson, string requestId, DateTime timestamp)  
             : base(requestId, timestamp)
         {
 
-            Intent = Intent.FromJson(requestJson.Value<JObject>("intent"));
-            if (Enum.TryParse<DialogStateEnum>(requestJson.Value<string>("dialogState"), out DialogStateEnum tmp))
-                DialogState = tmp;
+            Intent = JsonConvert.DeserializeObject<Intent>(requestJson["intent"].ToString());
+ 
+            if (Enum.TryParse<DialogStateEnum>(requestJson.Value<string>("dialogState"), out DialogStateEnum tmp1))
+                DialogState = tmp1;
+
+            if (Enum.TryParse<ConfirmationStatusEnum>(requestJson.Value<string>("confirmationStatus"), out ConfirmationStatusEnum tmp2))
+                ConfirmationStatus = tmp2;
         }
+
+        public SpeechletResponse DialogDelegate()
+        {
+            var response = new SpeechletResponse()
+            {
+                Directives = new List<Directive>()
+                 {
+                     new DialogDelegateDirective()
+                     {
+                          ConfirmationStatus = ConfirmationStatus,
+                          UpdatedIntent = Intent
+                     }
+                 }
+            };
+
+            return response;
+        }
+
+        public SpeechletResponse DialogElicitSlot(Slot slotToElicit, OutputSpeech outputSpeech = null)
+        {
+            var response = new SpeechletResponse()
+            {
+                OutputSpeech = outputSpeech,
+                Directives = new List<Directive>()
+                 {
+                     new DialogElicitSlotDirective()
+                     {
+                          SlotToElicit = slotToElicit.Name,
+                          UpdatedIntent = Intent
+                     }
+                 }
+            };
+
+            return response;
+        }
+
 
     }
 

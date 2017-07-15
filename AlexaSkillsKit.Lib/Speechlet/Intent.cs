@@ -18,50 +18,51 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace AlexaSkillsKit.Speechlet
 {
     public class Intent
     {
-
+        [JsonProperty("name")]
         public virtual string Name { get; set; }
 
+        [JsonProperty("slots")]
         public virtual Dictionary<string, Slot> Slots { get; set; }
 
+        [JsonConverter(typeof(StringEnumConverter))]
+        [JsonProperty("confirmationStatus")]
         public virtual ConfirmationStatusEnum ConfirmationStatus { get; set; }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="json"></param>
-        /// <returns></returns>
-        public static Intent FromJson(JObject json)
-        {
+
+
+        ///// <summary>
+        ///// 
+        ///// </summary>
+        ///// <param name="json"></param>
+        ///// <returns></returns>
+        //public static Intent FromJson(JObject json)
+        //{
             
-            if (json == null)
-                return null;
+        //    if (json == null)
+        //        return null;
 
-            var slots = new Dictionary<string, Slot>();
+        //    var slots = new Dictionary<string, Slot>();
 
-            if (json["slots"] != null && json.Value<JObject>("slots").HasValues)
-            {
-                foreach (var slot in json.Value<JObject>("slots").Children())
-                {
-                    slots.Add(slot.Value<JProperty>().Name, Slot.FromJson(slot.Value<JProperty>().Value as JObject));
-                }
-            }
+        //    slots = JsonConvert.DeserializeObject<Dictionary<string, Slot>>(json["slots"].ToString());
 
-            var intent = new Intent {
-                Name = json.Value<string>("name"),
-                Slots = slots
-            };
+        //    var intent = new Intent {
+        //        Name = json.Value<string>("name"),
+        //        Slots = slots
+        //    };
 
-            var stg_confirmstatus = json.Value<string>("confirmationStatus");
-            if (!string.IsNullOrWhiteSpace(stg_confirmstatus))
-                if (Enum.TryParse<ConfirmationStatusEnum>(stg_confirmstatus, out ConfirmationStatusEnum outenum))
-                    intent.ConfirmationStatus = outenum;
+        //    var stg_confirmstatus = json.Value<string>("confirmationStatus");
+        //    if (!string.IsNullOrWhiteSpace(stg_confirmstatus))
+        //        if (Enum.TryParse<ConfirmationStatusEnum>(stg_confirmstatus, out ConfirmationStatusEnum outenum))
+        //            intent.ConfirmationStatus = outenum;
 
-            return intent;
-        }
+        //    return intent;
+        //}
 
 
         public class Amazon_BuiltIns

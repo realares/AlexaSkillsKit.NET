@@ -17,6 +17,7 @@ WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN 
 using System;
 using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 
 namespace AlexaSkillsKit.Speechlet
 {
@@ -30,48 +31,38 @@ namespace AlexaSkillsKit.Speechlet
         /// </summary>
         /// <param name="json"></param>
         /// <returns></returns>
-        public static Session FromJson(JObject json) {
-            var attributes = new Dictionary<string, string>();
-            var jsonAttributes = json.Value<JObject>("attributes");
-            if (jsonAttributes != null) {
-                foreach (var attrib in jsonAttributes.Children()) {
-                    attributes.Add(attrib.Value<JProperty>().Name, attrib.Value<JProperty>().Value.ToString());
-                }
-            }
+        //public static Session FromJson(JObject json) {
+        //    var attributes = new Dictionary<string, string>();
+        //    var jsonAttributes = json.Value<JObject>("attributes");
+        //    if (jsonAttributes != null) {
+        //        foreach (var attrib in jsonAttributes.Children()) {
+        //            attributes.Add(attrib.Value<JProperty>().Name, attrib.Value<JProperty>().Value.ToString());
+        //        }
+        //    }
 
-            return new Session {
-                SessionId = json.Value<string>("sessionId"),
-                IsNew = json.Value<bool>("new"),
-                User = User.FromJson(json.Value<JObject>("user")),
-                Application = Application.FromJson(json.Value<JObject>("application")),
-                Attributes = attributes
-            };
-        }
+        //    return new Session {
+        //        SessionId = json.Value<string>("sessionId"),
+        //        IsNew = json.Value<bool>("new"),
+        //        User = User.FromJson(json.Value<JObject>("user")),
+        //        Application = Application.FromJson(json.Value<JObject>("application")),
+        //        Attributes = attributes
+        //    };
+        //}
 
-        public virtual string SessionId {
-            get;
-            set;
-        }
+        [JsonProperty("sessionId")]
+        public virtual string SessionId { get;  set; }
 
-        public virtual bool IsNew {
-            get;
-            set;
-        }
+        [JsonProperty("isNew")]
+        public virtual bool IsNew { get; set; }
 
-        public virtual Application Application {
-            get;
-            set;
-        }
+        [JsonProperty("application")]
+        public virtual Application Application { get; set; }
 
-        public virtual User User {
-            get;
-            set;
-        }
+        [JsonProperty("user")]
+        public virtual User User { get; set; }
 
-        public virtual Dictionary<string, string> Attributes {
-            get;
-            set;
-        }
+        [JsonProperty("attributes")]
+        public virtual Dictionary<string, string> Attributes { get; set; }
 
         public virtual string[] IntentSequence {
             get {

@@ -18,32 +18,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 
 namespace AlexaSkillsKit.Speechlet
 {
     public class SpeechletSystem
     {
+        [JsonProperty("application")]
         public Application Application { get; private set; }
+
+        [JsonProperty("user")]
         public User User { get; set; }
+
+        [JsonProperty("device")]
         public virtual Device Device { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="json"></param>
-        /// <returns></returns>
-        public static SpeechletSystem FromJson(JObject json)
-        {
-            if (json == null)
-                return null;
-
-            return new SpeechletSystem()
-            {
-                Application = Application.FromJson(json.Value<JObject>("application")),
-                User = User.FromJson(json.Value<JObject>("user")),
-                Device = Device.FromJson(json.Value<JObject>("device"))
-            };
-        }
-
     }
 }

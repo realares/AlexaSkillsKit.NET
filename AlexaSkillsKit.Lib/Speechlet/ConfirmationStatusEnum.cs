@@ -17,7 +17,6 @@ using System.Runtime.Serialization;
 
 namespace AlexaSkillsKit.Speechlet
 {
-    [JsonConverter(typeof(StringEnumConverter))]
     public enum ConfirmationStatusEnum
     {
         [EnumMember(Value ="NONE")]
