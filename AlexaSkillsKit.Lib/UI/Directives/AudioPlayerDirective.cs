@@ -17,6 +17,7 @@ namespace AlexaSkillsKit.UI.Directives
     public class AudioPlayerDirective : Directive
     {
         public virtual string PlayBehavior { get; set; } 
+
         public virtual AudioItem AudioItem { get; set; }
 
         public enum PlayBehaviorEnum

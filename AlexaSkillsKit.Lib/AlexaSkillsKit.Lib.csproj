@@ -40,7 +40,7 @@
       <HintPath>..\..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\NLog.4.4.11\lib\net45\NLog.dll</HintPath>
+      <HintPath>..\..\..\..\..\private\fkuAlexa1\packages\NLog.4.4.11\lib\net45\NLog.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -60,6 +60,7 @@
     <Compile Include="Authentication\SpeechletRequestSignatureVerifier.cs" />
     <Compile Include="Authentication\SpeechletRequestTimestampVerifier.cs" />
     <Compile Include="HttpHelpers.cs" />
+    <Compile Include="Json\CamelCaseExceptDictionaryKeysResolver.cs" />
     <Compile Include="Json\SpeechletRequestEnvelope.cs" />
     <Compile Include="Json\SpeechletResponseEnvelope.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -76,6 +77,12 @@
     <Compile Include="Sdk.cs" />
     <Compile Include="Speechlet\AudioPlayer.cs" />
     <Compile Include="Speechlet\Intent.cs" />
+    <Compile Include="Speechlet\Resolution\ResolutionPerAuthority.cs" />
+    <Compile Include="Speechlet\Resolution\Resolutions.cs" />
+    <Compile Include="Speechlet\Resolution\ResolutionStatusCode.cs" />
+    <Compile Include="Speechlet\Resolution\ResolutionStatusCodeEnum.cs" />
+    <Compile Include="Speechlet\Resolution\ResolutionValue.cs" />
+    <Compile Include="Speechlet\Resolution\ResolutionValueEntry.cs" />
     <Compile Include="Speechlet\Slot.cs" />
     <Compile Include="Speechlet\AudioPlayerRequest.cs" />
     <Compile Include="Speechlet\Context.cs" />
@@ -101,7 +108,12 @@
     <Compile Include="UI\AudioItem.cs" />
     <Compile Include="UI\AudioStream.cs" />
     <Compile Include="Speechlet\ConfirmationStatusEnum.cs" />
+    <Compile Include="UI\Directives\AudioPlayerDirective.cs" />
     <Compile Include="UI\Directives\Dialog.cs" />
+    <Compile Include="UI\Directives\DialogConfirmSlotDirective.cs" />
+    <Compile Include="UI\Directives\DialogDelegateDirective.cs" />
+    <Compile Include="UI\Directives\DialogDirective.cs" />
+    <Compile Include="UI\Directives\DialogElicitSlotDirective.cs" />
     <Compile Include="UI\Directives\Directive.cs" />
     <Compile Include="UI\Image.cs" />
     <Compile Include="UI\Cards\StandardCard.cs" />

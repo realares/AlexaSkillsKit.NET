@@ -18,6 +18,7 @@ using System;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using AlexaSkillsKit.Speechlet.Resolution;
 
 namespace AlexaSkillsKit.Speechlet
 {
@@ -26,8 +27,11 @@ namespace AlexaSkillsKit.Speechlet
         public virtual string Name { get; set; }
 
         public virtual string Value { get; set; }
-        
+
         public virtual ConfirmationStatusEnum ConfirmationStatus { get; set; }
+
+        [JsonIgnore]
+        public virtual Resolutions Resolutions { get; set; }
 
         /// <summary>
         /// 

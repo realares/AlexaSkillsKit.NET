@@ -21,11 +21,13 @@ namespace AlexaSkillsKit.UI
 {
     public class PlainTextOutputSpeech : OutputSpeech
     {
-        public override string Type {
+        public override string Type
+        {
             get { return "PlainText";  }
         }
 
-        public virtual string Text {
+        public virtual string Text
+        {
             get;
             set;
         }
