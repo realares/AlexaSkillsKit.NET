@@ -1,4 +1,8 @@
-﻿//  Copyright 2015 Stefan Negritoiu (FreeBusy). See LICENSE file for more information.
+﻿/*
+ * Copyright 2017 realares
+ * Original Copyright 2015 Stefan Negritoiu (FreeBusy). 
+ * See LICENSE file for more information.
+ */
 
 using System;
 using System.Collections.Generic;
@@ -13,11 +17,15 @@ using AlexaSkillsKit.Json;
 using AlexaSkillsKit.UI;
 using AlexaSkillsKit.UI.Cards;
 using System.Runtime.InteropServices;
+using NLog;
 
 namespace AlexaSkillsKit.Speechlet
 {
     public abstract class Speechlet : ISpeechlet
     {
+        public static Logger log = LogManager.GetCurrentClassLogger();
+
+
         /// <summary>
         /// Processes Alexa request AND validates request signature
         /// </summary>
@@ -43,8 +51,6 @@ namespace AlexaSkillsKit.Speechlet
 
 #endif
             var alexaBytes = AsyncHelpers.RunSync<byte[]>(() => httpRequest.Content.ReadAsByteArrayAsync());
-            //Debug.WriteLine(httpRequest.ToLogString());
-            //RequestLog(httpRequest.ToLogString());
 
 #if !DEBUG
             // attempt to verify signature only if we were able to locate certificate and signature headers
@@ -60,19 +66,17 @@ namespace AlexaSkillsKit.Speechlet
             try
             {
                 var alexaContent = UTF8Encoding.UTF8.GetString(alexaBytes);
-                alexaContent = alexaContent.Trim();
-                System.IO.File.WriteAllText($@"c:\fku\logs\{DateTime.UtcNow.Ticks.ToString()}_h2.txt", alexaContent);
-                //RequestLog(alexaContent);
+                log.Debug("Request income: {0}", alexaContent);
                 alexaRequest = SpeechletRequestEnvelope.FromJson(alexaContent);
             }
             catch (Newtonsoft.Json.JsonReaderException e1)
             {
-                System.IO.File.WriteAllText($@"c:\fku\logs\{DateTime.UtcNow.Ticks.ToString()}_e1.txt", e1.Message);
+                log.Error(e1, "Parsing Request Fail:JsonReaderException");
                 validationResult = validationResult | SpeechletRequestValidationResult.InvalidJson;
             }
             catch (InvalidCastException e2)
             {
-                System.IO.File.WriteAllText($@"c:\fku\logs\{DateTime.UtcNow.Ticks.ToString()}_e2.txt", e2.Message + e2.StackTrace);
+                log.Error(e2, "Parsing Request Fail:InvalidCastException");
                 validationResult = validationResult | SpeechletRequestValidationResult.InvalidJson;
             }
 
@@ -95,8 +99,6 @@ namespace AlexaSkillsKit.Speechlet
             }
 
             string alexaResponsejson = DoProcessRequest(alexaRequest);
-
-            System.IO.File.WriteAllText($@"c:\fku\logs\{DateTime.UtcNow.Ticks.ToString()}_r1.txt", alexaResponsejson);
 
             HttpResponseMessage httpResponse;
             if (alexaResponsejson == null)
