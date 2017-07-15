@@ -18,6 +18,7 @@ using System;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using Newtonsoft.Json.Serialization;
+using AlexaSkillsKit.Json;
 
 namespace AlexaSkillsKit
 {
@@ -38,7 +39,7 @@ namespace AlexaSkillsKit
         public static JsonSerializerSettings DeserializationSettings = new JsonSerializerSettings
         {
             MissingMemberHandling = MissingMemberHandling.Ignore,
-            ContractResolver = new CamelCasePropertyNamesContractResolver(),
+            ContractResolver = new CamelCaseExceptDictionaryKeysResolver(),
             Converters = new List<JsonConverter>
             {
                 new Newtonsoft.Json.Converters.StringEnumConverter(true)
