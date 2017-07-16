@@ -25,7 +25,7 @@ namespace AlexaSkillsKit.Speechlet
         [JsonProperty("supportedInterfaces")]
         public SupportedInterfaces SupportedInterfaces { get; set; }
 
-        [JsonProperty("id")]
-        public virtual string Id { get; set; }
+        [JsonProperty("deviceId")]
+        public virtual string DeviceId { get; set; }
     }
 }

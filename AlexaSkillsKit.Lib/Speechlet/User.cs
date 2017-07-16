@@ -15,31 +15,17 @@ WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN 
 */
 using System;
 using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 
 namespace AlexaSkillsKit.Speechlet
 {
     public class User
     {
+        [JsonProperty("userId")]
         public virtual string Id { get; set; }
 
+        [JsonProperty("accessToken")]
         public virtual string AccessToken { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="json"></param>
-        /// <returns></returns>
-        public static User FromJson(JObject json)
-        {
-            if (json == null)
-                return null;
-
-            return new User {
-                Id = json.Value<string>("userId"),
-                AccessToken = json.Value<string>("accessToken")
-            };
-        }
-
 
     }
 }

@@ -2,33 +2,13 @@
 
 using System;
 using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 
 namespace AlexaSkillsKit.Speechlet
 {
     public class Application
     {
-        public virtual string Id
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="json"></param>
-        /// <returns></returns>
-        public static Application FromJson(JObject json)
-        {
-
-            if (json == null)
-                return null;
-
-            return new Application {
-                Id = json.Value<string>("applicationId")
-            };
-        }
-
-
+        [JsonProperty("applicationId")]
+        public virtual string Id { get; set; }
     }
 }
