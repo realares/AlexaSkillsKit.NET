@@ -25,6 +25,15 @@ namespace AlexaSkillsKit.Json
 {
     public class SpeechletRequestEnvelope
     {
+
+        public virtual SpeechletRequest Request { get; set; }
+
+        public virtual Session Session { get; set; }
+
+        public virtual string Version { get; set; }
+
+        public virtual Context Context { get; set; }
+
         /// <summary>
         /// 
         /// </summary>
@@ -40,7 +49,6 @@ namespace AlexaSkillsKit.Json
             JObject json = JsonConvert.DeserializeObject<JObject>(content, Sdk.DeserializationSettings);
             return FromJson(json);
         }
-
 
         /// <summary>
         /// 
@@ -106,7 +114,6 @@ namespace AlexaSkillsKit.Json
                     throw new ArgumentException("json");
             }
 
-
             return new SpeechletRequestEnvelope
             {
                 Request = request,
@@ -138,27 +145,6 @@ namespace AlexaSkillsKit.Json
             }
 
             return requestJson.Value<DateTime>("timestamp");
-        }
-
-
-        public virtual SpeechletRequest Request {
-            get;
-            set;
-        }
-
-        public virtual Session Session {
-            get;
-            set;
-        }
-
-        public virtual string Version {
-            get;
-            set;
-        }
-
-        public virtual Context Context {
-            get;
-            set;
         }
     }
 }

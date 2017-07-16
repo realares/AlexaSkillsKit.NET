@@ -23,7 +23,7 @@ using Newtonsoft.Json.Converters;
 
 namespace AlexaSkillsKit.Speechlet
 {
-    public class Intent
+    public partial class Intent
     {
         [JsonProperty("name")]
         public virtual string Name { get; set; }
@@ -35,44 +35,9 @@ namespace AlexaSkillsKit.Speechlet
         [JsonProperty("confirmationStatus")]
         public virtual ConfirmationStatusEnum ConfirmationStatus { get; set; }
 
-
-        ///// <summary>
-        ///// 
-        ///// </summary>
-        ///// <param name="json"></param>
-        ///// <returns></returns>
-        //public static Intent FromJson(JObject json)
-        //{
-            
-        //    if (json == null)
-        //        return null;
-
-        //    var slots = new Dictionary<string, Slot>();
-
-        //    slots = JsonConvert.DeserializeObject<Dictionary<string, Slot>>(json["slots"].ToString());
-
-        //    var intent = new Intent {
-        //        Name = json.Value<string>("name"),
-        //        Slots = slots
-        //    };
-
-        //    var stg_confirmstatus = json.Value<string>("confirmationStatus");
-        //    if (!string.IsNullOrWhiteSpace(stg_confirmstatus))
-        //        if (Enum.TryParse<ConfirmationStatusEnum>(stg_confirmstatus, out ConfirmationStatusEnum outenum))
-        //            intent.ConfirmationStatus = outenum;
-
-        //    return intent;
-        //}
-
-
-        public class Amazon_BuiltIns
+        public Intent()
         {
-            public const string YesIntent = "AMAZON.YesIntent";
-            public const string NoIntent = "AMAZON.NoIntent";
-
-            public const string HelpIntent = "AMAZON.HelpIntent";
-            public const string StopIntent = "AMAZON.StopIntent";
-            public const string CancelIntent = "AMAZON.CancelIntent";
+            Slots = new Dictionary<string, Slot>();
         }
     }
 }

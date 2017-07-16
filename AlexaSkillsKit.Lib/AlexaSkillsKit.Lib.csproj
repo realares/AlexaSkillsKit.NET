@@ -75,6 +75,7 @@
       <DependentUpon>Resource.de.resx</DependentUpon>
     </Compile>
     <Compile Include="Sdk.cs" />
+    <Compile Include="Speechlet\Amazon_BuiltIns.cs" />
     <Compile Include="Speechlet\AudioPlayer.cs" />
     <Compile Include="Speechlet\Intent.cs" />
     <Compile Include="Speechlet\Resolution\ResolutionPerAuthority.cs" />
@@ -95,7 +96,7 @@
     <Compile Include="Speechlet\Session.cs" />
     <Compile Include="Speechlet\SessionEndedRequest.cs" />
     <Compile Include="Speechlet\SessionStartedRequest.cs" />
-    <Compile Include="Speechlet\Speechlet.cs" />
+    <Compile Include="Speechlet\SpeechletApp.cs" />
     <Compile Include="Speechlet\SpeechletAsync.cs" />
     <Compile Include="Speechlet\SpeechletException.cs" />
     <Compile Include="Speechlet\SpeechletRequest.cs" />

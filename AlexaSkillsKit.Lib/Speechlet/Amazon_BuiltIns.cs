@@ -15,44 +15,18 @@ WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN 
 */
 
 
-using System;
-using AlexaSkillsKit.Slu;
-using static AlexaSkillsKit.UI.Dialog;
-using Newtonsoft.Json.Linq;
-using AlexaSkillsKit.UI.Directives;
-using System.Collections.Generic;
-using AlexaSkillsKit.UI;
-using Newtonsoft.Json;
-
 namespace AlexaSkillsKit.Speechlet
 {
-    public class IntentRequest : SpeechletRequest
+    public partial class Intent
     {
-        [JsonProperty("intent")]
-        public virtual Intent Intent { get; private set; }
-
-        [JsonProperty("dialogState")]
-        public DialogStateEnum DialogState { get; set; }
-
-        [JsonProperty("confirmationStatus")]
-        public ConfirmationStatusEnum ConfirmationStatus { get; set; }
-
-        public IntentRequest(JObject requestJson, string requestId, DateTime timestamp)  
-            : base(requestId, timestamp)
+        public class Amazon_BuiltIns
         {
+            public const string YesIntent = "AMAZON.YesIntent";
+            public const string NoIntent = "AMAZON.NoIntent";
 
-            Intent = JsonConvert.DeserializeObject<Intent>(requestJson["intent"].ToString());
- 
-            if (Enum.TryParse<DialogStateEnum>(requestJson.Value<string>("dialogState"), out DialogStateEnum tmp1))
-                DialogState = tmp1;
-
-            if (Enum.TryParse<ConfirmationStatusEnum>(requestJson.Value<string>("confirmationStatus"), out ConfirmationStatusEnum tmp2))
-                ConfirmationStatus = tmp2;
+            public const string HelpIntent = "AMAZON.HelpIntent";
+            public const string StopIntent = "AMAZON.StopIntent";
+            public const string CancelIntent = "AMAZON.CancelIntent";
         }
-
-
-
     }
-
-
 }

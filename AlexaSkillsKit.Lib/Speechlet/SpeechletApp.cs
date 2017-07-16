@@ -18,41 +18,46 @@ using AlexaSkillsKit.UI;
 using AlexaSkillsKit.UI.Cards;
 using System.Runtime.InteropServices;
 using NLog;
+using System.Threading.Tasks;
+using AlexaSkillsKit.UI.Directives;
 
 namespace AlexaSkillsKit.Speechlet
 {
-    public abstract class Speechlet : ISpeechlet
+    public abstract class SpeechletApp : ISpeechlet
     {
         public static Logger log = LogManager.GetCurrentClassLogger();
 
+        public SpeechletRequestEnvelope RequestEnvelope { get; private set; } = null;
 
         /// <summary>
         /// Processes Alexa request AND validates request signature
         /// </summary>
         /// <param name="httpRequest"></param>
         /// <returns></returns>
-        public virtual HttpResponseMessage GetResponse(HttpRequestMessage httpRequest) {
+        public virtual HttpResponseMessage GetResponse(HttpRequestMessage httpRequest)
+        {
             SpeechletRequestValidationResult validationResult = SpeechletRequestValidationResult.OK;
             DateTime now = DateTime.UtcNow; // reference time for this request
 
             string chainUrl = null;
-#if !DEBUG
+
             if (!httpRequest.Headers.Contains(Sdk.SIGNATURE_CERT_URL_REQUEST_HEADER) ||
-                String.IsNullOrEmpty(chainUrl = httpRequest.Headers.GetValues(Sdk.SIGNATURE_CERT_URL_REQUEST_HEADER).First())) {
+                String.IsNullOrEmpty(chainUrl = httpRequest.Headers.GetValues(Sdk.SIGNATURE_CERT_URL_REQUEST_HEADER).First()))
+            {
 
                 validationResult = validationResult | SpeechletRequestValidationResult.NoCertHeader;
             }
 
             string signature = null;
             if (!httpRequest.Headers.Contains(Sdk.SIGNATURE_REQUEST_HEADER) ||
-                String.IsNullOrEmpty(signature = httpRequest.Headers.GetValues(Sdk.SIGNATURE_REQUEST_HEADER).First())) {
+                String.IsNullOrEmpty(signature = httpRequest.Headers.GetValues(Sdk.SIGNATURE_REQUEST_HEADER).First()))
+            {
                 validationResult = validationResult | SpeechletRequestValidationResult.NoSignatureHeader;
             }
 
-#endif
+
             var alexaBytes = AsyncHelpers.RunSync<byte[]>(() => httpRequest.Content.ReadAsByteArrayAsync());
 
-#if !DEBUG
             // attempt to verify signature only if we were able to locate certificate and signature headers
             if (validationResult == SpeechletRequestValidationResult.OK) {
                 if (!SpeechletRequestSignatureVerifier.VerifyRequestSignature(alexaBytes, signature, chainUrl)) 
@@ -60,14 +65,12 @@ namespace AlexaSkillsKit.Speechlet
                     validationResult = validationResult | SpeechletRequestValidationResult.InvalidSignature;
                 }
             }
-#endif
-
-            SpeechletRequestEnvelope alexaRequest = null;
+            
             try
             {
                 var alexaContent = UTF8Encoding.UTF8.GetString(alexaBytes);
                 log.Debug("Request income: {0}", alexaContent);
-                alexaRequest = SpeechletRequestEnvelope.FromJson(alexaContent);
+                RequestEnvelope = SpeechletRequestEnvelope.FromJson(alexaContent);
             }
             catch (Newtonsoft.Json.JsonReaderException e1)
             {
@@ -80,17 +83,15 @@ namespace AlexaSkillsKit.Speechlet
                 validationResult = validationResult | SpeechletRequestValidationResult.InvalidJson;
             }
 
-#if !DEBUG
             // attempt to verify timestamp only if we were able to parse request body
-            if (alexaRequest != null) 
+            if (RequestEnvelope != null) 
             {
-                if (!SpeechletRequestTimestampVerifier.VerifyRequestTimestamp(alexaRequest, now)) {
+                if (!SpeechletRequestTimestampVerifier.VerifyRequestTimestamp(RequestEnvelope, now)) {
                     validationResult = validationResult | SpeechletRequestValidationResult.InvalidTimestamp;
                 }
             }
-#endif
 
-            if (alexaRequest == null || !OnRequestValidation(validationResult, now, alexaRequest))
+            if (RequestEnvelope == null || !OnRequestValidation(validationResult, now, RequestEnvelope))
             {
                 return new HttpResponseMessage(HttpStatusCode.BadRequest)
                 {
@@ -98,7 +99,7 @@ namespace AlexaSkillsKit.Speechlet
                 };
             }
 
-            string alexaResponsejson = DoProcessRequest(alexaRequest);
+            string alexaResponsejson = DoProcessRequest(RequestEnvelope);
 
             HttpResponseMessage httpResponse;
             if (alexaResponsejson == null)
@@ -109,38 +110,12 @@ namespace AlexaSkillsKit.Speechlet
             {
                 httpResponse = new HttpResponseMessage(HttpStatusCode.OK);
                 httpResponse.Content = new StringContent(alexaResponsejson, Encoding.UTF8, "application/json");
-                //Debug.WriteLine(httpResponse.ToLogString());
                 log.Debug("Response: {0}", alexaResponsejson);
             }
 
             return httpResponse;
         }
-
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="requestContent"></param>
-        /// <returns></returns>
-        public virtual string ProcessRequest(string requestContent)
-        {
-            var requestEnvelope = SpeechletRequestEnvelope.FromJson(requestContent);
-            return DoProcessRequest(requestEnvelope);
-        }
-
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="requestJson"></param>
-        /// <returns></returns>
-        public virtual string ProcessRequest(JObject requestJson) {
-            var requestEnvelope = SpeechletRequestEnvelope.FromJson(requestJson);
-            return DoProcessRequest(requestEnvelope);
-        }
-
-
-        
+     
         /// <summary>
         /// 
         /// </summary>
@@ -203,27 +178,31 @@ namespace AlexaSkillsKit.Speechlet
             return responseEnvelope.ToJson();
         }
 
-
         /// <summary>
         /// 
         /// </summary>
-        private void DoSessionManagement(IntentRequest request, Session session) {
+        private void DoSessionManagement(IntentRequest request, Session session)
+        {
             if (session.IsNew) {
                 session.Attributes[Session.INTENT_SEQUENCE] = request.Intent.Name;
             }
-            else {
+            else
+            {
                 // if the session was started as a result of a launch request 
                 // a first intent isn't yet set, so set it to the current intent
-                if (!session.Attributes.ContainsKey(Session.INTENT_SEQUENCE)) {
+                if (!session.Attributes.ContainsKey(Session.INTENT_SEQUENCE))
+                {
                     session.Attributes[Session.INTENT_SEQUENCE] = request.Intent.Name;
                 }
-                else {
+                else
+                {
                     session.Attributes[Session.INTENT_SEQUENCE] += Session.SEPARATOR + request.Intent.Name;
                 }
             }
 
             // Auto-session management: copy all slot values from current intent into session
-            foreach (var slot in request.Intent.Slots.Values) {
+            foreach (var slot in request.Intent.Slots.Values)
+            {
                 session.Attributes[slot.Name] = slot.Value;
             }
         }
@@ -233,8 +212,7 @@ namespace AlexaSkillsKit.Speechlet
         /// Opportunity to set policy for handling requests with invalid signatures and/or timestamps
         /// </summary>
         /// <returns>true if request processing should continue, otherwise false</returns>
-        public virtual bool OnRequestValidation(
-            SpeechletRequestValidationResult result, DateTime referenceTimeUtc, SpeechletRequestEnvelope requestEnvelope) {
+        public virtual bool OnRequestValidation(SpeechletRequestValidationResult result, DateTime referenceTimeUtc, SpeechletRequestEnvelope requestEnvelope) {
 
             return result == SpeechletRequestValidationResult.OK;
         }
@@ -245,6 +223,74 @@ namespace AlexaSkillsKit.Speechlet
         public abstract SpeechletResponse OnAudioIntent(AudioPlayerRequest audioRequest, Context context);
         public abstract void OnSessionStarted(SessionStartedRequest sessionStartedRequest, Session session);
         public abstract void OnSessionEnded(SessionEndedRequest sessionEndedRequest, Session session);
+
+
+        #region Responses
+
+        public SpeechletResponse DialogDelegate()
+        {
+
+            var intentRequest = (RequestEnvelope.Request as IntentRequest);
+            if (intentRequest == null) throw new SpeechletException("IntentRequest required");
+
+            var response = new SpeechletResponse()
+            {
+                Directives = new List<Directive>()
+                 {
+                     new DialogDelegateDirective()
+                     {
+                          ConfirmationStatus = intentRequest.ConfirmationStatus,
+                          UpdatedIntent = intentRequest.Intent
+                     }
+                 }
+            };
+
+            return response;
+        }
+
+        public SpeechletResponse DialogElicitSlot(Slot slotToElicit, OutputSpeech outputSpeech = null)
+        {
+            var intentRequest = (RequestEnvelope.Request as IntentRequest);
+            if (intentRequest == null) throw new SpeechletException("IntentRequest required");
+            
+            var response = new SpeechletResponse()
+            {
+                OutputSpeech = outputSpeech,
+                Directives = new List<Directive>()
+                 {
+                     new DialogElicitSlotDirective()
+                     {
+                          SlotToElicit = slotToElicit.Name,
+                          UpdatedIntent = intentRequest.Intent
+                     }
+                 }
+            };
+
+            return response;
+        }
+
+        public SpeechletResponse DialogConfirmSlot(Slot slotToElicit, OutputSpeech outputSpeech = null)
+        {
+            var intentRequest = (RequestEnvelope.Request as IntentRequest);
+            if (intentRequest == null) throw new SpeechletException("IntentRequest required");
+
+            var response = new SpeechletResponse()
+            {
+                OutputSpeech = outputSpeech,
+                Directives = new List<Directive>()
+                 {
+                     new DialogConfirmSlotDirective()
+                     {
+                          SlotToConfirm = slotToElicit.Name,
+                          UpdatedIntent = intentRequest.Intent
+                     }
+                 }
+            };
+
+            return response;
+        }
+
+        #endregion
 
     }
 }
