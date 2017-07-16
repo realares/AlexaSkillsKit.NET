@@ -35,13 +35,15 @@ namespace AlexaSkillsKit.Speechlet
         /// </summary>
         /// <param name="httpRequest"></param>
         /// <returns></returns>
-        public async virtual Task<HttpResponseMessage> GetResponseAsync(HttpRequestMessage httpRequest) {
+        public async virtual Task<HttpResponseMessage> GetResponseAsync(HttpRequestMessage httpRequest)
+        {
             SpeechletRequestValidationResult validationResult = SpeechletRequestValidationResult.OK;
             DateTime now = DateTime.UtcNow; // reference time for this request
 
             string chainUrl = null;
             if (!httpRequest.Headers.Contains(Sdk.SIGNATURE_CERT_URL_REQUEST_HEADER) ||
-                String.IsNullOrEmpty(chainUrl = httpRequest.Headers.GetValues(Sdk.SIGNATURE_CERT_URL_REQUEST_HEADER).First())) {
+                String.IsNullOrEmpty(chainUrl = httpRequest.Headers.GetValues(Sdk.SIGNATURE_CERT_URL_REQUEST_HEADER).First()))
+            {
                 validationResult = validationResult | SpeechletRequestValidationResult.NoCertHeader;
             }
 

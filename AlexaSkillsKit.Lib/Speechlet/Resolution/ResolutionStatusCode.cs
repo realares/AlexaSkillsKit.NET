@@ -11,6 +11,9 @@ namespace AlexaSkillsKit.Speechlet.Resolution
 {
     public class ResolutionStatus
     {
+        /// <summary>
+        /// A code indicating the results of attempting to resolve the user utterance against the defined slot types.
+        /// </summary>
         [JsonProperty("code")]
         [JsonConverter(typeof(StringEnumConverter))]
         public ResolutionStatusCodeEnum Code { get; set; }

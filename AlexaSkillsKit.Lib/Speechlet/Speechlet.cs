@@ -109,7 +109,8 @@ namespace AlexaSkillsKit.Speechlet
             {
                 httpResponse = new HttpResponseMessage(HttpStatusCode.OK);
                 httpResponse.Content = new StringContent(alexaResponsejson, Encoding.UTF8, "application/json");
-                Debug.WriteLine(httpResponse.ToLogString());
+                //Debug.WriteLine(httpResponse.ToLogString());
+                log.Debug("Response: {0}", alexaResponsejson);
             }
 
             return httpResponse;
