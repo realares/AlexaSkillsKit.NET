@@ -21,16 +21,19 @@ namespace AlexaSkillsKit.UI.Cards
 {
     public class StandardCard : Card
     {
-        public override string Type {
+        public override string Type
+        {
             get { return "Standard"; }
         }
 
-        public virtual string Text {
+        public virtual string Text
+        {
             get;
             set;
         }
 
-        public virtual Image Image {
+        public virtual Image Image
+        {
             get;
             set;
         }

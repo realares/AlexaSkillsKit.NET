@@ -52,7 +52,7 @@ namespace AlexaSkillsKit.Speechlet
         [JsonProperty("sessionId")]
         public virtual string SessionId { get;  set; }
 
-        [JsonProperty("isNew")]
+        [JsonProperty("new")]
         public virtual bool IsNew { get; set; }
 
         [JsonProperty("application")]
@@ -61,8 +61,23 @@ namespace AlexaSkillsKit.Speechlet
         [JsonProperty("user")]
         public virtual User User { get; set; }
 
+        private Dictionary<string, string> _Attributes;
         [JsonProperty("attributes")]
-        public virtual Dictionary<string, string> Attributes { get; set; }
+        public virtual Dictionary<string, string> Attributes
+        {
+            get
+            {
+                if (_Attributes == null)
+                    _Attributes = new Dictionary<string, string>();
+                return _Attributes;
+            }
+            set
+            {
+                _Attributes = value;
+            }
+        }
+        
+
 
         public virtual string[] IntentSequence {
             get {
