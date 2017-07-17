@@ -20,6 +20,7 @@ using System.Runtime.InteropServices;
 using NLog;
 using System.Threading.Tasks;
 using AlexaSkillsKit.UI.Directives;
+using AlexaSkillsKit.UI.Speech;
 
 namespace AlexaSkillsKit.Speechlet
 {
@@ -288,6 +289,89 @@ namespace AlexaSkillsKit.Speechlet
             };
 
             return response;
+        }
+
+        public SpeechletResponse Say(string speechOutput, bool shouldEndSession = true)
+        {
+            return Say(new PlainTextOutputSpeech() { Text = speechOutput }, shouldEndSession);
+        }
+        public SpeechletResponse Say(PlainTextOutputSpeech speechOutput, bool shouldEndSession = true)
+        {
+            return new SpeechletResponse()
+            {
+                OutputSpeech = speechOutput,
+                ShouldEndSession = shouldEndSession
+            };
+        }
+        public SpeechletResponse Say(SsmlOutputSpeech speechOutput, bool shouldEndSession = true)
+        {
+            return new SpeechletResponse()
+            {
+                OutputSpeech = speechOutput,
+                ShouldEndSession = shouldEndSession
+            };
+        }
+
+        public static SpeechletResponse SayWithCard(string speechOutput, string cardTitle, string cardContent, bool shouldEndSession = true)
+        {
+            return new SpeechletResponse()
+            {
+                OutputSpeech = new PlainTextOutputSpeech() { Text = speechOutput },
+                Card = new SimpleCard() { Content = cardContent, Title = cardTitle },
+                ShouldEndSession = shouldEndSession
+            };
+        }
+        public static SpeechletResponse SayWithCard(string speechOutput, string cardTitle, string cardContent, Image imageObj)
+        {
+            return new SpeechletResponse()
+            {
+                OutputSpeech = new PlainTextOutputSpeech() { Text = speechOutput },
+                Card = new StandardCard() { Text = cardContent, Title = cardTitle, Image = imageObj },
+                ShouldEndSession = true
+            };
+        }
+        public static SpeechletResponse SayWithLinkAccountCard(string speechOutput)
+        {
+            return new SpeechletResponse()
+            {
+                OutputSpeech = new PlainTextOutputSpeech() { Text = speechOutput },
+                Card = new LinkAccountCard() { },
+                ShouldEndSession = true
+            };
+        }
+
+        public static SpeechletResponse Error_NoIntentFound()
+        {
+            return new SpeechletResponse()
+            {
+                OutputSpeech = new PlainTextOutputSpeech()
+                {
+                    Text = AlexaSkillsKit.Properties.Resource.NO_INTENT_FOUND,
+                },
+                ShouldEndSession = true
+            };
+        }
+        public static SpeechletResponse Error_NoLaunchFunction()
+        {
+            return new SpeechletResponse()
+            {
+                OutputSpeech = new PlainTextOutputSpeech()
+                {
+                    Text = AlexaSkillsKit.Properties.Resource.NO_LAUNCH_FUNCTION,
+                },
+                ShouldEndSession = true
+            };
+        }
+        public static SpeechletResponse Error_GenericError()
+        {
+            return new SpeechletResponse()
+            {
+                OutputSpeech = new PlainTextOutputSpeech()
+                {
+                    Text = AlexaSkillsKit.Properties.Resource.GENERIC_ERROR,
+                },
+                ShouldEndSession = true
+            };
         }
 
         #endregion

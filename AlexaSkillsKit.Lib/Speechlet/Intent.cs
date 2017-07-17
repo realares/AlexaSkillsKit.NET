@@ -28,16 +28,23 @@ namespace AlexaSkillsKit.Speechlet
         [JsonProperty("name")]
         public virtual string Name { get; set; }
 
+        private Dictionary<string, Slot> _Slots;
+
         [JsonProperty("slots")]
-        public virtual Dictionary<string, Slot> Slots { get; set; }
+        public virtual Dictionary<string, Slot> Slots
+        {
+            get
+            {
+                if (_Slots == null)
+                    _Slots = new Dictionary<string, Slot>();
+                return _Slots;
+            }
+            set { _Slots = value; }
+        }
 
         [JsonConverter(typeof(StringEnumConverter))]
         [JsonProperty("confirmationStatus")]
         public virtual ConfirmationStatusEnum ConfirmationStatus { get; set; }
 
-        public Intent()
-        {
-            Slots = new Dictionary<string, Slot>();
-        }
     }
 }

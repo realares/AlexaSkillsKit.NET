@@ -118,13 +118,18 @@
     <Compile Include="UI\Directives\Directive.cs" />
     <Compile Include="UI\Image.cs" />
     <Compile Include="UI\Cards\StandardCard.cs" />
-    <Compile Include="UI\SsmlOutputSpeech.cs" />
+    <Compile Include="UI\Speech\SsmlBuilder.cs" />
+    <Compile Include="UI\Speech\SsmlOutputSpeech.cs" />
     <Compile Include="UI\Reprompt.cs" />
     <Compile Include="UI\Cards\Card.cs" />
-    <Compile Include="UI\OutputSpeech.cs" />
-    <Compile Include="UI\PlainTextOutputSpeech.cs" />
+    <Compile Include="UI\Speech\OutputSpeech.cs" />
+    <Compile Include="UI\Speech\PlainTextOutputSpeech.cs" />
     <Compile Include="UI\Cards\LinkAccountCard.cs" />
     <Compile Include="UI\Cards\SimpleCard.cs" />
+    <Compile Include="UI\Speech\SSML_SayAs.cs" />
+    <Compile Include="UI\Speech\SSML_Break.cs" />
+    <Compile Include="UI\Speech\SSML_Amazon_Effect.cs" />
+    <Compile Include="UI\Speech\SSML_Audio.cs" />
     <Compile Include="UI\UpdatedIntent.cs" />
   </ItemGroup>
   <ItemGroup>

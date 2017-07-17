@@ -19,6 +19,7 @@ using AlexaSkillsKit.UI;
 using System.Collections.Generic;
 using AlexaSkillsKit.UI.Cards;
 using AlexaSkillsKit.UI.Directives;
+using AlexaSkillsKit.UI.Speech;
 
 namespace AlexaSkillsKit.Speechlet
 {
