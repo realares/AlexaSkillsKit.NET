@@ -270,11 +270,14 @@ namespace AlexaSkillsKit.Speechlet
             return response;
         }
 
-        public SpeechletResponse DialogConfirmSlot(Slot slotToElicit, OutputSpeech outputSpeech = null)
+        public SpeechletResponse DialogConfirmSlot(Slot slotToElicit, OutputSpeech outputSpeech)
         {
             var intentRequest = (RequestEnvelope.Request as IntentRequest);
             if (intentRequest == null) throw new SpeechletException("IntentRequest required");
 
+            if (slotToElicit == null) throw new ArgumentNullException(nameof(slotToElicit));
+            if (outputSpeech == null) throw new ArgumentNullException(nameof(outputSpeech));
+            
             var response = new SpeechletResponse()
             {
                 OutputSpeech = outputSpeech,
