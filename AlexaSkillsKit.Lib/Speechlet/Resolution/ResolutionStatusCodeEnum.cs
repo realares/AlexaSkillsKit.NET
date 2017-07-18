@@ -15,6 +15,11 @@ namespace AlexaSkillsKit.Speechlet.Resolution
     public enum ResolutionStatusCodeEnum
     {
         /// <summary>
+        /// State does not exists in Amazon
+        /// </summary>
+        ER_NONE,
+
+        /// <summary>
         ///  The spoken value matched a value or synonym explicitly defined in your custom slot type.
         /// </summary>
         [EnumMember(Value = "ER_SUCCESS_MATCH")]

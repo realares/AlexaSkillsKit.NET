@@ -38,5 +38,18 @@ namespace AlexaSkillsKit.Speechlet
         [JsonProperty("resolutions")]
         public virtual Resolutions Resolutions { get; set; }
 
+        public ResolutionStatusCodeEnum GetResolutionsCode()
+        {
+            if (Resolutions == null ||
+                Resolutions.ResolutionsPerAuthority == null ||
+                Resolutions.ResolutionsPerAuthority.Count == 0 ||
+                Resolutions.ResolutionsPerAuthority[0].Status == null)
+            {
+                return ResolutionStatusCodeEnum.ER_NONE;
+            }
+
+            return Resolutions.ResolutionsPerAuthority[0].Status.Code;
+        }
+
     }
 }
