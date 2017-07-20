@@ -29,5 +29,16 @@ namespace AlexaSkillsKit.UI.Speech
 
         [JsonProperty("text")]
         public virtual string Text { get; set; }
+
+        public PlainTextOutputSpeech() { }
+
+        /// <summary>
+        /// Create a new Instance of <see cref="AlexaSkillsKit.UI.Speech.PlainTextOutputSpeech"/>
+        /// </summary>
+        /// <param name="text"></param>
+        public PlainTextOutputSpeech(string text)
+        {
+            Text = text;
+        }
     }
 }
