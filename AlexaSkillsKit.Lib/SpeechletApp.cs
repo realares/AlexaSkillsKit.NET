@@ -249,6 +249,43 @@ namespace AlexaSkillsKit
             return response;
         }
 
+
+        
+        public SpeechletResponse AudioPlayer_Play(AudioStream stream)
+        {
+
+            var response = new SpeechletResponse()
+            {
+                Directives = new List<Directive>()
+                 {
+                     new AudioPlayerPlayDirective()
+                     {
+                           PlayBehavior = AudioPlayerPlayDirective.PlayBehaviorEnum.REPLACE_ALL,
+                            AudioItem = stream
+                     }
+                 },
+                ShouldEndSession = true
+            };
+
+            return response;
+        }
+        public SpeechletResponse AudioPlayer_Stop()
+        {
+
+            var response = new SpeechletResponse()
+            {
+                Directives = new List<Directive>()
+                 {
+                     new AudioPlayerStopDirective()
+                 }
+                ,
+                ShouldEndSession = true
+            };
+
+            return response;
+        }
+
+
         public SpeechletResponse DialogElicitSlot(Slot slotToElicit, OutputSpeech outputSpeech = null)
         {
             var intentRequest = (RequestEnvelope.Request as IntentRequest);

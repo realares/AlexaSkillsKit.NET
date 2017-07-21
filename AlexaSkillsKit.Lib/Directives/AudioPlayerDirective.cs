@@ -15,9 +15,9 @@ WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN 
 
 namespace AlexaSkillsKit.Directives
 {
-    public abstract class AudioPlayerStopDirective : Directive
+    public class AudioPlayerStopDirective : Directive
     {
-        public override DirectiveTypesEnum Type { get => DirectiveTypesEnum.AudioPlayer_Play; }
+        public override DirectiveTypesEnum Type { get => DirectiveTypesEnum.AudioPlayer_Stop; }
 
     }
 }

@@ -34,6 +34,29 @@ namespace AlexaSkillsKit
          * AudioPlayer.PlaybackFailed
          */
     }
+
+    public class AudioPlayerRequest_PlaybackStarted : AudioPlayer
+    {
+
+    }
+    public class AudioPlayerRequest_PlaybackFinished : AudioPlayer
+    {
+
+    }
+    public class AudioPlayerRequest_PlaybackStopped : AudioPlayer
+    {
+
+    }
+
+    public class AudioPlayerRequest_PlaybackNearlyFinished : AudioPlayer
+    {
+
+    }
+
+    public class AudioPlayerRequest_PlaybackFailed : AudioPlayer
+    {
+
+    }
 }
  
  

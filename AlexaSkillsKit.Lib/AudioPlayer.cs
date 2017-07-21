@@ -10,19 +10,68 @@ WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN 
 */
 
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace AlexaSkillsKit
 {
     public class AudioPlayer
     {
+        /// <summary>
+        /// An opaque token provided in the Play directive.
+        /// </summary>
         [JsonProperty("token")]
         public string Token { get; set; }
 
+        /// <summary>
+        /// Identifies the component state of AudioPlayer. 
+        /// Accepted Values: IDLE, PLAYING, STOPPED, PAUSED, BUFFER_UNDERRUN, and FINISHED.
+        /// </summary>
         [JsonProperty("playerActivity")]
-        public string PlayerActivity { get; set; }
+        [JsonConverter(typeof(StringEnumConverter))]
+        public PlayerActivityEnum PlayerActivity { get; set; }
 
+        /// <summary>
+        /// Identifies a track's current offset in milliseconds.
+        /// </summary>
         [JsonProperty("offsetInMilliseconds")]
         public long OffsetInMilliseconds { get; set; }
 
+
+        public enum PlayerActivityEnum
+        {
+            /// <summary>
+            /// Nothing was playing, no enqueued items.
+            /// </summary>
+            IDLE,
+
+            /// <summary>
+            /// Stream was playing.
+            /// </summary>
+            PLAYING,
+
+            /// <summary>
+            /// Stream was interrupted.
+            /// </summary>
+            STOPPED,
+
+            /// <summary>
+            /// Stream was paused.
+            /// </summary>
+            PAUSED,
+
+            /// <summary>
+            /// Buffer underrun.
+            /// </summary>
+            BUFFER_UNDERRUN,
+
+            /// <summary>
+            /// Stream was finished playing
+            /// </summary>
+            FINISHED
+
+
+
+
+        }
     }
 }

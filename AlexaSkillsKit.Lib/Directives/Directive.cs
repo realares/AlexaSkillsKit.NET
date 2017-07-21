@@ -38,9 +38,23 @@ namespace AlexaSkillsKit.Directives
             [EnumMember(Value = "VideoApp.Launch")]
             VideoApp_Launch,
 
-
+            /// <summary>
+            /// Sends Alexa a command to stream the audio file identified by the specified audioItem.
+            /// </summary>
             [EnumMember(Value = "AudioPlayer.Play")]
             AudioPlayer_Play,
+
+            /// <summary>
+            /// Stops any currently playing audio stream.
+            /// </summary>
+            [EnumMember(Value = "AudioPlayer.Stop")]
+            AudioPlayer_Stop,
+
+            /// <summary>
+            /// Clears the queue of all audio streams.
+            /// </summary>
+            [EnumMember(Value = "AudioPlayer.ClearQueue")]
+            AudioPlayer_ClearQueue,
 
             /// <summary>
             /// Sends Alexa a command to handle the next turn in the dialog with the user.

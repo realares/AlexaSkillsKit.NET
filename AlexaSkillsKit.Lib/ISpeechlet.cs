@@ -21,8 +21,7 @@ namespace AlexaSkillsKit
 {
     public interface ISpeechlet
     {
-        bool OnRequestValidation(
-            SpeechletRequestValidationResult result, DateTime referenceTimeUtc, SpeechletRequestEnvelope requestEnvelope);
+        bool OnRequestValidation(SpeechletRequestValidationResult result, DateTime referenceTimeUtc, SpeechletRequestEnvelope requestEnvelope);
         
         SpeechletResponse OnIntent(IntentRequest intentRequest, Session session, Context context);
         SpeechletResponse OnAudioIntent(AudioPlayerRequest audioRequest, Context context);

@@ -35,5 +35,11 @@ namespace AlexaSkillsKit
         // For AudioPlayer
         public const string PauseIntent = "AMAZON.PauseIntent";
         public const string ResumeIntent = "AMAZON.ResumeIntent";
+
+
+        public const string ShuffleOffIntent = "AMAZON.ShuffleOffIntent";
+        public const string ShuffleOnIntent = "AMAZON.ShuffleOnIntent";
+        public const string StartOverIntent = "AMAZON.StartOverIntent";
+
     }
 }

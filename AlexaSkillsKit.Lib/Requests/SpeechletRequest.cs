@@ -27,7 +27,13 @@ namespace AlexaSkillsKit
     [JsonSubtypes.KnownSubType(typeof(LaunchRequest), "LaunchRequest")]
     [JsonSubtypes.KnownSubType(typeof(SessionEndedRequest), "SessionEndedRequest")]
     [JsonSubtypes.KnownSubType(typeof(SessionStartedRequest), "SessionStartedRequest")]
-    [JsonSubtypes.KnownSubType(typeof(SessionStartedRequest), "SessionStartedRequest")]
+
+    [JsonSubtypes.KnownSubType(typeof(AudioPlayerRequest_PlaybackStarted), "AudioPlayer.PlaybackStarted")]
+    [JsonSubtypes.KnownSubType(typeof(AudioPlayerRequest_PlaybackFinished), "AudioPlayer.PlaybackFinished")]
+    [JsonSubtypes.KnownSubType(typeof(AudioPlayerRequest_PlaybackStopped), "AudioPlayer.PlaybackStopped")]
+    [JsonSubtypes.KnownSubType(typeof(AudioPlayerRequest_PlaybackNearlyFinished), "AudioPlayer.PlaybackNearlyFinished")]
+    [JsonSubtypes.KnownSubType(typeof(AudioPlayerRequest_PlaybackFailed), "AudioPlayer.PlaybackFailed")]
+
     public abstract class SpeechletRequest
     {
         public SpeechletRequest() { }

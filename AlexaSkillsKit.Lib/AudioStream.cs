@@ -57,7 +57,7 @@ namespace AlexaSkillsKit
         /// Set to 0 to start playing the stream from the beginning. 
         /// Set to any other value to start playback from that associated point in the stream
         /// </summary>
-        [JsonProperty("expectedPreviousToken")]
+        [JsonProperty("offsetInMilliseconds")]
         public long OffsetInMilliseconds { get; set; }
     }
 }
