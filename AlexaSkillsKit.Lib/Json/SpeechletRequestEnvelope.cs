@@ -18,8 +18,6 @@ using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using AlexaSkillsKit.Speechlet;
-using AlexaSkillsKit.Slu;
 
 namespace AlexaSkillsKit.Json
 {
@@ -46,6 +44,7 @@ namespace AlexaSkillsKit.Json
                 throw new SpeechletException("Request content is empty");
             }
 
+            JsonConvert.DeserializeObject<SpeechletRequestEnvelope>(content, Sdk.DeserializationSettings);
             JObject json = JsonConvert.DeserializeObject<JObject>(content, Sdk.DeserializationSettings);
             return FromJson(json);
         }

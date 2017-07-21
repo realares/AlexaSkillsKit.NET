@@ -13,53 +13,30 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, 
 WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
-using System;
-using System.Collections.Generic;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
-namespace AlexaSkillsKit.Json
+
+namespace AlexaSkillsKit
 {
-    public class SpeechletResponseEnvelope
+    public partial class Intent
     {
-        private static JsonSerializerSettings _serializerSettings = new JsonSerializerSettings()
+        public class Amazon_BuiltIns
         {
-            NullValueHandling = NullValueHandling.Ignore, 
-            ContractResolver = new CamelCaseExceptDictionaryKeysResolver(),
-            Converters = new List<JsonConverter>
-            {
-                new Newtonsoft.Json.Converters.StringEnumConverter(),
-               
-            }
-        };
+            public const string YesIntent = "AMAZON.YesIntent";
+            public const string NoIntent = "AMAZON.NoIntent";
 
-        
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public virtual string ToJson()
-        {
-            return JsonConvert.SerializeObject(this, _serializerSettings);
-        }
+            public const string HelpIntent = "AMAZON.HelpIntent";
+            public const string StopIntent = "AMAZON.StopIntent";
+            public const string CancelIntent = "AMAZON.CancelIntent";
 
+            public const string LoopOffIntent = "AMAZON.LoopOffIntent";
+            public const string LoopOnIntent = "AMAZON.LoopOnIntent";
+            public const string NextIntent = "AMAZON.NextIntent";
+            public const string PreviousIntent = "AMAZON.PreviousIntent";
+            public const string RepeatIntent = "AMAZON.RepeatIntent";
 
-        public virtual SpeechletResponse Response
-        {
-            get;
-            set;
-        }
-
-        public virtual Dictionary<string, string> SessionAttributes
-        {
-            get;
-            set;
-        }
-
-        public virtual string Version
-        {
-            get;
-            set;
+            // For AudioPlayer
+            public const string PauseIntent = "AMAZON.PauseIntent";
+            public const string ResumeIntent = "AMAZON.ResumeIntent";
         }
     }
 }

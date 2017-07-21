@@ -13,53 +13,43 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, 
 WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
+
 using System;
-using System.Collections.Generic;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using AlexaSkillsKit.Resolution;
 
-namespace AlexaSkillsKit.Json
+namespace AlexaSkillsKit
 {
-    public class SpeechletResponseEnvelope
+    public class Slot
     {
-        private static JsonSerializerSettings _serializerSettings = new JsonSerializerSettings()
+        [JsonProperty("name")]
+        public virtual string Name { get; set; }
+
+        [JsonProperty("value")]
+        public virtual string Value { get; set; }
+
+        [JsonConverter(typeof(StringEnumConverter))]
+        [JsonProperty("confirmationStatus")]
+        public virtual ConfirmationStatusEnum ConfirmationStatus { get; set; }
+
+        [JsonIgnore]
+        [JsonProperty("resolutions")]
+        public virtual Resolutions Resolutions { get; set; }
+
+        public ResolutionStatusCodeEnum GetResolutionsCode()
         {
-            NullValueHandling = NullValueHandling.Ignore, 
-            ContractResolver = new CamelCaseExceptDictionaryKeysResolver(),
-            Converters = new List<JsonConverter>
+            if (Resolutions == null ||
+                Resolutions.ResolutionsPerAuthority == null ||
+                Resolutions.ResolutionsPerAuthority.Count == 0 ||
+                Resolutions.ResolutionsPerAuthority[0].Status == null)
             {
-                new Newtonsoft.Json.Converters.StringEnumConverter(),
-               
+                return ResolutionStatusCodeEnum.ER_NONE;
             }
-        };
 
-        
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public virtual string ToJson()
-        {
-            return JsonConvert.SerializeObject(this, _serializerSettings);
+            return Resolutions.ResolutionsPerAuthority[0].Status.Code;
         }
 
-
-        public virtual SpeechletResponse Response
-        {
-            get;
-            set;
-        }
-
-        public virtual Dictionary<string, string> SessionAttributes
-        {
-            get;
-            set;
-        }
-
-        public virtual string Version
-        {
-            get;
-            set;
-        }
     }
 }

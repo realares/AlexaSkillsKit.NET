@@ -13,53 +13,15 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, 
 WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
+
 using System;
-using System.Collections.Generic;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
-namespace AlexaSkillsKit.Json
+namespace AlexaSkillsKit
 {
-    public class SpeechletResponseEnvelope
+    public class LaunchRequest : SpeechletRequest
     {
-        private static JsonSerializerSettings _serializerSettings = new JsonSerializerSettings()
-        {
-            NullValueHandling = NullValueHandling.Ignore, 
-            ContractResolver = new CamelCaseExceptDictionaryKeysResolver(),
-            Converters = new List<JsonConverter>
-            {
-                new Newtonsoft.Json.Converters.StringEnumConverter(),
-               
-            }
-        };
-
-        
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public virtual string ToJson()
-        {
-            return JsonConvert.SerializeObject(this, _serializerSettings);
-        }
-
-
-        public virtual SpeechletResponse Response
-        {
-            get;
-            set;
-        }
-
-        public virtual Dictionary<string, string> SessionAttributes
-        {
-            get;
-            set;
-        }
-
-        public virtual string Version
-        {
-            get;
-            set;
+        public LaunchRequest(string requestId, DateTime timestamp) 
+            : base(requestId, timestamp) {
         }
     }
 }

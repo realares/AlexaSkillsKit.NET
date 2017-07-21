@@ -13,53 +13,22 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, 
 WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
+
 using System;
-using System.Collections.Generic;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+using System.Threading.Tasks;
+using AlexaSkillsKit.Authentication;
+using AlexaSkillsKit.Json;
 
-namespace AlexaSkillsKit.Json
+namespace AlexaSkillsKit
 {
-    public class SpeechletResponseEnvelope
+    public interface ISpeechletAsync
     {
-        private static JsonSerializerSettings _serializerSettings = new JsonSerializerSettings()
-        {
-            NullValueHandling = NullValueHandling.Ignore, 
-            ContractResolver = new CamelCaseExceptDictionaryKeysResolver(),
-            Converters = new List<JsonConverter>
-            {
-                new Newtonsoft.Json.Converters.StringEnumConverter(),
-               
-            }
-        };
-
+        bool OnRequestValidation(
+            SpeechletRequestValidationResult result, DateTime referenceTimeUtc, SpeechletRequestEnvelope requestEnvelope);
         
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public virtual string ToJson()
-        {
-            return JsonConvert.SerializeObject(this, _serializerSettings);
-        }
-
-
-        public virtual SpeechletResponse Response
-        {
-            get;
-            set;
-        }
-
-        public virtual Dictionary<string, string> SessionAttributes
-        {
-            get;
-            set;
-        }
-
-        public virtual string Version
-        {
-            get;
-            set;
-        }
+        Task<SpeechletResponse> OnIntentAsync(IntentRequest intentRequest, Session session);
+        Task<SpeechletResponse> OnLaunchAsync(LaunchRequest launchRequest, Session session);
+        Task OnSessionStartedAsync(SessionStartedRequest sessionStartedRequest, Session session);
+        Task OnSessionEndedAsync(SessionEndedRequest sessionEndedRequest, Session session);
     }
 }

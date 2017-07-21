@@ -14,52 +14,20 @@ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTH
 WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 using System;
-using System.Collections.Generic;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+using AlexaSkillsKit.Authentication;
+using AlexaSkillsKit.Json;
 
-namespace AlexaSkillsKit.Json
+namespace AlexaSkillsKit
 {
-    public class SpeechletResponseEnvelope
+    public interface ISpeechlet
     {
-        private static JsonSerializerSettings _serializerSettings = new JsonSerializerSettings()
-        {
-            NullValueHandling = NullValueHandling.Ignore, 
-            ContractResolver = new CamelCaseExceptDictionaryKeysResolver(),
-            Converters = new List<JsonConverter>
-            {
-                new Newtonsoft.Json.Converters.StringEnumConverter(),
-               
-            }
-        };
-
+        bool OnRequestValidation(
+            SpeechletRequestValidationResult result, DateTime referenceTimeUtc, SpeechletRequestEnvelope requestEnvelope);
         
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public virtual string ToJson()
-        {
-            return JsonConvert.SerializeObject(this, _serializerSettings);
-        }
-
-
-        public virtual SpeechletResponse Response
-        {
-            get;
-            set;
-        }
-
-        public virtual Dictionary<string, string> SessionAttributes
-        {
-            get;
-            set;
-        }
-
-        public virtual string Version
-        {
-            get;
-            set;
-        }
+        SpeechletResponse OnIntent(IntentRequest intentRequest, Session session, Context context);
+        SpeechletResponse OnAudioIntent(AudioPlayerRequest audioRequest, Context context);
+        SpeechletResponse OnLaunch(LaunchRequest launchRequest, Session session, Context context);
+        void OnSessionStarted(SessionStartedRequest sessionStartedRequest, Session session);
+        void OnSessionEnded(SessionEndedRequest sessionEndedRequest, Session session);
     }
 }

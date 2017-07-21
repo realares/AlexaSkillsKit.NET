@@ -13,53 +13,38 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, 
 WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
+
 using System;
 using System.Collections.Generic;
-using Newtonsoft.Json;
+using System.Linq;
 using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
-namespace AlexaSkillsKit.Json
+namespace AlexaSkillsKit
 {
-    public class SpeechletResponseEnvelope
+    public partial class Intent
     {
-        private static JsonSerializerSettings _serializerSettings = new JsonSerializerSettings()
+        [JsonProperty("name")]
+        public virtual string Name { get; set; }
+
+        private Dictionary<string, Slot> _Slots;
+
+        [JsonProperty("slots")]
+        public virtual Dictionary<string, Slot> Slots
         {
-            NullValueHandling = NullValueHandling.Ignore, 
-            ContractResolver = new CamelCaseExceptDictionaryKeysResolver(),
-            Converters = new List<JsonConverter>
+            get
             {
-                new Newtonsoft.Json.Converters.StringEnumConverter(),
-               
+                if (_Slots == null)
+                    _Slots = new Dictionary<string, Slot>();
+                return _Slots;
             }
-        };
-
-        
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public virtual string ToJson()
-        {
-            return JsonConvert.SerializeObject(this, _serializerSettings);
+            set { _Slots = value; }
         }
 
+        [JsonConverter(typeof(StringEnumConverter))]
+        [JsonProperty("confirmationStatus")]
+        public virtual ConfirmationStatusEnum ConfirmationStatus { get; set; }
 
-        public virtual SpeechletResponse Response
-        {
-            get;
-            set;
-        }
-
-        public virtual Dictionary<string, string> SessionAttributes
-        {
-            get;
-            set;
-        }
-
-        public virtual string Version
-        {
-            get;
-            set;
-        }
     }
 }

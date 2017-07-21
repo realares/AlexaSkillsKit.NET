@@ -55,12 +55,15 @@
     <Reference Include="System.Runtime.Serialization" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AsyncHelpers.cs" />
+    <Compile Include="AudioPlayer.cs" />
+    <Compile Include="DialogStateEnum.cs" />
+    <Compile Include="Helper\AsyncHelpers.cs" />
     <Compile Include="Authentication\SpeechletRequestValidationResult.cs" />
     <Compile Include="Authentication\SpeechletRequestSignatureVerifier.cs" />
     <Compile Include="Authentication\SpeechletRequestTimestampVerifier.cs" />
-    <Compile Include="HttpHelpers.cs" />
+    <Compile Include="Helper\HttpHelpers.cs" />
     <Compile Include="Json\CamelCaseExceptDictionaryKeysResolver.cs" />
+    <Compile Include="Json\JsonAlexaRequestConverter.cs" />
     <Compile Include="Json\SpeechletRequestEnvelope.cs" />
     <Compile Include="Json\SpeechletResponseEnvelope.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -75,52 +78,50 @@
       <DependentUpon>Resource.de.resx</DependentUpon>
     </Compile>
     <Compile Include="Sdk.cs" />
-    <Compile Include="Speechlet\Amazon_BuiltIns.cs" />
-    <Compile Include="Speechlet\AudioPlayer.cs" />
-    <Compile Include="Speechlet\Intent.cs" />
-    <Compile Include="Speechlet\Resolution\ResolutionPerAuthority.cs" />
-    <Compile Include="Speechlet\Resolution\Resolutions.cs" />
-    <Compile Include="Speechlet\Resolution\ResolutionStatusCode.cs" />
-    <Compile Include="Speechlet\Resolution\ResolutionStatusCodeEnum.cs" />
-    <Compile Include="Speechlet\Resolution\ResolutionValue.cs" />
-    <Compile Include="Speechlet\Resolution\ResolutionValueEntry.cs" />
-    <Compile Include="Speechlet\Slot.cs" />
-    <Compile Include="Speechlet\AudioPlayerRequest.cs" />
-    <Compile Include="Speechlet\Context.cs" />
-    <Compile Include="Speechlet\Device.cs" />
-    <Compile Include="Speechlet\IntentRequest.cs" />
-    <Compile Include="Speechlet\ISpeechlet.cs" />
-    <Compile Include="Speechlet\ISpeechletAsync.cs" />
-    <Compile Include="Speechlet\LaunchRequest.cs" />
-    <Compile Include="Speechlet\RequestContext.cs" />
-    <Compile Include="Speechlet\Session.cs" />
-    <Compile Include="Speechlet\SessionEndedRequest.cs" />
-    <Compile Include="Speechlet\SessionStartedRequest.cs" />
-    <Compile Include="Speechlet\SpeechletApp.cs" />
-    <Compile Include="Speechlet\SpeechletAsync.cs" />
-    <Compile Include="Speechlet\SpeechletException.cs" />
-    <Compile Include="Speechlet\SpeechletRequest.cs" />
-    <Compile Include="Speechlet\SpeechletResponse.cs" />
-    <Compile Include="Speechlet\Application.cs" />
-    <Compile Include="Speechlet\SpeechletSystem.cs" />
-    <Compile Include="Speechlet\SupportedInterfaces.cs" />
-    <Compile Include="Speechlet\User.cs" />
+    <Compile Include="Amazon_BuiltIns.cs" />
+    <Compile Include="Intent.cs" />
+    <Compile Include="Resolution\ResolutionPerAuthority.cs" />
+    <Compile Include="Resolution\Resolutions.cs" />
+    <Compile Include="Resolution\ResolutionStatusCode.cs" />
+    <Compile Include="Resolution\ResolutionStatusCodeEnum.cs" />
+    <Compile Include="Resolution\ResolutionValue.cs" />
+    <Compile Include="Resolution\ResolutionValueEntry.cs" />
+    <Compile Include="Slot.cs" />
+    <Compile Include="Requests\AudioPlayerRequest.cs" />
+    <Compile Include="Context.cs" />
+    <Compile Include="Device.cs" />
+    <Compile Include="Requests\IntentRequest.cs" />
+    <Compile Include="ISpeechlet.cs" />
+    <Compile Include="ISpeechletAsync.cs" />
+    <Compile Include="Requests\LaunchRequest.cs" />
+    <Compile Include="Session.cs" />
+    <Compile Include="Requests\SessionEndedRequest.cs" />
+    <Compile Include="Requests\SessionStartedRequest.cs" />
+    <Compile Include="SpeechletApp.cs" />
+    <Compile Include="SpeechletAsync.cs" />
+    <Compile Include="SpeechletException.cs" />
+    <Compile Include="Requests\SpeechletRequest.cs" />
+    <Compile Include="SpeechletResponse.cs" />
+    <Compile Include="Application.cs" />
+    <Compile Include="SpeechletSystem.cs" />
+    <Compile Include="SupportedInterfaces.cs" />
+    <Compile Include="User.cs" />
     <Compile Include="UI\Cards\AskForPermissionsConsentCard.cs" />
-    <Compile Include="UI\AudioItem.cs" />
-    <Compile Include="UI\AudioStream.cs" />
-    <Compile Include="Speechlet\ConfirmationStatusEnum.cs" />
-    <Compile Include="UI\Directives\AudioPlayerDirective.cs" />
-    <Compile Include="UI\Directives\Dialog.cs" />
-    <Compile Include="UI\Directives\DialogConfirmSlotDirective.cs" />
-    <Compile Include="UI\Directives\DialogDelegateDirective.cs" />
-    <Compile Include="UI\Directives\DialogDirective.cs" />
-    <Compile Include="UI\Directives\DialogElicitSlotDirective.cs" />
-    <Compile Include="UI\Directives\Directive.cs" />
-    <Compile Include="UI\Image.cs" />
+    <Compile Include="AudioItem.cs" />
+    <Compile Include="AudioStream.cs" />
+    <Compile Include="ConfirmationStatusEnum.cs" />
+    <Compile Include="Directives\AudioPlayerPlayDirective.cs" />
+    <Compile Include="Directives\AudioPlayerDirective.cs" />
+    <Compile Include="Directives\DialogConfirmSlotDirective.cs" />
+    <Compile Include="Directives\DialogDelegateDirective.cs" />
+    <Compile Include="Directives\DialogDirective.cs" />
+    <Compile Include="Directives\DialogElicitSlotDirective.cs" />
+    <Compile Include="Directives\Directive.cs" />
+    <Compile Include="Image.cs" />
     <Compile Include="UI\Cards\StandardCard.cs" />
     <Compile Include="UI\Speech\SsmlBuilder.cs" />
     <Compile Include="UI\Speech\SsmlOutputSpeech.cs" />
-    <Compile Include="UI\Reprompt.cs" />
+    <Compile Include="Reprompt.cs" />
     <Compile Include="UI\Cards\Card.cs" />
     <Compile Include="UI\Speech\OutputSpeech.cs" />
     <Compile Include="UI\Speech\PlainTextOutputSpeech.cs" />
@@ -130,7 +131,6 @@
     <Compile Include="UI\Speech\SSML_Break.cs" />
     <Compile Include="UI\Speech\SSML_Amazon_Effect.cs" />
     <Compile Include="UI\Speech\SSML_Audio.cs" />
-    <Compile Include="UI\UpdatedIntent.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -147,6 +147,7 @@
       <LastGenOutput>Resource.de.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

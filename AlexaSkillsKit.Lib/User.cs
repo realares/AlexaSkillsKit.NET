@@ -14,52 +14,18 @@ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTH
 WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 using System;
-using System.Collections.Generic;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 
-namespace AlexaSkillsKit.Json
+namespace AlexaSkillsKit
 {
-    public class SpeechletResponseEnvelope
+    public class User
     {
-        private static JsonSerializerSettings _serializerSettings = new JsonSerializerSettings()
-        {
-            NullValueHandling = NullValueHandling.Ignore, 
-            ContractResolver = new CamelCaseExceptDictionaryKeysResolver(),
-            Converters = new List<JsonConverter>
-            {
-                new Newtonsoft.Json.Converters.StringEnumConverter(),
-               
-            }
-        };
+        [JsonProperty("userId")]
+        public virtual string Id { get; set; }
 
-        
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public virtual string ToJson()
-        {
-            return JsonConvert.SerializeObject(this, _serializerSettings);
-        }
+        [JsonProperty("accessToken")]
+        public virtual string AccessToken { get; set; }
 
-
-        public virtual SpeechletResponse Response
-        {
-            get;
-            set;
-        }
-
-        public virtual Dictionary<string, string> SessionAttributes
-        {
-            get;
-            set;
-        }
-
-        public virtual string Version
-        {
-            get;
-            set;
-        }
     }
 }
