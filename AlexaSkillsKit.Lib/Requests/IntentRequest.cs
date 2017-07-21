@@ -35,19 +35,6 @@ namespace AlexaSkillsKit
         [JsonProperty("confirmationStatus")]
         public ConfirmationStatusEnum ConfirmationStatus { get; set; }
 
-        public IntentRequest(JObject requestJson, string requestId, DateTime timestamp)  
-            : base(requestId, timestamp)
-        {
-
-            Intent = JsonConvert.DeserializeObject<Intent>(requestJson["intent"].ToString());
- 
-            if (Enum.TryParse<DialogStateEnum>(requestJson.Value<string>("dialogState"), out DialogStateEnum tmp1))
-                DialogState = tmp1;
-
-            if (Enum.TryParse<ConfirmationStatusEnum>(requestJson.Value<string>("confirmationStatus"), out ConfirmationStatusEnum tmp2))
-                ConfirmationStatus = tmp2;
-        }
-
 
 
     }

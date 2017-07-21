@@ -20,8 +20,8 @@ namespace AlexaSkillsKit
 {
     public class LaunchRequest : SpeechletRequest
     {
-        public LaunchRequest(string requestId, DateTime timestamp) 
-            : base(requestId, timestamp) {
-        }
+        //public LaunchRequest(string requestId, DateTime timestamp) 
+        //    : base(requestId, timestamp) {
+        //}
     }
 }

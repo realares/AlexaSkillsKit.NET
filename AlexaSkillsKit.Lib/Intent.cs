@@ -23,7 +23,7 @@ using Newtonsoft.Json.Converters;
 
 namespace AlexaSkillsKit
 {
-    public partial class Intent
+    public class Intent
     {
         [JsonProperty("name")]
         public virtual string Name { get; set; }
@@ -39,7 +39,9 @@ namespace AlexaSkillsKit
                     _Slots = new Dictionary<string, Slot>();
                 return _Slots;
             }
-            set { _Slots = value; }
+            set {
+                _Slots = value;
+            }
         }
 
         [JsonConverter(typeof(StringEnumConverter))]

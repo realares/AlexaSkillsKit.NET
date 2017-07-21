@@ -62,6 +62,8 @@
     <Compile Include="Authentication\SpeechletRequestSignatureVerifier.cs" />
     <Compile Include="Authentication\SpeechletRequestTimestampVerifier.cs" />
     <Compile Include="Helper\HttpHelpers.cs" />
+    <Compile Include="Json\AlexaDateTimeConverter.cs" />
+    <Compile Include="Json\JsonSubTypes\JsonSubTypes.cs" />
     <Compile Include="Json\CamelCaseExceptDictionaryKeysResolver.cs" />
     <Compile Include="Json\JsonAlexaRequestConverter.cs" />
     <Compile Include="Json\SpeechletRequestEnvelope.cs" />
@@ -147,7 +149,9 @@
       <LastGenOutput>Resource.de.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="LICENSE.txt" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -20,15 +20,23 @@ namespace AlexaSkillsKit
 {
     public class AudioPlayerRequest : SpeechletRequest
     {
-        public AudioPlayerRequest(string requestId, DateTime timestamp, string token, long offsetInMilliseconds, string type) : base(requestId, timestamp)
-        {
-            Token = token;
-            OffsetInMilliseconds = offsetInMilliseconds;
-            Type = type;
-        }
 
         public string Token { get; set; }
+
         public long OffsetInMilliseconds { get; set; }
-        public string Type { get; set; }
+
+        /* Todo: SubClasses
+         * 
+         * AudioPlayer.PlaybackStarted
+         * AudioPlayer.PlaybackFinished
+         * AudioPlayer.PlaybackStopped
+         * AudioPlayer.PlaybackNearlyFinished
+         * AudioPlayer.PlaybackFailed
+         */
     }
 }
+ 
+ 
+ 
+ 
+ 

@@ -17,26 +17,23 @@ WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN 
 
 namespace AlexaSkillsKit
 {
-    public partial class Intent
+    public class Amazon_BuiltIns
     {
-        public class Amazon_BuiltIns
-        {
-            public const string YesIntent = "AMAZON.YesIntent";
-            public const string NoIntent = "AMAZON.NoIntent";
+        public const string YesIntent = "AMAZON.YesIntent";
+        public const string NoIntent = "AMAZON.NoIntent";
 
-            public const string HelpIntent = "AMAZON.HelpIntent";
-            public const string StopIntent = "AMAZON.StopIntent";
-            public const string CancelIntent = "AMAZON.CancelIntent";
+        public const string HelpIntent = "AMAZON.HelpIntent";
+        public const string StopIntent = "AMAZON.StopIntent";
+        public const string CancelIntent = "AMAZON.CancelIntent";
 
-            public const string LoopOffIntent = "AMAZON.LoopOffIntent";
-            public const string LoopOnIntent = "AMAZON.LoopOnIntent";
-            public const string NextIntent = "AMAZON.NextIntent";
-            public const string PreviousIntent = "AMAZON.PreviousIntent";
-            public const string RepeatIntent = "AMAZON.RepeatIntent";
+        public const string LoopOffIntent = "AMAZON.LoopOffIntent";
+        public const string LoopOnIntent = "AMAZON.LoopOnIntent";
+        public const string NextIntent = "AMAZON.NextIntent";
+        public const string PreviousIntent = "AMAZON.PreviousIntent";
+        public const string RepeatIntent = "AMAZON.RepeatIntent";
 
-            // For AudioPlayer
-            public const string PauseIntent = "AMAZON.PauseIntent";
-            public const string ResumeIntent = "AMAZON.ResumeIntent";
-        }
+        // For AudioPlayer
+        public const string PauseIntent = "AMAZON.PauseIntent";
+        public const string ResumeIntent = "AMAZON.ResumeIntent";
     }
 }
