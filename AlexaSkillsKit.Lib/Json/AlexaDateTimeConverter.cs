@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace AlexaSkillsKit.Json
+namespace Ra.AlexaSkillsKit.Json
 {
     public class AlexaDateTimeConverter : Newtonsoft.Json.JsonConverter
     {

@@ -18,9 +18,9 @@ using System;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-using AlexaSkillsKit.Resolution;
+using Ra.AlexaSkillsKit.Resolution;
 
-namespace AlexaSkillsKit
+namespace Ra.AlexaSkillsKit
 {
     public class Slot
     {

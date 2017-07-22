@@ -20,7 +20,7 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AlexaSkillsKit.Directives
+namespace Ra.AlexaSkillsKit.Directives
 {
     public class Directive
     {

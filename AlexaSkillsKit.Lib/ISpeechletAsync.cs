@@ -16,10 +16,10 @@ WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN 
 
 using System;
 using System.Threading.Tasks;
-using AlexaSkillsKit.Authentication;
-using AlexaSkillsKit.Json;
+using Ra.AlexaSkillsKit.Authentication;
+using Ra.AlexaSkillsKit.Json;
 
-namespace AlexaSkillsKit
+namespace Ra.AlexaSkillsKit
 {
     public interface ISpeechletAsync
     {

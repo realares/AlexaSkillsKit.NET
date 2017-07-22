@@ -21,7 +21,7 @@ using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-namespace AlexaSkillsKit
+namespace Ra.AlexaSkillsKit
 {
     public class Intent
     {

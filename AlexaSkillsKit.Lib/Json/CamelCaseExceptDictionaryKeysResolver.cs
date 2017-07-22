@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 
-namespace AlexaSkillsKit.Json
+namespace Ra.AlexaSkillsKit.Json
 {
     public class CamelCaseExceptDictionaryKeysResolver : CamelCasePropertyNamesContractResolver
     {

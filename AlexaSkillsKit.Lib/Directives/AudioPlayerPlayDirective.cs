@@ -16,7 +16,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using System.Runtime.Serialization;
 
-namespace AlexaSkillsKit.Directives
+namespace Ra.AlexaSkillsKit.Directives
 {
     public class AudioPlayerPlayDirective : Directive
     {

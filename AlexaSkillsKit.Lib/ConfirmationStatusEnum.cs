@@ -15,7 +15,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using System.Runtime.Serialization;
 
-namespace AlexaSkillsKit
+namespace Ra.AlexaSkillsKit
 {
     public enum ConfirmationStatusEnum
     {

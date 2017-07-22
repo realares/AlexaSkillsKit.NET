@@ -20,7 +20,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using JsonSubTypes;
 
-namespace AlexaSkillsKit.Json
+namespace Ra.AlexaSkillsKit.Json
 {
     public class SpeechletRequestEnvelope
     {

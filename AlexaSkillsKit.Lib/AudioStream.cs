@@ -18,7 +18,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AlexaSkillsKit
+namespace Ra.AlexaSkillsKit
 {
     /// <summary>
     /// Representing the audio stream to play.

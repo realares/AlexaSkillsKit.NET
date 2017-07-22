@@ -18,7 +18,7 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AlexaSkillsKit.UI.Speech
+namespace Ra.AlexaSkillsKit.UI.Speech
 {
     /// <summary>
     /// Represents a pause in the speech. Set the length of the pause with the strength or time attributes.

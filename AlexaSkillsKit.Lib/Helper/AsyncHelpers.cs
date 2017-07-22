@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace AlexaSkillsKit.Helper
+namespace Ra.AlexaSkillsKit.Helper
 {
     public static class AsyncHelpers
     {

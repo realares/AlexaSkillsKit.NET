@@ -14,10 +14,10 @@ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTH
 WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 using System;
-using AlexaSkillsKit.Authentication;
-using AlexaSkillsKit.Json;
+using Ra.AlexaSkillsKit.Authentication;
+using Ra.AlexaSkillsKit.Json;
 
-namespace AlexaSkillsKit
+namespace Ra.AlexaSkillsKit
 {
     public interface ISpeechlet
     {

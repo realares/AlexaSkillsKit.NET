@@ -17,12 +17,12 @@ WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN 
 
 using System;
 using Newtonsoft.Json.Linq;
-using AlexaSkillsKit.Directives;
+using Ra.AlexaSkillsKit.Directives;
 using System.Collections.Generic;
-using AlexaSkillsKit.UI;
+using Ra.AlexaSkillsKit.UI;
 using Newtonsoft.Json;
 
-namespace AlexaSkillsKit
+namespace Ra.AlexaSkillsKit
 {
     public class IntentRequest : SpeechletRequest
     {

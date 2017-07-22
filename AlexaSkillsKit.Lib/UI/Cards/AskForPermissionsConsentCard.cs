@@ -20,7 +20,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AlexaSkillsKit.UI.Cards
+namespace Ra.AlexaSkillsKit.UI.Cards
 {
     public class AskForPermissionsConsentCard : Card
     {

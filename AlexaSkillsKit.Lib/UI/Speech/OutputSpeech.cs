@@ -20,7 +20,7 @@ using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 
-namespace AlexaSkillsKit.UI.Speech
+namespace Ra.AlexaSkillsKit.UI.Speech
 {
     public abstract class OutputSpeech
     {

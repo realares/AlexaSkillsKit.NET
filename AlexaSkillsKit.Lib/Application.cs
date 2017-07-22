@@ -4,7 +4,7 @@ using System;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 
-namespace AlexaSkillsKit
+namespace Ra.AlexaSkillsKit
 {
     public class Application
     {

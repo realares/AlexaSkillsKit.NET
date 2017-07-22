@@ -23,10 +23,10 @@
 //using System.Text;
 //using System.Threading.Tasks;
 //using Newtonsoft.Json.Linq;
-//using AlexaSkillsKit.Json;
-//using AlexaSkillsKit.Authentication;
+//using Ra.AlexaSkillsKit.Json;
+//using Ra.AlexaSkillsKit.Authentication;
 
-//namespace AlexaSkillsKit.Speechlet
+//namespace Ra.AlexaSkillsKit.Speechlet
 //{
 //    public abstract class SpeechletAsync : ISpeechletAsync
 //    {

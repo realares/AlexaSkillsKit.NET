@@ -12,22 +12,22 @@ using System.Net;
 using System.Net.Http;
 using System.Text;
 using Newtonsoft.Json.Linq;
-using AlexaSkillsKit.Authentication;
-using AlexaSkillsKit.Json;
-using NLog;
+using Ra.AlexaSkillsKit.Authentication;
+using Ra.AlexaSkillsKit.Json;
 using System.Threading.Tasks;
-using AlexaSkillsKit.Helper;
-using AlexaSkillsKit.UI.Speech;
-using AlexaSkillsKit.Directives;
-using AlexaSkillsKit.UI.Cards;
-using AlexaSkillsKit.UI;
+using Ra.AlexaSkillsKit.Helper;
+using Ra.AlexaSkillsKit.UI.Speech;
+using Ra.AlexaSkillsKit.Directives;
+using Ra.AlexaSkillsKit.UI.Cards;
+using Ra.AlexaSkillsKit.UI;
+using Ra.AlexaSkillsKit.Ressources;
 
-namespace AlexaSkillsKit
+namespace Ra.AlexaSkillsKit
 {
     public abstract class SpeechletApp : ISpeechlet
     {
-        public static Logger log = LogManager.GetCurrentClassLogger();
-
+        
+        
         public SpeechletRequestEnvelope RequestEnvelope { get; private set; } = null;
 
         /// <summary>
@@ -57,7 +57,8 @@ namespace AlexaSkillsKit
             }
 
 
-            var alexaBytes = AsyncHelpers.RunSync<byte[]>(() => httpRequest.Content.ReadAsByteArrayAsync());
+            //var alexaBytes = AsyncHelpers.RunSync<byte[]>(() => httpRequest.Content.ReadAsByteArrayAsync());
+            var alexaBytes = httpRequest.Content.ReadAsByteArrayAsync().GetAwaiter().GetResult();
 
             // attempt to verify signature only if we were able to locate certificate and signature headers
             if (validationResult == SpeechletRequestValidationResult.OK) {
@@ -70,17 +71,17 @@ namespace AlexaSkillsKit
             try
             {
                 var alexaContent = UTF8Encoding.UTF8.GetString(alexaBytes);
-                log.Debug("Request income: {0}", alexaContent);
+                OnRequestIncome(alexaContent);
                 RequestEnvelope = SpeechletRequestEnvelope.FromJson(alexaContent);
             }
             catch (Newtonsoft.Json.JsonReaderException e1)
             {
-                log.Error(e1, "Parsing Request Fail:JsonReaderException");
+                OnParsingError(e1);
                 validationResult = validationResult | SpeechletRequestValidationResult.InvalidJson;
             }
             catch (InvalidCastException e2)
             {
-                log.Error(e2, "Parsing Request Fail:InvalidCastException");
+                OnParsingError(e2);
                 validationResult = validationResult | SpeechletRequestValidationResult.InvalidJson;
             }
 
@@ -111,7 +112,7 @@ namespace AlexaSkillsKit
             {
                 httpResponse = new HttpResponseMessage(HttpStatusCode.OK);
                 httpResponse.Content = new StringContent(alexaResponsejson, Encoding.UTF8, "application/json");
-                log.Debug("Response: {0}", alexaResponsejson);
+                OnResonseOutgoing(alexaResponsejson);
             }
 
             return httpResponse;
@@ -217,6 +218,12 @@ namespace AlexaSkillsKit
 
             return result == SpeechletRequestValidationResult.OK;
         }
+
+        public virtual void OnRequestIncome(string msg) { }
+
+        public virtual void OnResonseOutgoing(string msg) { }
+    
+        public virtual void OnParsingError(Exception exception) { }
 
 
 
@@ -459,7 +466,7 @@ namespace AlexaSkillsKit
             {
                 OutputSpeech = new PlainTextOutputSpeech()
                 {
-                    Text = AlexaSkillsKit.Properties.Resource.NO_INTENT_FOUND,
+                    Text = Resource.NO_INTENT_FOUND,
                 },
                 ShouldEndSession = true
             };
@@ -470,7 +477,7 @@ namespace AlexaSkillsKit
             {
                 OutputSpeech = new PlainTextOutputSpeech()
                 {
-                    Text = AlexaSkillsKit.Properties.Resource.NO_LAUNCH_FUNCTION,
+                    Text = Resource.NO_LAUNCH_FUNCTION,
                 },
                 ShouldEndSession = true
             };
@@ -481,7 +488,7 @@ namespace AlexaSkillsKit
             {
                 OutputSpeech = new PlainTextOutputSpeech()
                 {
-                    Text = AlexaSkillsKit.Properties.Resource.GENERIC_ERROR,
+                    Text = Resource.GENERIC_ERROR,
                 },
                 ShouldEndSession = true
             };

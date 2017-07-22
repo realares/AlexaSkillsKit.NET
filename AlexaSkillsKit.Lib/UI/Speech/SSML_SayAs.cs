@@ -19,7 +19,7 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AlexaSkillsKit.UI.Speech
+namespace Ra.AlexaSkillsKit.UI.Speech
 {
     /// <summary>
     /// Describes how the text should be interpreted. 

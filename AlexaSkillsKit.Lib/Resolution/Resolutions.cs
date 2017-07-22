@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AlexaSkillsKit.Resolution
+namespace Ra.AlexaSkillsKit.Resolution
 {
     public class Resolutions
     {

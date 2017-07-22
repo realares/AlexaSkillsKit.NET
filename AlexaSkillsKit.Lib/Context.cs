@@ -16,10 +16,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
-using AlexaSkillsKit;
+using Ra.AlexaSkillsKit;
 using Newtonsoft.Json;
 
-namespace AlexaSkillsKit
+namespace Ra.AlexaSkillsKit
 {
     public class Context
     {

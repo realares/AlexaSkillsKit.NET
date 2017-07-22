@@ -16,7 +16,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AlexaSkillsKit
+namespace Ra.AlexaSkillsKit
 {
     public class AudioPlayerRequest : SpeechletRequest
     {

@@ -20,7 +20,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace AlexaSkillsKit.UI.Speech
+namespace Ra.AlexaSkillsKit.UI.Speech
 {
     public class SsmlOutputSpeech : OutputSpeech
     {

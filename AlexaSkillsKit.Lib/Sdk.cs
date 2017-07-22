@@ -18,9 +18,9 @@ using System;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using Newtonsoft.Json.Serialization;
-using AlexaSkillsKit.Json;
+using Ra.AlexaSkillsKit.Json;
 
-namespace AlexaSkillsKit
+namespace Ra.AlexaSkillsKit
 {
     public static class Sdk
     {
