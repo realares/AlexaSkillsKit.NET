@@ -38,25 +38,5 @@ namespace AlexaSkillsKit.Directives
         public override DirectiveTypesEnum Type { get => DirectiveTypesEnum.AudioPlayer_Play; }
 
 
-        public enum PlayBehaviorEnum
-        {
-            /// <summary>
-            /// Immediately begin playback of the specified stream, and replace current and enqueued streams
-            /// </summary>
-            [EnumMember(Value = "REPLACE_ALL")]
-            REPLACE_ALL,
-
-            /// <summary>
-            /// Add the specified stream to the end of the current queue. This does not impact the currently playing stream
-            /// </summary>
-            [EnumMember(Value = "ENQUEUE")]
-            ENQUEUE,
-
-            /// <summary>
-            /// Replace all streams in the queue. This does not impact the currently playing stream
-            /// </summary>
-            [EnumMember(Value = "REPLACE_ENQUEUED")]
-            REPLACE_ENQUEUED,
-        }
     }
 }

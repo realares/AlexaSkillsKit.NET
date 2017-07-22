@@ -57,6 +57,8 @@
   <ItemGroup>
     <Compile Include="AudioPlayer.cs" />
     <Compile Include="DialogStateEnum.cs" />
+    <Compile Include="Directives\AudioPlayerStopDirective.cs" />
+    <Compile Include="Directives\PlayBehaviorEnum.cs" />
     <Compile Include="Helper\AsyncHelpers.cs" />
     <Compile Include="Authentication\SpeechletRequestValidationResult.cs" />
     <Compile Include="Authentication\SpeechletRequestSignatureVerifier.cs" />
@@ -113,7 +115,7 @@
     <Compile Include="AudioStream.cs" />
     <Compile Include="ConfirmationStatusEnum.cs" />
     <Compile Include="Directives\AudioPlayerPlayDirective.cs" />
-    <Compile Include="Directives\AudioPlayerDirective.cs" />
+    <Compile Include="Directives\AudioPlayerClearQueueDirective.cs" />
     <Compile Include="Directives\DialogConfirmSlotDirective.cs" />
     <Compile Include="Directives\DialogDelegateDirective.cs" />
     <Compile Include="Directives\DialogDirective.cs" />

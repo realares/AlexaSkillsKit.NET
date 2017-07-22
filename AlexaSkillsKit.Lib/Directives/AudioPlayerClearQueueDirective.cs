@@ -1,6 +1,4 @@
-﻿/* 
-Copyright (c) 2017 Frank Kuchta
-
+﻿/* Copyright(c) 2017 Frank Kuchta
 The MIT License (MIT)
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), 
 to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, 
@@ -12,26 +10,45 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, 
 WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
+
+
+
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Newtonsoft.Json.Converters;
 
-namespace AlexaSkillsKit
+namespace AlexaSkillsKit.Directives
 {
-
     /// <summary>
-    /// Contains information about the audio stream to play.
+    /// Clears the audio playback queue. 
+    /// You can set this directive to clear the queue without stopping the currently playing stream, 
+    /// or clear the queue and stop any currently playing stream.
     /// </summary>
-    public class AudioItem
+    public class AudioPlayerClearQueueDirective : Directive
     {
         /// <summary>
-        /// Contains an object representing the audio stream to play
+        /// Set to AudioPlayer.ClearQueue.
         /// </summary>
-        [JsonProperty("stream")]
-        public AudioStream Stream { get; set; }
+        public override DirectiveTypesEnum Type { get => DirectiveTypesEnum.AudioPlayer_ClearQueue; }
+
+        /// <summary>
+        /// Describes the clear queue behavior
+        /// </summary>
+        [JsonProperty("clearBehavior")]
+        [JsonConverter(typeof(StringEnumConverter))]
+        public ClearBehaviorEnum ClearBehavior { get; set; }
+
     }
 
+    public enum ClearBehaviorEnum
+    {
+        /// <summary>
+        /// clears the queue and continues to play the currently playing stream
+        /// </summary>
+        CLEAR_ENQUEUED,
+
+        /// <summary>
+        /// clears the entire playback queue and stops the currently playing stream (if applicable)
+        /// </summary>
+        CLEAR_ALL
+    }
 }

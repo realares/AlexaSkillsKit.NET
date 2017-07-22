@@ -219,6 +219,7 @@ namespace AlexaSkillsKit
         }
 
 
+
         public abstract SpeechletResponse OnIntent(IntentRequest intentRequest, Session session, Context context);
         public abstract SpeechletResponse OnLaunch(LaunchRequest launchRequest, Session session, Context context);
         public abstract SpeechletResponse OnAudioIntent(AudioPlayerRequest audioRequest, Context context);
@@ -227,6 +228,115 @@ namespace AlexaSkillsKit
 
 
         #region Responses
+
+        /// <summary>
+        /// Create a SpeechletResponse to send Alexa a command to stream the audio file identified by the specified audioItem. 
+        /// Use the playBehavior parameter to determine whether the stream begins playing immediately,
+        /// or is added to the queue.
+        /// </summary>
+        /// <param name="stream">Representing the audio stream to play</param>
+        /// <param name="playbehavior">Describes playback behavior.</param>
+        /// <returns>The SpeechletResponse</returns>
+        public SpeechletResponse AudioPlayer_Play(AudioStream stream, PlayBehaviorEnum playbehavior = PlayBehaviorEnum.REPLACE_ALL)
+        {
+
+            var response = new SpeechletResponse()
+            {
+                Directives = new List<Directive>()
+                 {
+                     new AudioPlayerPlayDirective()
+                     {
+                           PlayBehavior = playbehavior,
+                           AudioItem = new AudioItem()
+                           {
+                               Stream =  stream
+                           }
+                     }
+                 },
+                ShouldEndSession = true
+            };
+
+            return response;
+        }
+
+        /// <summary>
+        /// Create a SpeechletResponse to send Alexa a command to stream the audio file identified by the specified audioItem. 
+        /// Use the playBehavior parameter to determine whether the stream begins playing immediately,
+        /// or is added to the queue.
+        /// </summary>
+        /// <param name="stream">Representing the audio stream to play</param>
+        /// <param name="playbehavior">Describes playback behavior.</param>
+        /// <param name="outputSpeech"></param>
+        /// <returns>The SpeechletResponse</returns>
+        public SpeechletResponse AudioPlayer_Play(AudioStream stream, OutputSpeech outputSpeech, PlayBehaviorEnum playbehavior = PlayBehaviorEnum.REPLACE_ALL)
+        {
+
+            var response = new SpeechletResponse()
+            {                
+                Directives = new List<Directive>()
+                {
+                     new AudioPlayerPlayDirective()
+                     {
+                           PlayBehavior = playbehavior,
+                           AudioItem = new AudioItem()
+                           {
+                               Stream =  stream
+                           }
+                     }
+                },
+                OutputSpeech = outputSpeech,
+                ShouldEndSession = true
+            };
+
+            return response;
+        }
+
+
+        /// <summary>
+        /// Create a SpeechletResponse to Stop the current audio playback.
+        /// </summary>
+        /// <returns>The SpeechletResponse</returns>
+        public SpeechletResponse AudioPlayer_Stop()
+        {
+
+            var response = new SpeechletResponse()
+            {
+                Directives = new List<Directive>()
+                 {
+                     new AudioPlayerStopDirective()
+                 }
+                ,
+                ShouldEndSession = true
+            };
+
+            return response;
+        }
+
+        /// <summary>
+        /// Create a SpeechletResponse to Clear the audio playback queue. 
+        /// You can set this directive to clear the queue without stopping the currently playing stream, 
+        /// or clear the queue and stop any currently playing stream.
+        /// </summary>
+        /// <param name="clearBehavior">Describes the clear queue behavior</param>
+        /// <returns>The SpeechletResponse</returns>
+        public SpeechletResponse AudioPlayer_ClearQueue(ClearBehaviorEnum clearBehavior = ClearBehaviorEnum.CLEAR_ALL)
+        {
+            var response = new SpeechletResponse()
+            {
+                Directives = new List<Directive>()
+                 {
+                     new AudioPlayerClearQueueDirective()
+                     {
+                           ClearBehavior = clearBehavior
+                     }
+                 }
+    ,
+                ShouldEndSession = true
+            };
+
+            return response;
+        }
+
 
         public SpeechletResponse DialogDelegate()
         {
@@ -248,43 +358,6 @@ namespace AlexaSkillsKit
 
             return response;
         }
-
-
-        
-        public SpeechletResponse AudioPlayer_Play(AudioStream stream)
-        {
-
-            var response = new SpeechletResponse()
-            {
-                Directives = new List<Directive>()
-                 {
-                     new AudioPlayerPlayDirective()
-                     {
-                           PlayBehavior = AudioPlayerPlayDirective.PlayBehaviorEnum.REPLACE_ALL,
-                            AudioItem = stream
-                     }
-                 },
-                ShouldEndSession = true
-            };
-
-            return response;
-        }
-        public SpeechletResponse AudioPlayer_Stop()
-        {
-
-            var response = new SpeechletResponse()
-            {
-                Directives = new List<Directive>()
-                 {
-                     new AudioPlayerStopDirective()
-                 }
-                ,
-                ShouldEndSession = true
-            };
-
-            return response;
-        }
-
 
         public SpeechletResponse DialogElicitSlot(Slot slotToElicit, OutputSpeech outputSpeech = null)
         {
