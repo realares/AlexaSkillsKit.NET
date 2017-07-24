@@ -21,6 +21,7 @@ using Ra.AlexaSkillsKit.Directives;
 using System.Collections.Generic;
 using Ra.AlexaSkillsKit.UI;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace Ra.AlexaSkillsKit
 {
@@ -30,12 +31,8 @@ namespace Ra.AlexaSkillsKit
         public virtual Intent Intent { get; private set; }
 
         [JsonProperty("dialogState")]
+        [JsonConverter(typeof(StringEnumConverter))]
         public DialogStateEnum DialogState { get; set; }
-
-        [JsonProperty("confirmationStatus")]
-        public ConfirmationStatusEnum ConfirmationStatus { get; set; }
-
-
 
     }
 

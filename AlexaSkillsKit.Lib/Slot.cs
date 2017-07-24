@@ -34,9 +34,13 @@ namespace Ra.AlexaSkillsKit
         [JsonProperty("confirmationStatus")]
         public virtual ConfirmationStatusEnum ConfirmationStatus { get; set; }
 
-        [JsonIgnore]
+
+
+        //[JsonIgnore]
         [JsonProperty("resolutions")]
         public virtual Resolutions Resolutions { get; set; }
+
+        public bool ShouldSerializeResolutions() => false;
 
         public ResolutionStatusCodeEnum GetResolutionsCode()
         {

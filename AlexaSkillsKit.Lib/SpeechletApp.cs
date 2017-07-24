@@ -357,7 +357,6 @@ namespace Ra.AlexaSkillsKit
                  {
                      new DialogDelegateDirective()
                      {
-                          ConfirmationStatus = intentRequest.ConfirmationStatus,
                           UpdatedIntent = intentRequest.Intent
                      }
                  }

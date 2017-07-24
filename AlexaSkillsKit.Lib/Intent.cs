@@ -44,9 +44,11 @@ namespace Ra.AlexaSkillsKit
             }
         }
 
+
+
         [JsonConverter(typeof(StringEnumConverter))]
         [JsonProperty("confirmationStatus")]
         public virtual ConfirmationStatusEnum ConfirmationStatus { get; set; }
-
+        
     }
 }

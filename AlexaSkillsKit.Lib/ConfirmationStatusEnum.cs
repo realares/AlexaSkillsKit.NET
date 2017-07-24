@@ -19,6 +19,7 @@ namespace Ra.AlexaSkillsKit
 {
     public enum ConfirmationStatusEnum
     {
+
         [EnumMember(Value ="NONE")]
         NONE,
 

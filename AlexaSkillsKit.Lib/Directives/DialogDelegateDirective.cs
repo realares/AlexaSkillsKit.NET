@@ -24,6 +24,5 @@ namespace Ra.AlexaSkillsKit.Directives
     public class DialogDelegateDirective : DialogDirective
     {
         public override DirectiveTypesEnum Type { get => DirectiveTypesEnum.Dialog_Delegate; }
-        public virtual ConfirmationStatusEnum ConfirmationStatus { get; set; }
     }
 }
