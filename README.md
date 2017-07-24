@@ -4,13 +4,7 @@
 * verifies authenticity of the request by validating its signature and timestamp
 * code-reviewed and vetted by Amazon (Alexa skills written using this library passed certification)
 
-Beyond the functionality in Amazon's AlexaSkillsKit for Java, AlexaSkillsKit.NET:
-* performs automatic session management so you can easily [build conversational Alexa apps](https://freebusy.io/blog/building-conversational-alexa-apps-for-amazon-echo)
-
-
-This library was originally developed for and is in use at https://freebusy.io
-
-This library is NOT available as a NuGet package at the moment
+This library will be available as a NuGet package soon
 
 # How To Use
 
@@ -20,10 +14,9 @@ Read [Getting started with Alexa App development for Amazon Echo using .NET on W
 
 ### 2. Implement your skill as a "Speechlet"
 
-If your Alexa skill does any kind of I/O and assuming you're building on top of .NET Framework 4.5 it's recommended that you derive your app from the abstract SpeechletAsync and implement these methods as defined by ISpeechletAsync
+If your Alexa skill does any kind of I/O and assuming you're building on top of .NET Framework 4.5/4.62 or .Net Standard >= 1.4 it's recommended that you derive your app from the abstract SpeechletApp and implement these methods as defined by ISpeechlet
    
-Or derive your app from the abstract Speechlet and implement these methods as defined by ISpeechlet.
-  
+
 ```csharp
 public interface ISpeechlet
 {
@@ -41,5 +34,5 @@ The Sample app is using ASP.NET 4.5 WebApi 2 so wiring-up requests & responses f
   
 *Note: sample project is generated from the ASP.NET 4.5 WebApi 2 template so it includes a lot of functionality that's not directly related to Alexa Speechlets, but it does make make for a complete Web API project.*
 
-Alternatively you can host your app and the AlexaSkillsKit.NET library in any other web service framework like ServiceStack.
+Alternatively you can host your app and the Ra.AlexaSkillsKit.NET library in any other web service framework like ServiceStack.
 

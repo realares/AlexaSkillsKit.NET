@@ -1,6 +1,22 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
     <PropertyGroup>
         <TargetFrameworks>netstandard1.4;netstandard1.6;net45;net462</TargetFrameworks>
+        <Version>2.0.0</Version>
+        <Authors>Frank Kuchta, Stefan Negritoiu (FreeBusy)</Authors>
+        <Company />
+        <PackageLicenseUrl>http://opensource.org/licenses/MIT</PackageLicenseUrl>
+        <PackageIconUrl>https://developer.amazon.com/public/binaries/content/gallery/developerportalpublic/solutions/alexa/dp_image_kit_02.png</PackageIconUrl>
+        <PackageReleaseNotes>- Added Support for Directives like Dialog,Audioplayer, etc. 
+- Cleanup Namespaces. 
+- Webfrontend Timestamp Fix
+- Support for Slot.Resolution 
+- SSML Builder</PackageReleaseNotes>
+        <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+        <Copyright>Copyright 2017 Frank Kuchta, Copyright 2016 Stefan Negritoiu (FreeBusy)</Copyright>
+        <PackageProjectUrl>https://github.com/realares/Ra.AlexaSkillsKit.NET</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/realares/Ra.AlexaSkillsKit.NET</RepositoryUrl>
+        <RepositoryType>GIT</RepositoryType>
+        <PackageTags>amazon echo alexa speechlet</PackageTags>
     </PropertyGroup>
     
     <ItemGroup>
