@@ -1,0 +1,55 @@
+﻿{
+    "version": "1.0",
+    "session": {
+        "new": true,
+        "sessionId": "amzn1.echo-api.session.00000000-0000-0000-0000-000000000000",
+        "application": { "applicationId": "amzn1.ask.skill.00000000-0000-0000-0000-000000000000" },
+        "user": { "userId": "amzn1.ask.account.AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" }
+    },
+    "context": {
+        "AudioPlayer": { "playerActivity": "IDLE" },
+        "System": {
+            "application": { "applicationId": "amzn1.ask.skill.69af6e3a-8ecd-4ed6-a5fe-8a9aa58f0367" },
+            "user": { "userId": "amzn1.ask.account.AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" },
+            "device": {
+                "deviceId": "amzn1.ask.device.BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
+                "supportedInterfaces": { "AudioPlayer": {} }
+            },
+            "apiEndpoint": "https://api.eu.amazonalexa.com"
+        }
+    },
+    "request": {
+        "type": "IntentRequest",
+        "requestId": "amzn1.echo-api.request.00000000-0000-0000-0000-000000000000",
+        "timestamp": "2017-01-02T03:04:05Z",
+        "locale": "de-DE",
+        "intent": {
+            "name": "test",
+            "confirmationStatus": "CONFIRMED",
+            "slots": {
+                "Testslot": {
+                    "name": "Testslot",
+                    "value": "Testvalue",
+                    "resolutions": {
+                        "resolutionsPerAuthority": [
+                            {
+                                "authority": "amzn1.er-authority.echo-sdk.amzn1.ask.skill.00000000-0000-0000-0000-000000000000.Testslot",
+                                "status": { "code": "ER_SUCCESS_MATCH" },
+                                "values": [
+                                    {
+                                        "value": {
+                                            "name": "Testvalue",
+                                            "id": "1"
+                                        }
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    "confirmationStatus": "CONFIRMED"
+                }
+            }
+        },
+        "dialogState": "IN_PROGRESS"
+    }
+} 
