@@ -4,6 +4,7 @@
         <Version>2.0.0</Version>
         <Authors>Frank Kuchta, Stefan Negritoiu (FreeBusy)</Authors>
         <Company />
+        <Title>Ra.AlexaSkillsKit</Title>
         <PackageLicenseUrl>http://opensource.org/licenses/MIT</PackageLicenseUrl>
         <PackageIconUrl>https://developer.amazon.com/public/binaries/content/gallery/developerportalpublic/solutions/alexa/dp_image_kit_02.png</PackageIconUrl>
         <PackageReleaseNotes>- Added Support for Directives like (DialogDelegate, DialogElicitSlot, DialogConfirmSlot, Audioplayer). 
@@ -17,6 +18,7 @@
         <RepositoryUrl>https://github.com/realares/Ra.AlexaSkillsKit.NET</RepositoryUrl>
         <RepositoryType>GIT</RepositoryType>
         <PackageTags>amazon echo alexa speechlet</PackageTags>
+        <Description>.NET library that simplifies Alexa skills development; same object model as Amazon's AlexaSkillsKit for Java</Description>
     </PropertyGroup>
     
     <ItemGroup>

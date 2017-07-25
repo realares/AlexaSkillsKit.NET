@@ -4,7 +4,13 @@
 * verifies authenticity of the request by validating its signature and timestamp
 * code-reviewed and vetted by Amazon (Alexa skills written using this library passed certification)
 
-This library will be available as a NuGet package soon
+This library will be available as a NuGet package: https://www.nuget.org/packages/Ra.AlexaSkillsKit/
+
+To install Ra.AlexaSkillsKit, run the following command in the Package Manager Console
+``
+Install-Package Ra.AlexaSkillsKit
+``
+
 
 # How To Use
 
@@ -44,7 +50,7 @@ DialogElicitSlot(..)
 DialogConfirmSlot(..)
 
 Error_GenericError() // Sorry, the application encountered an error
-Error_NoIntentFound() / /Sorry, the application didn't know what to do with that intent
+Error_NoIntentFound() // Sorry, the application didn't know what to do with that intent
 Error_NoLaunchFunction() // Try telling the application what to do instead of opening it
 
 
