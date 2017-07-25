@@ -6,7 +6,7 @@
         <Company />
         <PackageLicenseUrl>http://opensource.org/licenses/MIT</PackageLicenseUrl>
         <PackageIconUrl>https://developer.amazon.com/public/binaries/content/gallery/developerportalpublic/solutions/alexa/dp_image_kit_02.png</PackageIconUrl>
-        <PackageReleaseNotes>- Added Support for Directives like Dialog,Audioplayer, etc. 
+        <PackageReleaseNotes>- Added Support for Directives like (DialogDelegate, DialogElicitSlot, DialogConfirmSlot, Audioplayer). 
 - Cleanup Namespaces. 
 - Webfrontend Timestamp Fix
 - Support for Slot.Resolution 

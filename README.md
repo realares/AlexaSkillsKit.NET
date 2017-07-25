@@ -27,12 +27,57 @@ public interface ISpeechlet
         void OnSessionEnded(SessionEndedRequest sessionEndedRequest, Session session);
 }
 ```
+### 3. Default Responses
   
-### 3. Wire-up "Speechlet" to HTTP hosting environment
+Create a default response with one line
+```csharp
 
-The Sample app is using ASP.NET 4.5 WebApi 2 so wiring-up requests & responses from the HTTP hosting environment (i.e. ASP.NET 4.5) to the "Speechlet" is just a matter of writing a 2-line ApiController like this https://github.com/AreYouFreeBusy/AlexaSkillsKit.NET/blob/master/AlexaSkillsKit.Sample/Speechlet/AlexaController.cs 
-  
-*Note: sample project is generated from the ASP.NET 4.5 WebApi 2 template so it includes a lot of functionality that's not directly related to Alexa Speechlets, but it does make make for a complete Web API project.*
+Say(..)
+SayWithCard(..)
+SayWithLinkAccountCard(..)
+
+AudioPlayer_Play(..)
+AudioPlayer_Stop(..)
+AudioPlayer_ClearQueue(..)
+DialogDelegate()
+DialogElicitSlot(..)
+DialogConfirmSlot(..)
+
+Error_GenericError() // Sorry, the application encountered an error
+Error_NoIntentFound() / /Sorry, the application didn't know what to do with that intent
+Error_NoLaunchFunction() // Try telling the application what to do instead of opening it
+
+
+```
+### 3. SSML Builder
+Easy to use Builder for SSML responses
+https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/speech-synthesis-markup-language-ssml-reference
+
+```csharp
+var ssml = new SsmlBuilder();
+ssml.Append("No");
+ssml.Break(1500);
+ssml.Wisper("The correct answer is 42");
+
+// Return a SSML Answer
+return Say(ssml);         
+```
+
+### 4. Wire-up "Speechlet" to HTTP hosting environment
+
+The Sample app is using ASP.NET 4.62 WebApi 2 so wiring-up requests & responses from the HTTP hosting environment (i.e. ASP.NET) to the "Speechlet" is just a matter of writing a 2-line ApiController like this 
+https://github.com/realares/Ra.AlexaSkillsKit.NET/blob/master/Ra.AlexaSkillsKit.WebSample/Controllers/AlexaController.cs
+
+```csharp
+[Route("api/alexaSample")]
+[HttpPost]
+public HttpResponseMessage AlexaSampleRequest()
+{
+	var speechlet = new AlexaSample42App();
+	return speechlet.GetResponse(Request);
+}
+
+```
 
 Alternatively you can host your app and the Ra.AlexaSkillsKit.NET library in any other web service framework like ServiceStack.
 
