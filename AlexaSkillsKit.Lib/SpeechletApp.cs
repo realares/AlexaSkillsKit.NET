@@ -430,6 +430,16 @@ namespace Ra.AlexaSkillsKit
                 ShouldEndSession = shouldEndSession
             };
         }
+        public SpeechletResponse Say(SsmlBuilder ssmblBuilder, bool shouldEndSession = true)
+        {
+            return new SpeechletResponse()
+            {
+                OutputSpeech = new SsmlOutputSpeech() { Ssml = ssmblBuilder.ToString() },
+                ShouldEndSession = shouldEndSession
+            };
+        }
+
+
 
         public static SpeechletResponse SayWithCard(string speechOutput, string cardTitle, string cardContent, bool shouldEndSession = true)
         {

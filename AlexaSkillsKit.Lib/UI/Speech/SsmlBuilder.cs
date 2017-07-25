@@ -148,27 +148,6 @@ namespace Ra.AlexaSkillsKit.UI.Speech
             return this;
         }
 
-        /// <summary>
-        /// Appends a copy of the specified string followed by the default line terminator
-        /// to the end of the current System.Text.StringBuilder object.
-        /// </summary>
-        /// <param name="value">The string to append.</param>
-        /// <returns>A reference to this instance after the append operation has completed.</returns>
-        public SsmlBuilder AppendLine(string value)
-        {
-            this._builder.AppendLine(value);
-            return this;
-        }
-        
-        /// <summary>
-        /// Appends the default line terminator to the end of the current System.Text.StringBuilder object.
-        /// </summary>
-        /// <returns>A reference to this instance after the append operation has completed.</returns>
-        public SsmlBuilder AppendLine()
-        {
-            this._builder.AppendLine();
-            return this;
-        }
 
         /// <summary>
         /// Removes all characters from the current System.Text.StringBuilder instance.

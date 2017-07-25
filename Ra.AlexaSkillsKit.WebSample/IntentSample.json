@@ -1,0 +1,65 @@
+﻿{
+  "intents": [
+    {
+      "name": "AMAZON.CancelIntent",
+      "samples": []
+    },
+    {
+      "name": "AMAZON.HelpIntent",
+      "samples": []
+    },
+    {
+        "name": "AMAZON.StopIntent",
+        "samples": []
+    },
+    {
+      "name": "number",
+      "samples": [
+        "is the answer {slot_number}"
+      ],
+      "slots": [
+        {
+          "name": "slot_number",
+          "type": "AMAZON.NUMBER",
+          "samples": []
+        }
+      ]
+    },
+    {
+      "name": "question",
+      "samples": [
+        "what is the answer to life the universe and everything",
+        "what is the answer to life",
+        "what is the answer to the universe",
+        "what is the answer to everything"
+      ],
+      "slots": []
+    }
+  ],
+  "prompts": [
+    {
+      "id": "Confirm.Intent-question",
+      "promptVersion": "1.0",
+      "definitionVersion": "1.0",
+      "variations": [
+        {
+          "type": "PlainText",
+          "value": "Was your Question what is the answer to life the universe and everything?"
+        }
+      ]
+    }
+  ],
+  "dialog": {
+    "version": "1.0",
+    "intents": [
+      {
+        "name": "question",
+        "confirmationRequired": true,
+        "prompts": {
+          "confirm": "Confirm.Intent-question"
+        },
+        "slots": []
+      }
+    ]
+  }
+}
