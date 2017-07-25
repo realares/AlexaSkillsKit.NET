@@ -37,7 +37,7 @@ SayWithCard(..)
 SayWithLinkAccountCard(..)
 
 AudioPlayer_Play(..)
-AudioPlayer_Stop(..)
+AudioPlayer_Stop()
 AudioPlayer_ClearQueue(..)
 DialogDelegate()
 DialogElicitSlot(..)
@@ -49,7 +49,7 @@ Error_NoLaunchFunction() // Try telling the application what to do instead of op
 
 
 ```
-### 3. SSML Builder
+### 4. SSML Builder
 Easy to use Builder for SSML responses
 https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/speech-synthesis-markup-language-ssml-reference
 
@@ -63,7 +63,7 @@ ssml.Wisper("The correct answer is 42");
 return Say(ssml);         
 ```
 
-### 4. Wire-up "Speechlet" to HTTP hosting environment
+### 5. Wire-up "Speechlet" to HTTP hosting environment
 
 The Sample app is using ASP.NET 4.62 WebApi 2 so wiring-up requests & responses from the HTTP hosting environment (i.e. ASP.NET) to the "Speechlet" is just a matter of writing a 2-line ApiController like this 
 https://github.com/realares/Ra.AlexaSkillsKit.NET/blob/master/Ra.AlexaSkillsKit.WebSample/Controllers/AlexaController.cs
