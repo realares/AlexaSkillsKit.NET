@@ -28,7 +28,7 @@ namespace Ra.AlexaSkillsKit
         /// </summary>
         [JsonProperty("playerActivity")]
         [JsonConverter(typeof(StringEnumConverter))]
-        public PlayerActivityEnum PlayerActivity { get; set; }
+        public AudioPlayerPlayerActivityEnum PlayerActivity { get; set; }
 
         /// <summary>
         /// Identifies a track's current offset in milliseconds.
@@ -36,42 +36,42 @@ namespace Ra.AlexaSkillsKit
         [JsonProperty("offsetInMilliseconds")]
         public long OffsetInMilliseconds { get; set; }
 
+    }
 
-        public enum PlayerActivityEnum
-        {
-            /// <summary>
-            /// Nothing was playing, no enqueued items.
-            /// </summary>
-            IDLE,
+    public enum AudioPlayerPlayerActivityEnum
+    {
+        /// <summary>
+        /// Nothing was playing, no enqueued items.
+        /// </summary>
+        IDLE,
 
-            /// <summary>
-            /// Stream was playing.
-            /// </summary>
-            PLAYING,
+        /// <summary>
+        /// Stream was playing.
+        /// </summary>
+        PLAYING,
 
-            /// <summary>
-            /// Stream was interrupted.
-            /// </summary>
-            STOPPED,
+        /// <summary>
+        /// Stream was interrupted.
+        /// </summary>
+        STOPPED,
 
-            /// <summary>
-            /// Stream was paused.
-            /// </summary>
-            PAUSED,
+        /// <summary>
+        /// Stream was paused.
+        /// </summary>
+        PAUSED,
 
-            /// <summary>
-            /// Buffer underrun.
-            /// </summary>
-            BUFFER_UNDERRUN,
+        /// <summary>
+        /// Buffer underrun.
+        /// </summary>
+        BUFFER_UNDERRUN,
 
-            /// <summary>
-            /// Stream was finished playing
-            /// </summary>
-            FINISHED
-
-
+        /// <summary>
+        /// Stream was finished playing
+        /// </summary>
+        FINISHED
 
 
-        }
+
+
     }
 }

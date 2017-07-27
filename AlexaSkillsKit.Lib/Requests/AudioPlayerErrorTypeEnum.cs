@@ -10,29 +10,37 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, 
 WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Ra.AlexaSkillsKit
 {
-    public class AudioPlayerRequest : SpeechletRequest
+    public enum AudioPlayerErrorTypeEnum
     {
+        NOT_SET,
+
         /// <summary>
-        /// An opaque token that represents the audio stream. 
-        /// You provide this token when sending the Play directiveAn opaque token that represents the audio stream. 
-        /// You provide this token when sending the Play directive
+        /// An unknown error occurred.
         /// </summary>
-        [JsonProperty("token")]
-        public string Token { get; set; }
+        MEDIA_ERROR_UNKNOWN,
 
-        [JsonProperty("")]
-        public long OffsetInMilliseconds { get; set; }
+        /// <summary>
+        /// Alexa recognized the request as being malformed. E.g. bad request, unauthorized, forbidden, not found, etc.
+        /// </summary>
+        MEDIA_ERROR_INVALID_REQUEST,
 
+        /// <summary>
+        /// Alexa was unable to reach the URL for the stream.
+        /// </summary>
+        MEDIA_ERROR_SERVICE_UNAVAILABLE,
+
+        /// <summary>
+        /// Alexa accepted the request, but was unable to process the request as expected.
+        /// </summary>
+        MEDIA_ERROR_INTERNAL_SERVER_ERROR,
+
+        /// <summary>
+        /// There was an internal error on the device.
+        /// </summary>
+        MEDIA_ERROR_INTERNAL_DEVICE_ERROR
     }
 }
  

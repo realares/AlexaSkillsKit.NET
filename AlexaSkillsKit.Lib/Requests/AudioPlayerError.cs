@@ -12,27 +12,20 @@ WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN 
 */
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Ra.AlexaSkillsKit
 {
-    public class AudioPlayerRequest : SpeechletRequest
+    /// <summary>
+    /// error information
+    /// </summary>
+    public class AudioPlayerError
     {
-        /// <summary>
-        /// An opaque token that represents the audio stream. 
-        /// You provide this token when sending the Play directiveAn opaque token that represents the audio stream. 
-        /// You provide this token when sending the Play directive
-        /// </summary>
-        [JsonProperty("token")]
-        public string Token { get; set; }
+        [JsonConverter(typeof(StringEnumConverter))]
+        [JsonProperty("type")]
+        public AudioPlayerErrorTypeEnum Type { get; set; }
 
-        [JsonProperty("")]
-        public long OffsetInMilliseconds { get; set; }
-
+        [JsonProperty("message")]
+        public string Message { get; set; }
     }
 }
  

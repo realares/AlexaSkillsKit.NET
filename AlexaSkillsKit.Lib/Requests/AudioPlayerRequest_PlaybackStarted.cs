@@ -10,28 +10,16 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, 
 WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Ra.AlexaSkillsKit
 {
-    public class AudioPlayerRequest : SpeechletRequest
+    /// <summary>
+    /// Sent when Alexa begins playing the audio stream previously sent in a Play directive. 
+    /// This lets your skill verify that playback began successfully.
+    /// This request is also sent when Alexa resumes playback after pausing it for a voice reque
+    /// </summary>
+    public class AudioPlayerRequest_PlaybackStarted : AudioPlayerRequest
     {
-        /// <summary>
-        /// An opaque token that represents the audio stream. 
-        /// You provide this token when sending the Play directiveAn opaque token that represents the audio stream. 
-        /// You provide this token when sending the Play directive
-        /// </summary>
-        [JsonProperty("token")]
-        public string Token { get; set; }
-
-        [JsonProperty("")]
-        public long OffsetInMilliseconds { get; set; }
 
     }
 }

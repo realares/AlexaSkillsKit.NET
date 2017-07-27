@@ -168,6 +168,16 @@ namespace Ra.AlexaSkillsKit
                         OnSessionEnded(request, session);
                     }
                     break;
+
+                //case AudioPlayerRequest_PlaybackStarted request:
+                //    response = OnAudioIntent(request, context);
+                //    break;
+                //case AudioPlayerRequest_PlaybackFailed request:
+                //    break;
+                //case AudioPlayerRequest_PlaybackNearlyFinished request:
+                //    break;
+                //case AudioPlayerRequest_PlaybackStopped request:
+                //    break;
             }
 
             
