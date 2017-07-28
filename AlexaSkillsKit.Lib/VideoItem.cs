@@ -26,7 +26,7 @@ namespace Ra.AlexaSkillsKit
     public class VideoItem
     {
         /// <summary>
-        /// dentifies the location of video content at a remote HTTPS location. The video file must be hosted at an Internet-accessible HTTPS endpoint.
+        /// Dentifies the location of video content at a remote HTTPS location. The video file must be hosted at an Internet-accessible HTTPS endpoint.
         /// HTTPS is required, and the domain hosting the files must present a valid, trusted SSL certificate. Self-signed certificates cannot be used. 
         /// Many content hosting services provide this. 
         /// For example, you could host your files at a service such as Amazon Simple Storage Service (Amazon S3) (an Amazon Web Services offering).

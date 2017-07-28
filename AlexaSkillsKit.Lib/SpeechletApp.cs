@@ -314,7 +314,6 @@ namespace Ra.AlexaSkillsKit
             return response;
         }
 
-
         /// <summary>
         /// Create a SpeechletResponse to Stop the current audio playback.
         /// </summary>
@@ -352,13 +351,59 @@ namespace Ra.AlexaSkillsKit
                      {
                            ClearBehavior = clearBehavior
                      }
-                 }
-    ,
-                ShouldEndSession = true
+                 },
+                ShouldEndSession = true,
             };
 
             return response;
         }
+
+        public SpeechletResponse VideoApp_Launch(VideoItem videoItem)
+        {
+            var response = new SpeechletResponse()
+            {
+                Directives = new List<Directive>()
+                 {
+                     new VideoAppLaunchDirective()
+                     {
+                           VideoItem = videoItem
+                     }
+                 },
+                //The shouldEndSession parameter must not be included in the response
+                ShouldEndSession = null,
+            };
+
+            return response;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sourceUrl">Dentifies the location of video content at a remote HTTPS location.</param>
+        /// <param name="metadata">[OPTIONAL] Information that can be displayed on VideoApp</param>
+        /// <returns></returns>
+        public SpeechletResponse VideoApp_Launch(string sourceUrl, VideoItemMetadata metadata = null)
+        {
+            var response = new SpeechletResponse()
+            {
+                Directives = new List<Directive>()
+                 {
+                     new VideoAppLaunchDirective()
+                     {
+                           VideoItem = new VideoItem()
+                           {
+                                Source = sourceUrl,
+                                Metadata = metadata
+                           }
+                     }
+                 },
+                //The shouldEndSession parameter must not be included in the response
+                ShouldEndSession = null,
+            };
+
+            return response;
+        }
+
 
 
         public SpeechletResponse DialogDelegate()

@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using Ra.AlexaSkillsKit.UI.Cards;
 using Ra.AlexaSkillsKit.UI.Speech;
 using Ra.AlexaSkillsKit.Directives;
+using Newtonsoft.Json;
 
 namespace Ra.AlexaSkillsKit
 {
@@ -33,7 +34,12 @@ namespace Ra.AlexaSkillsKit
 
         public virtual IEnumerable<Directive> Directives { get; set; }
 
-        public virtual bool ShouldEndSession {get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>The shouldEndSession parameter must not be included in the VideoApp.Lunch response, even if the value is set to null</remarks>
+        [JsonProperty("shouldEndSession", NullValueHandling = NullValueHandling.Ignore)]
+        public virtual bool? ShouldEndSession { get; set; } = true;
 
 
     }
