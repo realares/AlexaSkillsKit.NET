@@ -101,21 +101,34 @@ namespace Ra.AlexaSkillsKit
                 };
             }
 
-            string alexaResponsejson = DoProcessRequest(RequestEnvelope);
+            try
+            {
+                string alexaResponsejson = DoProcessRequest(RequestEnvelope);
 
-            HttpResponseMessage httpResponse;
-            if (alexaResponsejson == null)
-            {
-                httpResponse = new HttpResponseMessage(HttpStatusCode.InternalServerError);
-            }
-            else
-            {
-                httpResponse = new HttpResponseMessage(HttpStatusCode.OK);
-                httpResponse.Content = new StringContent(alexaResponsejson, Encoding.UTF8, "application/json");
+                HttpResponseMessage httpResponse;
+                if (alexaResponsejson == null)
+                {
+                    return null;
+                }
+
+                httpResponse = new HttpResponseMessage(HttpStatusCode.OK)
+                {
+                    Content = new StringContent(alexaResponsejson, Encoding.UTF8, "application/json")
+                };
                 OnResonseOutgoing(alexaResponsejson);
+                return httpResponse;
+
+            }
+            catch (NotImplementedException)
+            {
+                return null;
+            }
+            catch (Exception)
+            {
+                return new HttpResponseMessage(HttpStatusCode.InternalServerError);
             }
 
-            return httpResponse;
+           
         }
      
         /// <summary>
@@ -135,7 +148,7 @@ namespace Ra.AlexaSkillsKit
                     {
                         if (requestEnvelope.Session.IsNew)
                         {
-                            OnSessionStarted(new SessionStartedRequest(request.RequestId, request.Timestamp), session);
+                            OnSessionStarted(requestEnvelope);
                         }
                         response = OnLaunch(request, session, context);
                     }
@@ -143,7 +156,7 @@ namespace Ra.AlexaSkillsKit
 
                 case AudioPlayerRequest request:
                     {
-                        response = OnAudioIntent(request, context);
+                        response = OnAudioIntent(request, session, context);
                     }
                     break;
 
@@ -156,30 +169,23 @@ namespace Ra.AlexaSkillsKit
 
                         if (requestEnvelope.Session.IsNew)
                         {
-                            OnSessionStarted(new SessionStartedRequest(request.RequestId, request.Timestamp), session);
+                            OnSessionStarted(requestEnvelope);
                         }
-                        response = OnIntent(request, session, requestEnvelope.Context);
+                        response = OnIntent(request, session, context);
                     }
                     break;
 
                 // process session ended request
                 case SessionEndedRequest request:  
                     {
-                        OnSessionEnded(request, session);
+                        OnSessionEnded(request, session, context);
                     }
                     break;
 
-                //case AudioPlayerRequest_PlaybackStarted request:
-                //    response = OnAudioIntent(request, context);
-                //    break;
-                //case AudioPlayerRequest_PlaybackFailed request:
-                //    break;
-                //case AudioPlayerRequest_PlaybackNearlyFinished request:
-                //    break;
-                //case AudioPlayerRequest_PlaybackStopped request:
-                //    break;
             }
 
+            if (response == null)
+                return null;
             
             var responseEnvelope = new SpeechletResponseEnvelope
             {
@@ -234,14 +240,14 @@ namespace Ra.AlexaSkillsKit
         public virtual void OnResonseOutgoing(string msg) { }
     
         public virtual void OnParsingError(Exception exception) { }
-
+        public virtual void OnSessionStarted(SpeechletRequestEnvelope requestEnvelope) { }
 
 
         public abstract SpeechletResponse OnIntent(IntentRequest intentRequest, Session session, Context context);
         public abstract SpeechletResponse OnLaunch(LaunchRequest launchRequest, Session session, Context context);
-        public abstract SpeechletResponse OnAudioIntent(AudioPlayerRequest audioRequest, Context context);
-        public abstract void OnSessionStarted(SessionStartedRequest sessionStartedRequest, Session session);
-        public abstract void OnSessionEnded(SessionEndedRequest sessionEndedRequest, Session session);
+        public abstract SpeechletResponse OnAudioIntent(AudioPlayerRequest audioRequest, Session session, Context context);
+        
+        public abstract void OnSessionEnded(SessionEndedRequest sessionEndedRequest, Session session, Context context);
 
 
         #region Responses

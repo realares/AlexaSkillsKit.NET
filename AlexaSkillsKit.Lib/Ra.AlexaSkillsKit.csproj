@@ -1,15 +1,15 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
     <PropertyGroup>
         <TargetFrameworks>netstandard1.4;netstandard1.6;net45;net462</TargetFrameworks>
-        <Version>2.0.0</Version>
+        <Version>2.1.0</Version>
         <Authors>Frank Kuchta, Stefan Negritoiu (FreeBusy)</Authors>
         <Company />
         <Title>Ra.AlexaSkillsKit</Title>
         <PackageLicenseUrl>http://opensource.org/licenses/MIT</PackageLicenseUrl>
         <PackageIconUrl>https://developer.amazon.com/public/binaries/content/gallery/developerportalpublic/solutions/alexa/dp_image_kit_02.png</PackageIconUrl>
-        <PackageReleaseNotes>- Added Support for Directives like (DialogDelegate, DialogElicitSlot, DialogConfirmSlot, Audioplayer). 
-- Cleanup Namespaces. 
-- Webfrontend Timestamp Fix
+        <PackageReleaseNotes>- Fix Audioplayerrequests
+- Add VideoPlayer.Lunch
+
 - Support for Slot.Resolution 
 - SSML Builder</PackageReleaseNotes>
         <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
@@ -19,6 +19,8 @@
         <RepositoryType>GIT</RepositoryType>
         <PackageTags>amazon echo alexa speechlet</PackageTags>
         <Description>.NET library that simplifies Alexa skills development; same object model as Amazon's AlexaSkillsKit for Java</Description>
+        <AssemblyVersion>2.1.0.0</AssemblyVersion>
+        <FileVersion>2.1.0.0</FileVersion>
     </PropertyGroup>
     
     <ItemGroup>
@@ -39,7 +41,94 @@
     </ItemGroup>
 
     <ItemGroup Condition="'$(TargetFramework)' == 'net462'">
+    </ItemGroup>
 
+    <ItemGroup>
+        <Compile Remove="**\*" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Include="Amazon_BuiltIns.cs" />
+      <Compile Include="Application.cs" />
+      <Compile Include="AudioItem.cs" />
+      <Compile Include="AudioPlayer.cs" />
+      <Compile Include="AudioPlayerError.cs" />
+      <Compile Include="AudioPlayerErrorTypeEnum.cs" />
+      <Compile Include="AudioStream.cs" />
+      <Compile Include="Authentication\SpeechletRequestSignatureVerifier.cs" />
+      <Compile Include="Authentication\SpeechletRequestTimestampVerifier.cs" />
+      <Compile Include="Authentication\SpeechletRequestValidationResult.cs" />
+      <Compile Include="ConfirmationStatusEnum.cs" />
+      <Compile Include="Context.cs" />
+      <Compile Include="Device.cs" />
+      <Compile Include="DialogStateEnum.cs" />
+      <Compile Include="Directives\AudioPlayerClearQueueDirective.cs" />
+      <Compile Include="Directives\AudioPlayerPlayDirective.cs" />
+      <Compile Include="Directives\AudioPlayerStopDirective.cs" />
+      <Compile Include="Directives\DialogConfirmSlotDirective.cs" />
+      <Compile Include="Directives\DialogDelegateDirective.cs" />
+      <Compile Include="Directives\DialogDirective.cs" />
+      <Compile Include="Directives\DialogElicitSlotDirective.cs" />
+      <Compile Include="Directives\Directive.cs" />
+      <Compile Include="Directives\PlayBehaviorEnum.cs" />
+      <Compile Include="Directives\VideoAppLaunchDirective.cs" />
+      <Compile Include="Helper\AsyncHelpers.cs" />
+      <Compile Include="Helper\HttpHelpers.cs" />
+      <Compile Include="Image.cs" />
+      <Compile Include="Intent.cs" />
+      <Compile Include="ISpeechlet.cs" />
+      <Compile Include="ISpeechletAsync.cs" />
+      <Compile Include="Json\AlexaDateTimeConverter.cs" />
+      <Compile Include="Json\CamelCaseExceptDictionaryKeysResolver.cs" />
+      <Compile Include="Json\JsonAlexaRequestConverter.cs" />
+      <Compile Include="Json\JsonSubTypes\JsonSubTypes.cs" />
+      <Compile Include="Json\SpeechletRequestEnvelope.cs" />
+      <Compile Include="Json\SpeechletResponseEnvelope.cs" />
+      <Compile Include="Reprompt.cs" />
+      <Compile Include="Requests\AudioPlayerRequest.cs" />
+      <Compile Include="Requests\AudioPlayerRequest_PlaybackFailed.cs" />
+      <Compile Include="Requests\AudioPlayerRequest_PlaybackFinished.cs" />
+      <Compile Include="Requests\AudioPlayerRequest_PlaybackNearlyFinished.cs" />
+      <Compile Include="Requests\AudioPlayerRequest_PlaybackStarted.cs" />
+      <Compile Include="Requests\AudioPlayerRequest_PlaybackStopped.cs" />
+      <Compile Include="Requests\IntentRequest.cs" />
+      <Compile Include="Requests\LaunchRequest.cs" />
+      <Compile Include="Requests\PlaybackControllerRequest.cs" />
+      <Compile Include="Requests\SessionEndedRequest.cs" />
+      <Compile Include="Requests\SpeechletRequest.cs" />
+      <Compile Include="Resolution\ResolutionPerAuthority.cs" />
+      <Compile Include="Resolution\Resolutions.cs" />
+      <Compile Include="Resolution\ResolutionStatusCode.cs" />
+      <Compile Include="Resolution\ResolutionStatusCodeEnum.cs" />
+      <Compile Include="Resolution\ResolutionValue.cs" />
+      <Compile Include="Resolution\ResolutionValueEntry.cs" />
+      <Compile Include="Ressources\Resource.de.Designer.cs" />
+      <Compile Include="Ressources\Resource.Designer.cs" />
+      <Compile Include="Sdk.cs" />
+      <Compile Include="Session.cs" />
+      <Compile Include="Slot.cs" />
+      <Compile Include="SpeechletApp.cs" />
+      <Compile Include="SpeechletAsync.cs" />
+      <Compile Include="SpeechletException.cs" />
+      <Compile Include="SpeechletResponse.cs" />
+      <Compile Include="SpeechletSystem.cs" />
+      <Compile Include="SupportedInterfaces.cs" />
+      <Compile Include="UI\Cards\AskForPermissionsConsentCard.cs" />
+      <Compile Include="UI\Cards\Card.cs" />
+      <Compile Include="UI\Cards\LinkAccountCard.cs" />
+      <Compile Include="UI\Cards\SimpleCard.cs" />
+      <Compile Include="UI\Cards\StandardCard.cs" />
+      <Compile Include="UI\Speech\OutputSpeech.cs" />
+      <Compile Include="UI\Speech\PlainTextOutputSpeech.cs" />
+      <Compile Include="UI\Speech\SsmlBuilder.cs" />
+      <Compile Include="UI\Speech\SsmlOutputSpeech.cs" />
+      <Compile Include="UI\Speech\SSML_Amazon_Effect.cs" />
+      <Compile Include="UI\Speech\SSML_Audio.cs" />
+      <Compile Include="UI\Speech\SSML_Break.cs" />
+      <Compile Include="UI\Speech\SSML_SayAs.cs" />
+      <Compile Include="User.cs" />
+      <Compile Include="VideoItem.cs" />
+      <Compile Include="VideoItemMetadata.cs" />
     </ItemGroup>
 
     <ItemGroup>

@@ -34,6 +34,7 @@ namespace Ra.AlexaSkillsKit
         [JsonConverter(typeof(StringEnumConverter))]
         public DialogStateEnum DialogState { get; set; }
 
+        public override RequestTypeEnum Type =>  RequestTypeEnum.Intent;
     }
 
 

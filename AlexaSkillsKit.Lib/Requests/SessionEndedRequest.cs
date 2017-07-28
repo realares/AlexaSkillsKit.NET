@@ -14,30 +14,37 @@ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTH
 WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 
 namespace Ra.AlexaSkillsKit
 {
-    public class SessionEndedRequest : SpeechletRequest
+    public partial class SessionEndedRequest : SpeechletRequest
     {
-        public SessionEndedRequest(string requestId, DateTime timestamp, SessionEndedRequest.ReasonEnum reason) 
-            : base(requestId, timestamp) {
+        public SessionEndedRequest() { }
 
-            Reason = reason;
-        }
+        [JsonProperty("reason")]
+        public virtual SessionEndedReasonEnum Reason { get; set; }
 
-        public virtual SessionEndedRequest.ReasonEnum Reason {
-            get;
-            private set;
-        }
+        public override RequestTypeEnum Type => RequestTypeEnum.SessionEnded;
+    }
 
-        public enum ReasonEnum        
-        {
-            NONE = 0, // default in case parsing fails
-            ERROR,
-            USER_INITIATED,
-            EXCEEDED_MAX_REPROMPTS,
-        }
+    public enum SessionEndedReasonEnum
+    {
+        NOT_SET = 0, // default in case parsing fails
+
+        /// <summary>
+        /// An error occurred that caused the session to end.
+        /// </summary>
+        ERROR,
+        /// <summary>
+        /// The user explicitly ended the session.
+        /// </summary>
+        USER_INITIATED,
+        /// <summary>
+        /// The user either did not respond or responded with an utterance that did not match any of the intents defined in your voice interface.
+        /// </summary>
+        EXCEEDED_MAX_REPROMPTS,
     }
 }

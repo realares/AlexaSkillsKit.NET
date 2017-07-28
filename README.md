@@ -27,10 +27,16 @@ If your Alexa skill does any kind of I/O and assuming you're building on top of 
 public interface ISpeechlet
 {
         SpeechletResponse OnIntent(IntentRequest intentRequest, Session session, Context context);
-        SpeechletResponse OnAudioIntent(AudioPlayerRequest audioRequest, Context context);
+        SpeechletResponse OnAudioIntent(AudioPlayerRequest audioRequest, Session session, Context context);
         SpeechletResponse OnLaunch(LaunchRequest launchRequest, Session session, Context context);
-        void OnSessionStarted(SessionStartedRequest sessionStartedRequest, Session session);
-        void OnSessionEnded(SessionEndedRequest sessionEndedRequest, Session session);
+
+        void OnSessionStarted(SpeechletRequestEnvelope requestEnvelope);
+        void OnSessionEnded(SessionEndedRequest sessionEndedRequest, Session session, Context context);
+
+
+        void OnRequestIncome(string msg);
+        void OnResonseOutgoing(string msg);
+        void OnParsingError(Exception exception);
 }
 ```
 ### 3. Default Responses

@@ -115,17 +115,35 @@ namespace Ra.AlexaSkillsKit.WebSample.AlexaApps
             return Say("I'am Ready", false);
         }
 
-        public override SpeechletResponse OnAudioIntent(AudioPlayerRequest audioRequest, Context context)
+        public override SpeechletResponse OnAudioIntent(AudioPlayerRequest audioRequest, Session session, Context context)
         {
-            // This Sample has no Audio-Intent
+            // This Sample has no Audio-Intent#
+
+            switch (audioRequest.Type)
+            {
+                case RequestTypeEnum.PlaybackFailed:
+                    var request = audioRequest as AudioPlayerRequest_PlaybackFailed;
+                    log.Error(request.Error.Message);
+                    break;
+
+                case RequestTypeEnum.PlaybackFinished:
+                    break;
+                case RequestTypeEnum.PlaybackNearlyFinished:
+                    break;
+                case RequestTypeEnum.PlaybackStarted:
+                    break;
+                case RequestTypeEnum.PlaybackStopped:
+                    break;
+                case RequestTypeEnum.PlaybackController:
+                    break;
+                default:
+                    break;
+            }
+
             return null;
         }
 
-        public override void OnSessionEnded(SessionEndedRequest sessionEndedRequest, Session session)
-        {           
-        }
-
-        public override void OnSessionStarted(SessionStartedRequest sessionStartedRequest, Session session)
+        public override void OnSessionEnded(SessionEndedRequest sessionEndedRequest, Session session, Context context)
         {           
         }
 

@@ -19,7 +19,7 @@ namespace Ra.AlexaSkillsKit
     /// </summary>
     public class AudioPlayerRequest_PlaybackStopped : AudioPlayerRequest
     {
-
+        public override RequestTypeEnum Type => RequestTypeEnum.PlaybackStopped;
     }
 }
  

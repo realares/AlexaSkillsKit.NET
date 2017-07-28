@@ -20,7 +20,7 @@ namespace Ra.AlexaSkillsKit
     /// </summary>
     public class AudioPlayerRequest_PlaybackNearlyFinished : AudioPlayerRequest
     {
-
+        public override RequestTypeEnum Type => RequestTypeEnum.PlaybackNearlyFinished;
     }
 }
  

@@ -15,6 +15,7 @@ namespace Ra.AlexaSkillsKit
 {
     public class AudioPlayerRequest_PlaybackFinished : AudioPlayerRequest
     {
+        public override RequestTypeEnum Type => RequestTypeEnum.PlaybackFinished;
     }
 }
  

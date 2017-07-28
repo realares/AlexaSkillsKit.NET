@@ -23,5 +23,6 @@ namespace Ra.AlexaSkillsKit
         //public LaunchRequest(string requestId, DateTime timestamp) 
         //    : base(requestId, timestamp) {
         //}
+        public override RequestTypeEnum Type =>  RequestTypeEnum.Lunch;
     }
 }

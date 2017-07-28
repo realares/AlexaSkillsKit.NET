@@ -20,7 +20,7 @@ using System.Threading.Tasks;
 
 namespace Ra.AlexaSkillsKit
 {
-    public class AudioPlayerRequest : SpeechletRequest
+    public abstract class AudioPlayerRequest : SpeechletRequest
     {
         /// <summary>
         /// An opaque token that represents the audio stream. 
@@ -33,6 +33,22 @@ namespace Ra.AlexaSkillsKit
         [JsonProperty("")]
         public long OffsetInMilliseconds { get; set; }
 
+    }
+    
+    public enum RequestTypeEnum
+    {
+        Intent,
+        Lunch,
+
+        SessionEnded,
+
+        PlaybackFailed,
+        PlaybackFinished,
+        PlaybackNearlyFinished,
+        PlaybackStarted,
+        PlaybackStopped,
+
+        PlaybackController
     }
 }
  

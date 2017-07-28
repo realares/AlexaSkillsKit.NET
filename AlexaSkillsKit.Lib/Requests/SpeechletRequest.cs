@@ -26,23 +26,29 @@ namespace Ra.AlexaSkillsKit
     [JsonSubtypes.KnownSubType(typeof(IntentRequest), "IntentRequest")]
     [JsonSubtypes.KnownSubType(typeof(LaunchRequest), "LaunchRequest")]
     [JsonSubtypes.KnownSubType(typeof(SessionEndedRequest), "SessionEndedRequest")]
-    [JsonSubtypes.KnownSubType(typeof(SessionStartedRequest), "SessionStartedRequest")]
-
+    
     [JsonSubtypes.KnownSubType(typeof(AudioPlayerRequest_PlaybackStarted), "AudioPlayer.PlaybackStarted")]
     [JsonSubtypes.KnownSubType(typeof(AudioPlayerRequest_PlaybackFinished), "AudioPlayer.PlaybackFinished")]
     [JsonSubtypes.KnownSubType(typeof(AudioPlayerRequest_PlaybackStopped), "AudioPlayer.PlaybackStopped")]
     [JsonSubtypes.KnownSubType(typeof(AudioPlayerRequest_PlaybackNearlyFinished), "AudioPlayer.PlaybackNearlyFinished")]
     [JsonSubtypes.KnownSubType(typeof(AudioPlayerRequest_PlaybackFailed), "AudioPlayer.PlaybackFailed")]
 
+    [JsonSubtypes.KnownSubType(typeof(PlaybackControllerRequest), "AudioPlayer.PlaybackFailed")]
+
     public abstract class SpeechletRequest
     {
         public SpeechletRequest() { }
+
 
         public SpeechletRequest(string requestId, DateTime timestamp)
         {
             RequestId = requestId;
             Timestamp = timestamp;
         }
+
+        [JsonIgnore]
+        public abstract RequestTypeEnum Type { get; }
+
 
         [JsonProperty("requestId")]
         public string RequestId
