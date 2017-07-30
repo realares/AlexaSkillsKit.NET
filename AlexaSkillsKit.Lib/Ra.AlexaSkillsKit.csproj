@@ -52,6 +52,9 @@
       <Compile Include="Application.cs" />
       <Compile Include="AudioItem.cs" />
       <Compile Include="AudioPlayer.cs" />
+      <Compile Include="AudioPlayerExceptionTypeEnum.cs" />
+      <Compile Include="AudioPlayerException.cs" />
+      <Compile Include="AudioPlayerExceptionCause.cs" />
       <Compile Include="AudioPlayerError.cs" />
       <Compile Include="AudioPlayerErrorTypeEnum.cs" />
       <Compile Include="AudioStream.cs" />
@@ -96,6 +99,7 @@
       <Compile Include="Requests\PlaybackControllerRequest.cs" />
       <Compile Include="Requests\SessionEndedRequest.cs" />
       <Compile Include="Requests\SpeechletRequest.cs" />
+      <Compile Include="Requests\AudioPlayerRequest_System_ExceptionEncountered.cs" />
       <Compile Include="Resolution\ResolutionPerAuthority.cs" />
       <Compile Include="Resolution\Resolutions.cs" />
       <Compile Include="Resolution\ResolutionStatusCode.cs" />

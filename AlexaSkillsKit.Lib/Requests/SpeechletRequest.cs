@@ -32,7 +32,9 @@ namespace Ra.AlexaSkillsKit
     [JsonSubtypes.KnownSubType(typeof(AudioPlayerRequest_PlaybackStopped), "AudioPlayer.PlaybackStopped")]
     [JsonSubtypes.KnownSubType(typeof(AudioPlayerRequest_PlaybackNearlyFinished), "AudioPlayer.PlaybackNearlyFinished")]
     [JsonSubtypes.KnownSubType(typeof(AudioPlayerRequest_PlaybackFailed), "AudioPlayer.PlaybackFailed")]
-
+    
+    [JsonSubtypes.KnownSubType(typeof(AudioPlayerRequest_System_ExceptionEncountered), "System.ExceptionEncountered")]
+    
     //[JsonSubtypes.KnownSubType(typeof(PlaybackControllerRequest), "PlaybackControllerRequest")]
 
     public abstract class SpeechletRequest
