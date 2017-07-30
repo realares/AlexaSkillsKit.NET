@@ -10,9 +10,18 @@ namespace Ra.AlexaSkillsKit.Tests
     public class ParserTests
     {
         [TestMethod]
+        public void ParserPermissionTests()
+        {
+            var requestContent = File.ReadAllText(@"Json\PermissionRequest.json");
+            var requestEnvelope = SpeechletRequestEnvelope.FromJson(requestContent);
+
+
+        }
+
+        [TestMethod]
         public void Parse_AlexaRequest()
         {
-            var requestContent = File.ReadAllText(@"request.json");
+            var requestContent = File.ReadAllText(@"Json\request.json");
             var requestEnvelope = SpeechletRequestEnvelope.FromJson(requestContent);
 
             Assert.IsNotNull(requestEnvelope);

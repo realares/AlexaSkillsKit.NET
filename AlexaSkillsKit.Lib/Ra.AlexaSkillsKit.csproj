@@ -2,8 +2,8 @@
     <PropertyGroup>
         <TargetFrameworks>netstandard1.4;netstandard1.6;net45;net462</TargetFrameworks>
         <Version>2.1.1</Version>
-        <Authors>Frank Kuchta, Stefan Negritoiu (FreeBusy)</Authors>
-        <Company />
+        <Authors>Frank Kuchta</Authors>
+        <Company>Frank Kuchta</Company>
         <Title>Ra.AlexaSkillsKit</Title>
         <PackageLicenseUrl>http://opensource.org/licenses/MIT</PackageLicenseUrl>
         <PackageIconUrl>https://developer.amazon.com/public/binaries/content/gallery/developerportalpublic/solutions/alexa/dp_image_kit_02.png</PackageIconUrl>
@@ -61,6 +61,8 @@
       <Compile Include="Authentication\SpeechletRequestSignatureVerifier.cs" />
       <Compile Include="Authentication\SpeechletRequestTimestampVerifier.cs" />
       <Compile Include="Authentication\SpeechletRequestValidationResult.cs" />
+      <Compile Include="UI\Cards\PermissionTypeEnum.cs" />
+      <Compile Include="UI\Cards\CardTypeEnum.cs" />
       <Compile Include="ConfirmationStatusEnum.cs" />
       <Compile Include="Context.cs" />
       <Compile Include="Device.cs" />
@@ -87,6 +89,7 @@
       <Compile Include="Json\JsonSubTypes\JsonSubTypes.cs" />
       <Compile Include="Json\SpeechletRequestEnvelope.cs" />
       <Compile Include="Json\SpeechletResponseEnvelope.cs" />
+      <Compile Include="Permissions.cs" />
       <Compile Include="Reprompt.cs" />
       <Compile Include="Requests\AudioPlayerRequest.cs" />
       <Compile Include="Requests\AudioPlayerRequest_PlaybackFailed.cs" />
@@ -131,6 +134,7 @@
       <Compile Include="UI\Speech\SSML_Break.cs" />
       <Compile Include="UI\Speech\SSML_SayAs.cs" />
       <Compile Include="User.cs" />
+      <Compile Include="User_Address.cs" />
       <Compile Include="VideoItem.cs" />
       <Compile Include="VideoItemMetadata.cs" />
     </ItemGroup>

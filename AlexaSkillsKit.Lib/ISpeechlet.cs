@@ -32,7 +32,7 @@ namespace Ra.AlexaSkillsKit
 
 
         void OnRequestIncome(string msg);
-        void OnResonseOutgoing(string msg);
+        void OnResponseOutgoing(string msg);
         void OnParsingError(Exception exception);
     }
 }

@@ -1,0 +1,62 @@
+﻿{
+    "version": "1.0",
+    "session": {
+        "new": true,
+        "sessionId": "amzn1.echo-api.session.00000000-0000-0000-0000-000000000000",
+        "application": { "applicationId": "amzn1.ask.skill.00000000-0000-0000-0000-000000000000" },
+        "user": {
+            "userId": "amzn1.ask.account.AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "permissions": { "consentToken": "Atza|AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA-cnFMRb9JQ_9GC_piTt4KSALwfJF_1Z-rIA9CF571Cj6h011q0BflflFD6ulOaJrKx1mRorV2qTseM184GS_5e_rWsZgbOs5Muso1NBhJu83mV1Lt9D7Y9SITeF5nR0bcakoyXGLP_LyD8QggXxb2_VCg5tNm5m7gZPXYiH_IEuMX3Z3LQMj5TSBHmwWW2C5rRXEBYsGiP4qbtEChA9mY0NBtq8O3ROBbizE7E4PoWYh5FsScR4tM6LhMqDxWOI6E7XqxaRPQtTGlfpT0PaAeued7uZumJUWMBv7Kz9kuzw8WPuPH4yLDrMvo1UGys" }
+        }
+    },
+    "context": {
+        "AudioPlayer": { "playerActivity": "IDLE" },
+        "System": {
+            "application": { "applicationId": "amzn1.ask.skill.00000000-0000-0000-0000-000000000000" },
+            "user": {
+                "userId": "amzn1.ask.account.AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "permissions": { "consentToken": "Atza|AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA-cnFMRb9JQ_9GC_piTt4KSALwfJF_1Z-rIA9CF571Cj6h011q0BflflFD6ulOaJrKx1mRorV2qTseM184GS_5e_rWsZgbOs5Muso1NBhJu83mV1Lt9D7Y9SITeF5nR0bcakoyXGLP_LyD8QggXxb2_VCg5tNm5m7gZPXYiH_IEuMX3Z3LQMj5TSBHmwWW2C5rRXEBYsGiP4qbtEChA9mY0NBtq8O3ROBbizE7E4PoWYh5FsScR4tM6LhMqDxWOI6E7XqxaRPQtTGlfpT0PaAeued7uZumJUWMBv7Kz9kuzw8WPuPH4yLDrMvo1UGys" }
+            },
+            "device": {
+                "deviceId": "amzn1.ask.device.AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "supportedInterfaces": { "AudioPlayer": {} }
+            },
+            "apiEndpoint": "https://api.eu.amazonalexa.com"
+        }
+    },
+    "request": {
+        "type": "IntentRequest",
+        "requestId": "amzn1.echo-api.request.00000000-0000-0000-0000-000000000000",
+        "timestamp": "2017-01-02T03:04:05Z",
+        "locale": "de-DE",
+        "intent": {
+            "name": "test",
+            "confirmationStatus": "CONFIRMED",
+            "slots": {
+                "Testslot": {
+                    "name": "Testslot",
+                    "value": "Testvalue",
+                    "resolutions": {
+                        "resolutionsPerAuthority": [
+                            {
+                                "authority": "amzn1.er-authority.echo-sdk.amzn1.ask.skill.00000000-0000-0000-0000-000000000000.Testslot",
+                                "status": { "code": "ER_SUCCESS_MATCH" },
+                                "values": [
+                                    {
+                                        "value": {
+                                            "name": "Testvalue",
+                                            "id": "1"
+                                        }
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    "confirmationStatus": "CONFIRMED"
+                }
+            }
+        },
+        "dialogState": "IN_PROGRESS"
+    }
+
+}

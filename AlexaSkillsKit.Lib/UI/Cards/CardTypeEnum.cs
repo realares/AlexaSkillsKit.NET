@@ -1,5 +1,5 @@
 ﻿/* 
-Copyright (c) 2017 Frank Kuchta
+Copyright 2017 Frank Kuchta
 
 The MIT License (MIT)
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), 
@@ -14,35 +14,13 @@ WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN 
 */
 
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace Ra.AlexaSkillsKit.UI.Cards
 {
-    public class AskForPermissionsConsentCard : Card
+    public enum CardTypeEnum
     {
-        public AskForPermissionsConsentCard() { }
-
-        public AskForPermissionsConsentCard(PermissionTypeEnum[] permissions)
-        {
-            Permissions.AddRange(permissions);
-        }
-
-        public override CardTypeEnum Type => CardTypeEnum.AskForPermissionsConsent;
-
-        public List<PermissionTypeEnum> Permissions { get; private set; } = new List<PermissionTypeEnum>();
-
-        public void Add(PermissionTypeEnum permissionType)
-        {
-            if (!Permissions.Contains(permissionType))
-                Permissions.Add(permissionType);
-        }
-        public void Remove(PermissionTypeEnum permissionType)
-        {
-                Permissions.Remove(permissionType);
-        }
+        AskForPermissionsConsent,
+        LinkAccount,
+        Simple,
+        Standard
     }
 }

@@ -21,9 +21,6 @@ namespace Ra.AlexaSkillsKit.UI.Cards
 {
     public class LinkAccountCard : Card
     {
-        public override string Type
-        {
-            get { return "LinkAccount"; }
-        }
+        public override CardTypeEnum Type => CardTypeEnum.LinkAccount;
     }
 }

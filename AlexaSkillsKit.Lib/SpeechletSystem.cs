@@ -32,5 +32,9 @@ namespace Ra.AlexaSkillsKit
 
         [JsonProperty("device")]
         public virtual Device Device { get; set; }
+
+        [JsonProperty("apiEndpoint")]
+        public string ApiEndpoint { get; set; }
+
     }
 }

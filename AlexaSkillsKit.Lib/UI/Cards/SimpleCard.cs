@@ -1,6 +1,5 @@
 ﻿/* 
-Original work Copyright (c) 2015 Stefan Negritoiu (FreeBusy) 
-Modified work Copyright 2017 Frank Kuchta
+Copyright 2017 Frank Kuchta
 
 The MIT License (MIT)
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), 
@@ -14,6 +13,7 @@ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTH
 WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 
@@ -21,15 +21,9 @@ namespace Ra.AlexaSkillsKit.UI.Cards
 {
     public class SimpleCard : Card
     {
-        public override string Type
-        {
-            get { return "Simple"; }
-        }
+        public override CardTypeEnum Type => CardTypeEnum.Simple;
 
-        public virtual string Content
-        {
-            get;
-            set;
-        }
+        [JsonProperty("content", NullValueHandling = NullValueHandling.Include)]
+        public virtual string Content { get; set; }
     }
 }

@@ -16,6 +16,8 @@ WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN 
 using System;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
+using Ra.AlexaSkillsKit.UI.Cards;
+using Ra.AlexaSkillsKit.Helper;
 
 namespace Ra.AlexaSkillsKit
 {
@@ -26,6 +28,9 @@ namespace Ra.AlexaSkillsKit
 
         [JsonProperty("accessToken")]
         public virtual string AccessToken { get; set; }
+
+        [JsonProperty("permissions")]
+        public virtual Permissions Permissions { get; set; }
 
     }
 }

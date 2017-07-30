@@ -28,7 +28,7 @@ namespace Ra.AlexaSkillsKit
     {
         
         
-        public SpeechletRequestEnvelope RequestEnvelope { get; private set; } = null;
+        public SpeechletRequestEnvelope RequestEnvelope { get; set; } = null;
 
         /// <summary>
         /// Processes Alexa request AND validates request signature
@@ -115,7 +115,7 @@ namespace Ra.AlexaSkillsKit
                 {
                     Content = new StringContent(alexaResponsejson, Encoding.UTF8, "application/json")
                 };
-                OnResonseOutgoing(alexaResponsejson);
+                OnResponseOutgoing(alexaResponsejson);
                 return httpResponse;
 
             }
@@ -237,7 +237,7 @@ namespace Ra.AlexaSkillsKit
 
         public virtual void OnRequestIncome(string msg) { }
 
-        public virtual void OnResonseOutgoing(string msg) { }
+        public virtual void OnResponseOutgoing(string msg) { }
     
         public virtual void OnParsingError(Exception exception) { }
         public virtual void OnSessionStarted(SpeechletRequestEnvelope requestEnvelope) { }
@@ -381,7 +381,7 @@ namespace Ra.AlexaSkillsKit
         /// </summary>
         /// <param name="sourceUrl">Dentifies the location of video content at a remote HTTPS location.</param>
         /// <param name="metadata">[OPTIONAL] Information that can be displayed on VideoApp</param>
-        /// <returns></returns>
+        /// <returns>The SpeechletResponse</returns>
         public SpeechletResponse VideoApp_Launch(string sourceUrl, VideoItemMetadata metadata = null)
         {
             var response = new SpeechletResponse()
@@ -404,7 +404,20 @@ namespace Ra.AlexaSkillsKit
             return response;
         }
 
-
+        /// <summary>
+        /// Ask for Permissions
+        /// </summary>
+        /// <param name="permissionType"></param>
+        /// <returns>The SpeechletResponse</returns>
+        public SpeechletResponse AskForPermissionsConsentCard(params PermissionTypeEnum[] permissionType)
+        {
+            return new SpeechletResponse()
+            {
+                Card = new AskForPermissionsConsentCard(permissionType),
+                //do not send
+                ShouldEndSession = null
+            };
+        }
 
         public SpeechletResponse DialogDelegate()
         {
@@ -566,6 +579,126 @@ namespace Ra.AlexaSkillsKit
 
         #endregion
 
+        #region Address Request
+
+        public bool CanRequestAdress
+        {
+            get
+            {
+                return (!string.IsNullOrEmpty(RequestEnvelope?.Context?.System?.Device?.DeviceId)
+                 && !string.IsNullOrEmpty(RequestEnvelope.Context.System.User.Permissions.ConsentToken));
+            }
+        }
+
+        public enum GetAdressResultEnum
+        {
+            OK,
+            Error_NoDeviceId,
+            Error_NoConsentToken,
+            Error_RequestNotSupported,
+            Error_Unkown,
+            /// <summary>
+            /// The query did not return any results
+            /// </summary>
+            Error_NoContent,
+            /// <summary>
+            /// The authentication token is invalid or doesn’t have access to the resource.
+            /// </summary>
+            Error_Forbidden,
+            /// <summary>
+            /// The method is not supported.
+            /// </summary>
+            Error_Method_Not_Allowed,
+            /// <summary>
+            /// The skill has been throttled due to an excessive number of requests.
+            /// </summary>
+            Error_Too_Many_Requests,
+            /// <summary>
+            /// An unexpected error occurred.
+            /// </summary>
+            Error_InternalServerError,
+
+        }
+
+        public class AddressRequestResult
+        {
+            public AddressRequestResult(GetAdressResultEnum resultCode, User_Address address = null)
+            {
+                this.ResultCode = resultCode;
+                this.Address = address;
+            }
+
+            public GetAdressResultEnum ResultCode { get; private set; }
+
+            public User_Address Address { get; private set; }
+        }
+
+        public AddressRequestResult GetAddress(PermissionTypeEnum permissionType)
+        {
+            return GetAddressAsync(permissionType, geographicLocation).Result;
+        }
+
+        public async Task<AddressRequestResult> GetAddressAsync(PermissionTypeEnum permissionType)
+        {
+            if (string.IsNullOrEmpty(RequestEnvelope?.Context?.System?.Device?.DeviceId))
+                return new AddressRequestResult(GetAdressResultEnum.Error_NoDeviceId);
+
+            if (string.IsNullOrEmpty(RequestEnvelope.Context.System.User.Permissions.ConsentToken))
+                return new AddressRequestResult(GetAdressResultEnum.Error_NoConsentToken);
+
+
+            string _Url;
+
+            switch (permissionType)
+            {
+                case PermissionTypeEnum.FullAddress:
+                    _Url = $"/v1/devices/{RequestEnvelope.Context.System.Device.DeviceId}/settings/address";
+                    break;
+                case PermissionTypeEnum.CountryAndPostalCode:
+                    _Url = $"/v1/devices/{RequestEnvelope.Context.System.Device.DeviceId}/settings/address/countryAndPostalCode";
+                    break;
+                default:
+                    return new AddressRequestResult(GetAdressResultEnum.Error_RequestNotSupported);
+            }
+
+            var f = new System.Net.Http.HttpClient();
+            f.DefaultRequestHeaders.TryAddWithoutValidation("Authorization", "Bearer " + RequestEnvelope.Context.System.User.Permissions.ConsentToken);
+
+            try
+            {
+                var response = await f.GetAsync(RequestEnvelope.Context.System.ApiEndpoint + _Url).ConfigureAwait(false);
+               
+                switch (response.StatusCode)
+                {
+                    case HttpStatusCode.NoContent: 
+                        return new AddressRequestResult(GetAdressResultEnum.Error_NoContent);
+                    case HttpStatusCode.MethodNotAllowed:
+                        return new AddressRequestResult(GetAdressResultEnum.Error_Unkown);
+                    case HttpStatusCode.Forbidden: 
+                        return new AddressRequestResult(GetAdressResultEnum.Error_Forbidden);
+                    case (HttpStatusCode)429: // Too Many Requests
+                        return new AddressRequestResult(GetAdressResultEnum.Error_Too_Many_Requests);
+                    case HttpStatusCode.InternalServerError:
+                        return new AddressRequestResult(GetAdressResultEnum.Error_Unkown);
+                    case HttpStatusCode.OK:
+                        break;
+                    default:
+                        return new AddressRequestResult(GetAdressResultEnum.Error_Unkown);
+                }
+
+                var address =  Newtonsoft.Json.JsonConvert.DeserializeObject<User_Address>(
+                    await response.Content.ReadAsStringAsync().ConfigureAwait(false), 
+                    Sdk.DeserializationSettings);
+
+                return new AddressRequestResult(GetAdressResultEnum.OK, address);
+            }
+            catch (Exception)
+            {
+                return new AddressRequestResult(GetAdressResultEnum.Error_Unkown);
+            }
+        }
+
+        #endregion
     }
 }
     

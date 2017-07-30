@@ -14,6 +14,7 @@ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTH
 WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 
@@ -21,21 +22,12 @@ namespace Ra.AlexaSkillsKit.UI.Cards
 {
     public class StandardCard : Card
     {
-        public override string Type
-        {
-            get { return "Standard"; }
-        }
+        public override CardTypeEnum Type => CardTypeEnum.Standard;
 
-        public virtual string Text
-        {
-            get;
-            set;
-        }
+        [JsonProperty("text")]
+        public virtual string Text { get; set; }
 
-        public virtual Image Image
-        {
-            get;
-            set;
-        }
+        [JsonProperty("image")]
+        public virtual Image Image { get; set; }
     }
 }

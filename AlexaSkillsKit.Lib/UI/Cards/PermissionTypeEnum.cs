@@ -14,35 +14,25 @@ WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN 
 */
 
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
+using System.Runtime.Serialization;
 
 namespace Ra.AlexaSkillsKit.UI.Cards
 {
-    public class AskForPermissionsConsentCard : Card
+    public enum PermissionTypeEnum
     {
-        public AskForPermissionsConsentCard() { }
+        [EnumMember(Value = "read::alexa:device:all:address")]
+        FullAddress,
 
-        public AskForPermissionsConsentCard(PermissionTypeEnum[] permissions)
-        {
-            Permissions.AddRange(permissions);
-        }
+        [EnumMember(Value = "read::alexa:device:all:address:country_and_postal_code")]
+        CountryAndPostalCode,
 
-        public override CardTypeEnum Type => CardTypeEnum.AskForPermissionsConsent;
+        [EnumMember(Value = "write::alexa:household:list")]
+        WriteHouseholdList,
 
-        public List<PermissionTypeEnum> Permissions { get; private set; } = new List<PermissionTypeEnum>();
+        [EnumMember(Value = "read::alexa:household:list")]
+        ReadHouseholdList,
 
-        public void Add(PermissionTypeEnum permissionType)
-        {
-            if (!Permissions.Contains(permissionType))
-                Permissions.Add(permissionType);
-        }
-        public void Remove(PermissionTypeEnum permissionType)
-        {
-                Permissions.Remove(permissionType);
-        }
+
     }
 }
