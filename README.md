@@ -34,7 +34,7 @@ public interface ISpeechlet
         void OnSessionEnded(SessionEndedRequest sessionEndedRequest, Session session, Context context);
 
 
-        void OnRequestIncome(string msg);
+        void OnRequestIncome(RequestHeader header);
         void OnResponseOutgoing(string msg);
         void OnParsingError(Exception exception);
 }
