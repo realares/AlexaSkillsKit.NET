@@ -36,7 +36,8 @@ namespace Ra.AlexaSkillsKit
             return 
 $@"CertChainUrl: {CertChainUrl}
 Signature: {Signature}
-RequestRawData: {Convert.ToBase64String(RequestRawData)}";
+RequestRawData: {Convert.ToBase64String(RequestRawData)}
+RequestString: {RequestAsString}";
         }
     }
 }

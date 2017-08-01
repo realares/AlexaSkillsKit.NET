@@ -67,7 +67,7 @@ namespace Ra.AlexaSkillsKit.Authentication
                 });
 
             if (cacheItem.ValidUntil < DateTime.UtcNow)
-                cacheItem = null;
+                cacheItem.CertBytes = null;
 
             if (cacheItem.CertBytes == null)
             {
@@ -76,17 +76,16 @@ namespace Ra.AlexaSkillsKit.Authentication
                     if (certdata == null)
                         return false;
 
-                    if (!CreateCertificate(certdata))
-                        return false;
-
-                    if (!VerifyCertificate())
-                        return false;
-
-                    // Store in Cache
                     cacheItem.CertBytes = certdata;
                     cacheItem.ValidUntil = DateTime.UtcNow.AddHours(24);
                 }
             }
+
+            if (!CreateCertificate(cacheItem.CertBytes))
+                return false;
+
+            if (!VerifyCertificate())
+                return false;
 
             return true;
         }

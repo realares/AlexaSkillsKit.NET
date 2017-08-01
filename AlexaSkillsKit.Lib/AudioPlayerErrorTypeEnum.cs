@@ -15,6 +15,7 @@ namespace Ra.AlexaSkillsKit
         /// <summary>
         /// An unknown error occurred.
         /// </summary>
+        [EnumMember(Value = "MEDIA_ERROR_UNKNOWN")]
         MEDIA_ERROR_UNKNOWN,
 
         /// <summary>

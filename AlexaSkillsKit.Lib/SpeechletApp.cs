@@ -77,7 +77,10 @@ namespace Ra.AlexaSkillsKit
             {
                 string alexaResponsejson = DoProcessRequest(RequestEnvelope);
                 if (alexaResponsejson == null)
+                {
+                    OnResponseOutgoing("->alexaResponsejson == null");
                     return null;
+                }                    
 
                 OnResponseOutgoing(alexaResponsejson);
                 
@@ -91,8 +94,9 @@ namespace Ra.AlexaSkillsKit
             {
                 return null;
             }
-            catch (Exception)
+            catch (Exception e2)
             {
+                OnParsingError(e2);
                 return new HttpResponseMessage(HttpStatusCode.InternalServerError);
             }
 
@@ -159,7 +163,7 @@ namespace Ra.AlexaSkillsKit
             {
                 Version = requestEnvelope.Version,
                 Response = response,
-                SessionAttributes = requestEnvelope.Session.Attributes ?? new Dictionary<string, string>()
+                SessionAttributes = requestEnvelope.Session?.Attributes ?? new Dictionary<string, string>()
             };
             return responseEnvelope.ToJson();
         }
@@ -377,10 +381,11 @@ namespace Ra.AlexaSkillsKit
         /// </summary>
         /// <param name="permissionType"></param>
         /// <returns>The SpeechletResponse</returns>
-        public SpeechletResponse AskForPermissionsConsentCard(params PermissionTypeEnum[] permissionType)
+        public SpeechletResponse AskForPermissionsConsentCard(OutputSpeech outputSpeech, params PermissionTypeEnum[] permissionType)
         {
             return new SpeechletResponse()
             {
+                OutputSpeech = outputSpeech,
                 Card = new AskForPermissionsConsentCard(permissionType),
                 //do not send
                 ShouldEndSession = null
@@ -601,6 +606,11 @@ namespace Ra.AlexaSkillsKit
             public User_Address Address { get; private set; }
         }
 
+        /// <summary>
+        /// Get if the permission is set, the address of the device.
+        /// </summary>
+        /// <param name="permissionType"></param>
+        /// <returns></returns>
         public AddressRequestResult GetAddress(PermissionTypeEnum permissionType)
         {
             return GetAddressAsync(permissionType).Result;
