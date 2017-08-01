@@ -155,16 +155,16 @@ namespace Ra.AlexaSkillsKit.WebSample.AlexaApps
             base.OnParsingError(exception);
         }
 
-        public override void OnRequestIncome(string msg)
+        public override void OnRequestIncome(RequestHeader header)
         {
-            log.Debug(msg);
-            base.OnRequestIncome(msg);
+            log.Debug(header);
+            base.OnRequestIncome(header);
         }
 
-        public override void OnResonseOutgoing(string msg)
+        public override void OnResponseOutgoing(string msg)
         {
             log.Debug(msg);
-            base.OnResonseOutgoing(msg);
+            base.OnResponseOutgoing(msg);
         }
         #endregion
 

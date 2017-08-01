@@ -1,17 +1,15 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
     <PropertyGroup>
         <TargetFrameworks>netstandard1.4;netstandard1.6;net45;net462</TargetFrameworks>
-        <Version>2.1.1</Version>
+        <Version>2.2.0</Version>
         <Authors>Frank Kuchta</Authors>
         <Company>Frank Kuchta</Company>
         <Title>Ra.AlexaSkillsKit</Title>
         <PackageLicenseUrl>http://opensource.org/licenses/MIT</PackageLicenseUrl>
         <PackageIconUrl>https://developer.amazon.com/public/binaries/content/gallery/developerportalpublic/solutions/alexa/dp_image_kit_02.png</PackageIconUrl>
-        <PackageReleaseNotes>- Fix Audioplayerrequests
-- Add VideoPlayer.Lunch
-
-- Support for Slot.Resolution 
-- SSML Builder</PackageReleaseNotes>
+        <PackageReleaseNotes>- simplify AskForPermissionsConsentCard
+- Add simple way to get Address
+- Add System.ExceptionEncountered</PackageReleaseNotes>
         <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
         <Copyright>Copyright 2017 Frank Kuchta, Copyright 2016 Stefan Negritoiu (FreeBusy)</Copyright>
         <PackageProjectUrl>https://github.com/realares/Ra.AlexaSkillsKit.NET</PackageProjectUrl>
@@ -19,13 +17,12 @@
         <RepositoryType>GIT</RepositoryType>
         <PackageTags>amazon echo alexa speechlet</PackageTags>
         <Description>.NET library that simplifies Alexa skills development; same object model as Amazon's AlexaSkillsKit for Java</Description>
-        <AssemblyVersion>2.1.1.0</AssemblyVersion>
-        <FileVersion>2.1.1.0</FileVersion>
+        <AssemblyVersion>2.2.0.0</AssemblyVersion>
+        <FileVersion>2.2.0.0</FileVersion>
     </PropertyGroup>
     
     <ItemGroup>
       <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
-      <PackageReference Include="Portable.BouncyCastle" Version="1.8.1.2" />
       <PackageReference Include="System.Net.Http" Version="4.3.2" />
     </ItemGroup>
 
@@ -37,10 +34,12 @@
         <Reference Include="Microsoft.CSharp" />
     </ItemGroup>
 
-    <ItemGroup Condition="'$(TargetFramework)' == 'net45'">
+    <ItemGroup Condition="'$(TargetFramework)' == 'netstandard1.4'">
+        <PackageReference Include="Portable.BouncyCastle" Version="1.8.1.2" />
     </ItemGroup>
 
-    <ItemGroup Condition="'$(TargetFramework)' == 'net462'">
+    <ItemGroup Condition="'$(TargetFramework)' == 'netstandard1.6'">
+        <PackageReference Include="Portable.BouncyCastle" Version="1.8.1.2" />
     </ItemGroup>
 
     <ItemGroup>
@@ -58,9 +57,13 @@
       <Compile Include="AudioPlayerError.cs" />
       <Compile Include="AudioPlayerErrorTypeEnum.cs" />
       <Compile Include="AudioStream.cs" />
-      <Compile Include="Authentication\SpeechletRequestSignatureVerifier.cs" />
+      <Compile Include="Authentication\BouncyCastleCertValidator.cs" />
+      <Compile Include="Authentication\CertValidator.cs" />
+      <Compile Include="Authentication\DotNetCertValidator.cs" />
+      <Compile Include="Authentication\LocalCertCache.cs" />
       <Compile Include="Authentication\SpeechletRequestTimestampVerifier.cs" />
       <Compile Include="Authentication\SpeechletRequestValidationResult.cs" />
+      <Compile Include="RequestHeader.cs" />
       <Compile Include="UI\Cards\PermissionTypeEnum.cs" />
       <Compile Include="UI\Cards\CardTypeEnum.cs" />
       <Compile Include="ConfirmationStatusEnum.cs" />
@@ -168,7 +171,11 @@
     </ItemGroup>
 
     <PropertyGroup Condition="'$(TargetFramework)' == 'netstandard1.4' OR '$(TargetFramework)' == 'netstandard1.6'">
-        <DefineConstants>PORTABLE</DefineConstants>
+        <DefineConstants>PORTABLE;HasBouncyCastle</DefineConstants>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(TargetFramework)' == 'net462' OR '$(TargetFramework)' == 'net45'">
+        <DefineConstants>NET;HasSystemSecurityCryptography</DefineConstants>
     </PropertyGroup>
 
 </Project>

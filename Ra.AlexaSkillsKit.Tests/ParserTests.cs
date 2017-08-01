@@ -9,6 +9,7 @@ namespace Ra.AlexaSkillsKit.Tests
     [TestClass]
     public class ParserTests
     {
+
         [TestMethod]
         public void ParserPermissionTests()
         {

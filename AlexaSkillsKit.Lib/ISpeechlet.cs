@@ -21,7 +21,7 @@ namespace Ra.AlexaSkillsKit
 {
     public interface ISpeechlet
     {
-        bool OnRequestValidation(SpeechletRequestValidationResult result, DateTime referenceTimeUtc, SpeechletRequestEnvelope requestEnvelope);
+        bool OnRequestValidation(RequestHeader header, SpeechletRequestValidationResult result);
         
         SpeechletResponse OnIntent(IntentRequest intentRequest, Session session, Context context);
         SpeechletResponse OnAudioIntent(AudioPlayerRequest audioRequest, Session session, Context context);
@@ -31,7 +31,7 @@ namespace Ra.AlexaSkillsKit
         void OnSessionEnded(SessionEndedRequest sessionEndedRequest, Session session, Context context);
 
 
-        void OnRequestIncome(string msg);
+        void OnRequestIncome(RequestHeader header);
         void OnResponseOutgoing(string msg);
         void OnParsingError(Exception exception);
     }

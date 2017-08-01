@@ -33,6 +33,8 @@ namespace Ra.AlexaSkillsKit.Json
 
         public virtual Context Context { get; set; }
 
+        public RequestHeader Header { get; set; }
+
         /// <summary>
         /// 
         /// </summary>
@@ -46,8 +48,6 @@ namespace Ra.AlexaSkillsKit.Json
             }
 
             return JsonConvert.DeserializeObject<SpeechletRequestEnvelope>(content, Sdk.DeserializationSettings);
-            //JObject json = JsonConvert.DeserializeObject<JObject>(content, Sdk.DeserializationSettings);
-            //return FromJson(json);
         }
 
     

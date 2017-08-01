@@ -37,63 +37,20 @@ namespace Ra.AlexaSkillsKit
         /// <returns></returns>
         public virtual HttpResponseMessage GetResponse(HttpRequestMessage httpRequest)
         {
-            SpeechletRequestValidationResult validationResult = SpeechletRequestValidationResult.OK;
             DateTime now = DateTime.UtcNow; // reference time for this request
 
-            string chainUrl = null;
+            RequestHeader requestHeader = new RequestHeader();
+            requestHeader.Read(httpRequest);
+            OnRequestIncome(requestHeader);
 
-            if (!httpRequest.Headers.Contains(Sdk.SIGNATURE_CERT_URL_REQUEST_HEADER) ||
-                String.IsNullOrEmpty(chainUrl = httpRequest.Headers.GetValues(Sdk.SIGNATURE_CERT_URL_REQUEST_HEADER).First()))
-            {
+#if HasBouncyCastle
+            var cerValidator = new BouncyCastleCertValidator();
+#else
+            var cerValidator = new DotNetCertValidator();
+#endif
+            var validationResult = cerValidator.Verify(requestHeader);
 
-                validationResult = validationResult | SpeechletRequestValidationResult.NoCertHeader;
-            }
-
-            string signature = null;
-            if (!httpRequest.Headers.Contains(Sdk.SIGNATURE_REQUEST_HEADER) ||
-                String.IsNullOrEmpty(signature = httpRequest.Headers.GetValues(Sdk.SIGNATURE_REQUEST_HEADER).First()))
-            {
-                validationResult = validationResult | SpeechletRequestValidationResult.NoSignatureHeader;
-            }
-
-
-            //var alexaBytes = AsyncHelpers.RunSync<byte[]>(() => httpRequest.Content.ReadAsByteArrayAsync());
-            var alexaBytes = httpRequest.Content.ReadAsByteArrayAsync().GetAwaiter().GetResult();
-
-            // attempt to verify signature only if we were able to locate certificate and signature headers
-            if (validationResult == SpeechletRequestValidationResult.OK) {
-                if (!SpeechletRequestSignatureVerifier.VerifyRequestSignature(alexaBytes, signature, chainUrl)) 
-                {
-                    validationResult = validationResult | SpeechletRequestValidationResult.InvalidSignature;
-                }
-            }
-            
-            try
-            {
-                var alexaContent = UTF8Encoding.UTF8.GetString(alexaBytes);
-                OnRequestIncome(alexaContent);
-                RequestEnvelope = SpeechletRequestEnvelope.FromJson(alexaContent);
-            }
-            catch (Newtonsoft.Json.JsonReaderException e1)
-            {
-                OnParsingError(e1);
-                validationResult = validationResult | SpeechletRequestValidationResult.InvalidJson;
-            }
-            catch (InvalidCastException e2)
-            {
-                OnParsingError(e2);
-                validationResult = validationResult | SpeechletRequestValidationResult.InvalidJson;
-            }
-
-            // attempt to verify timestamp only if we were able to parse request body
-            if (RequestEnvelope != null) 
-            {
-                if (!SpeechletRequestTimestampVerifier.VerifyRequestTimestamp(RequestEnvelope, now)) {
-                    validationResult = validationResult | SpeechletRequestValidationResult.InvalidTimestamp;
-                }
-            }
-
-            if (RequestEnvelope == null || !OnRequestValidation(validationResult, now, RequestEnvelope))
+            if (!OnRequestValidation(requestHeader, validationResult))
             {
                 return new HttpResponseMessage(HttpStatusCode.BadRequest)
                 {
@@ -103,20 +60,31 @@ namespace Ra.AlexaSkillsKit
 
             try
             {
+                RequestEnvelope = SpeechletRequestEnvelope.FromJson(requestHeader.RequestAsString);
+
+                if (!SpeechletRequestTimestampVerifier.VerifyRequestTimestamp(RequestEnvelope, now))
+                    validationResult = validationResult | SpeechletRequestValidationResult.InvalidTimestamp;
+
+            }
+            catch (Exception e1)
+            {
+                OnParsingError(e1);
+                validationResult = SpeechletRequestValidationResult.InvalidJson;
+            }
+
+
+            try
+            {
                 string alexaResponsejson = DoProcessRequest(RequestEnvelope);
-
-                HttpResponseMessage httpResponse;
                 if (alexaResponsejson == null)
-                {
                     return null;
-                }
 
-                httpResponse = new HttpResponseMessage(HttpStatusCode.OK)
+                OnResponseOutgoing(alexaResponsejson);
+                
+                return  new HttpResponseMessage(HttpStatusCode.OK)
                 {
                     Content = new StringContent(alexaResponsejson, Encoding.UTF8, "application/json")
-                };
-                OnResponseOutgoing(alexaResponsejson);
-                return httpResponse;
+                }; ;
 
             }
             catch (NotImplementedException)
@@ -230,18 +198,18 @@ namespace Ra.AlexaSkillsKit
         /// Opportunity to set policy for handling requests with invalid signatures and/or timestamps
         /// </summary>
         /// <returns>true if request processing should continue, otherwise false</returns>
-        public virtual bool OnRequestValidation(SpeechletRequestValidationResult result, DateTime referenceTimeUtc, SpeechletRequestEnvelope requestEnvelope) {
+        public virtual bool OnRequestValidation(RequestHeader header, SpeechletRequestValidationResult result)
+        {
 
             return result == SpeechletRequestValidationResult.OK;
         }
 
-        public virtual void OnRequestIncome(string msg) { }
+        public virtual void OnRequestIncome(RequestHeader header) { }
 
         public virtual void OnResponseOutgoing(string msg) { }
     
         public virtual void OnParsingError(Exception exception) { }
         public virtual void OnSessionStarted(SpeechletRequestEnvelope requestEnvelope) { }
-
 
         public abstract SpeechletResponse OnIntent(IntentRequest intentRequest, Session session, Context context);
         public abstract SpeechletResponse OnLaunch(LaunchRequest launchRequest, Session session, Context context);
@@ -250,7 +218,7 @@ namespace Ra.AlexaSkillsKit
         public abstract void OnSessionEnded(SessionEndedRequest sessionEndedRequest, Session session, Context context);
 
 
-        #region Responses
+#region Responses
 
         /// <summary>
         /// Create a SpeechletResponse to send Alexa a command to stream the audio file identified by the specified audioItem. 
@@ -577,9 +545,9 @@ namespace Ra.AlexaSkillsKit
             };
         }
 
-        #endregion
+#endregion
 
-        #region Address Request
+#region Address Request
 
         public bool CanRequestAdress
         {
@@ -635,7 +603,7 @@ namespace Ra.AlexaSkillsKit
 
         public AddressRequestResult GetAddress(PermissionTypeEnum permissionType)
         {
-            return GetAddressAsync(permissionType, geographicLocation).Result;
+            return GetAddressAsync(permissionType).Result;
         }
 
         public async Task<AddressRequestResult> GetAddressAsync(PermissionTypeEnum permissionType)
@@ -698,7 +666,7 @@ namespace Ra.AlexaSkillsKit
             }
         }
 
-        #endregion
+#endregion
     }
 }
     
