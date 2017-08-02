@@ -7,12 +7,12 @@
         <Title>Ra.AlexaSkillsKit</Title>
         <PackageLicenseUrl>http://opensource.org/licenses/MIT</PackageLicenseUrl>
         <PackageIconUrl>https://developer.amazon.com/public/binaries/content/gallery/developerportalpublic/solutions/alexa/dp_image_kit_02.png</PackageIconUrl>
-        <PackageReleaseNotes>- simplify AskForPermissionsConsentCard
+        <PackageReleaseNotes>- Simplify AskForPermissionsConsentCard
 - Add simple way to get Address
 - Add System.ExceptionEncountered
 - Fix Exception if response to a AudioRequest.
-- rewrite Amazon-Certificate verification</PackageReleaseNotes>
-        <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+- Rewrite Amazon-Certificate verification</PackageReleaseNotes>
+        <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
         <Copyright>Copyright 2017 Frank Kuchta, Copyright 2016 Stefan Negritoiu (FreeBusy)</Copyright>
         <PackageProjectUrl>https://github.com/realares/Ra.AlexaSkillsKit.NET</PackageProjectUrl>
         <RepositoryUrl>https://github.com/realares/Ra.AlexaSkillsKit.NET</RepositoryUrl>
@@ -65,7 +65,22 @@
       <Compile Include="Authentication\LocalCertCache.cs" />
       <Compile Include="Authentication\SpeechletRequestTimestampVerifier.cs" />
       <Compile Include="Authentication\SpeechletRequestValidationResult.cs" />
+      <Compile Include="Directives\DisplayRenderTemplateDirective.cs" />
+      <Compile Include="Directives\RenderTemplates\BodyTemplate.cs" />
+      <Compile Include="Directives\HintDirective.cs" />
+      <Compile Include="Directives\RenderTemplates\RenderHint.cs" />
+      <Compile Include="Directives\RenderTemplates\RenderListItem.cs" />
+      <Compile Include="Directives\RenderTemplates\ListTemplate.cs" />
+      <Compile Include="Directives\RenderTemplates\BodyTemplateTypeEnum.cs" />
+      <Compile Include="Directives\RenderTemplates\RenderImage.cs" />
+      <Compile Include="Directives\RenderTemplates\RenderImageSizeEnum.cs" />
+      <Compile Include="Directives\RenderTemplates\RenderImageSources.cs" />
+      <Compile Include="Directives\RenderTemplates\RenderText.cs" />
+      <Compile Include="Directives\RenderTemplates\RenderTextContent.cs" />
+      <Compile Include="Directives\RenderTemplates\RenderTextTypeEnum.cs" />
+      <Compile Include="Directives\RenderTemplates\RenderVisibilityEnum.cs" />
       <Compile Include="RequestHeader.cs" />
+      <Compile Include="Requests\Display_ElementSelected.cs" />
       <Compile Include="UI\Cards\PermissionTypeEnum.cs" />
       <Compile Include="UI\Cards\CardTypeEnum.cs" />
       <Compile Include="ConfirmationStatusEnum.cs" />

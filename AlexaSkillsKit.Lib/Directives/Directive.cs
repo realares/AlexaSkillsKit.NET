@@ -30,9 +30,13 @@ namespace Ra.AlexaSkillsKit.Directives
         [JsonConverter(typeof(StringEnumConverter))]
         public enum DirectiveTypesEnum
         {
+            NotSet,
 
             [EnumMember(Value = "Display.RenderTemplate")]
             Display_RenderTemplate,
+
+            [EnumMember(Value = "Hint")]
+            Hint,
 
 
             [EnumMember(Value = "VideoApp.Launch")]
