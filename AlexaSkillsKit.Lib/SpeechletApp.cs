@@ -406,7 +406,8 @@ namespace Ra.AlexaSkillsKit
                      {
                           UpdatedIntent = intentRequest.Intent
                      }
-                 }
+                 },
+                ShouldEndSession = false
             };
 
             return response;
@@ -416,7 +417,7 @@ namespace Ra.AlexaSkillsKit
         {
             var intentRequest = (RequestEnvelope.Request as IntentRequest);
             if (intentRequest == null) throw new SpeechletException("IntentRequest required");
-            
+
             var response = new SpeechletResponse()
             {
                 OutputSpeech = outputSpeech,
@@ -427,7 +428,9 @@ namespace Ra.AlexaSkillsKit
                           SlotToElicit = slotToElicit.Name,
                           UpdatedIntent = intentRequest.Intent
                      }
-                 }
+                 },
+                ShouldEndSession = false
+                 
             };
 
             return response;
@@ -451,7 +454,8 @@ namespace Ra.AlexaSkillsKit
                           SlotToConfirm = slotToElicit.Name,
                           UpdatedIntent = intentRequest.Intent
                      }
-                 }
+                 },
+                ShouldEndSession = false
             };
 
             return response;

@@ -1,13 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
     <PropertyGroup>
         <TargetFrameworks>netstandard1.4;netstandard1.6;net45;net462</TargetFrameworks>
-        <Version>2.2.0</Version>
+        <Version>2.2.1</Version>
         <Authors>Frank Kuchta</Authors>
         <Company>Frank Kuchta</Company>
         <Title>Ra.AlexaSkillsKit</Title>
         <PackageLicenseUrl>http://opensource.org/licenses/MIT</PackageLicenseUrl>
         <PackageIconUrl>https://developer.amazon.com/public/binaries/content/gallery/developerportalpublic/solutions/alexa/dp_image_kit_02.png</PackageIconUrl>
-        <PackageReleaseNotes>- Simplify AskForPermissionsConsentCard
+        <PackageReleaseNotes>- Fix ShouldEndSession not set in Dialog directive
+- Simplify AskForPermissionsConsentCard
 - Add simple way to get Address
 - Add System.ExceptionEncountered
 - Fix Exception if response to a AudioRequest.
@@ -19,8 +20,8 @@
         <RepositoryType>GIT</RepositoryType>
         <PackageTags>amazon echo alexa speechlet</PackageTags>
         <Description>.NET library that simplifies Alexa skills development; same object model as Amazon's AlexaSkillsKit for Java</Description>
-        <AssemblyVersion>2.2.0.0</AssemblyVersion>
-        <FileVersion>2.2.0.0</FileVersion>
+        <AssemblyVersion>2.2.1.0</AssemblyVersion>
+        <FileVersion>2.2.1.0</FileVersion>
     </PropertyGroup>
     
     <ItemGroup>
