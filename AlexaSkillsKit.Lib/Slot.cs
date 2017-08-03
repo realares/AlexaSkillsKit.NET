@@ -19,6 +19,7 @@ using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Ra.AlexaSkillsKit.Resolution;
+using System.Xml;
 
 namespace Ra.AlexaSkillsKit
 {
@@ -33,9 +34,7 @@ namespace Ra.AlexaSkillsKit
         [JsonConverter(typeof(StringEnumConverter))]
         [JsonProperty("confirmationStatus")]
         public virtual ConfirmationStatusEnum ConfirmationStatus { get; set; }
-
-
-
+        
         //[JsonIgnore]
         [JsonProperty("resolutions")]
         public virtual Resolutions Resolutions { get; set; }
@@ -55,5 +54,20 @@ namespace Ra.AlexaSkillsKit
             return Resolutions.ResolutionsPerAuthority[0].Status.Code;
         }
 
+        /// <summary>
+        /// AMAZON.DURATION
+        /// Converts words that indicate durations into a numeric duration.
+        /// The duration is provided to your skill in a format based on the ISO-8601 duration format(PnYnMnDTnHnMnS). 
+        /// The P indicates that this is a duration.The n is the numeric value, and the capital letter following the n designates the specific date or time element. 
+        /// For example, P3D means 3 days.A T is used to indicate that the remaining values represent time elements rather than date elements.
+        /// </summary>
+        /// <returns>Converted value</returns>
+        public TimeSpan ParseAs_AMAZON_DURATION()
+        {
+            if (string.IsNullOrWhiteSpace(Value))
+                return new TimeSpan();
+            return XmlConvert.ToTimeSpan(Value);
+        }
     }
+
 }
