@@ -84,7 +84,7 @@ https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/speech
 var ssml = new SsmlBuilder();
 ssml.Append("No");
 ssml.Break(1500);
-ssml.Wisper("The correct answer is 42");
+ssml.Whisper("The correct answer is 42");
 
 // Return a SSML Answer
 return Say(ssml);         

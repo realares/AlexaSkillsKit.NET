@@ -59,13 +59,18 @@ namespace Ra.AlexaSkillsKit.UI.Speech
             return this;
         }
 
+        public SsmlBuilder SayAs(SSML_SayAs value)
+        {
+            _builder.Append(value);
+            return this;
+        }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="text"></param>
         /// <returns>A reference to this instance after the append operation has completed.</returns>
-        public SsmlBuilder Wisper(string text)
+        public SsmlBuilder Whisper(string text)
         {
             _builder.Append(new Speech.SSML_Amazon_Effect(SSML_AmazonEffectEnum.whispered, text).ToString());
             return this;
