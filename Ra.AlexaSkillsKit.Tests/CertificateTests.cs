@@ -41,6 +41,8 @@ namespace Ra.AlexaSkillsKit.Tests
 
             string[] invalidUrls =
                {
+                    null,
+                    string.Empty,
                     "http://s3.amazonaws.com/echo.api/echo-api-cert.pem", // invalid protocol
                     "https://notamazon.com/echo.api/echo-api-cert.pem", // invalid hostname
                     "https://s3.amazonaws.com/EcHo.aPi/echo-api-cert.pem", //invalid path
