@@ -50,6 +50,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Compile Include="AddressRequestResult.cs" />
       <Compile Include="Amazon_BuiltIns.cs" />
       <Compile Include="Application.cs" />
       <Compile Include="AudioItem.cs" />
@@ -80,8 +81,10 @@
       <Compile Include="Directives\RenderTemplates\RenderTextContent.cs" />
       <Compile Include="Directives\RenderTemplates\RenderTextTypeEnum.cs" />
       <Compile Include="Directives\RenderTemplates\RenderVisibilityEnum.cs" />
+      <Compile Include="GetAdressResultEnum.cs" />
       <Compile Include="RequestHeader.cs" />
       <Compile Include="Requests\Display_ElementSelected.cs" />
+      <Compile Include="SpeechletAppAsync.cs" />
       <Compile Include="UI\Cards\PermissionTypeEnum.cs" />
       <Compile Include="UI\Cards\CardTypeEnum.cs" />
       <Compile Include="ConfirmationStatusEnum.cs" />
@@ -158,6 +161,7 @@
       <Compile Include="User_Address.cs" />
       <Compile Include="VideoItem.cs" />
       <Compile Include="VideoItemMetadata.cs" />
+      <Compile Include="_SpeechletAppBase.cs" />
     </ItemGroup>
 
     <ItemGroup>

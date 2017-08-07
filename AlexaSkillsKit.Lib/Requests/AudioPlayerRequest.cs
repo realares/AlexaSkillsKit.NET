@@ -44,9 +44,32 @@ namespace Ra.AlexaSkillsKit
         SessionEnded,
 
         PlaybackFailed,
+
+        /// <summary>
+        /// Sent when the stream Alexa is playing comes to an end on its own.
+        /// </summary>
         PlaybackFinished,
+
+        /// <summary>
+        /// Sent when the device is ready to add the next stream to the queue.
+        /// To progress through a playlist of audio streams, 
+        /// respond to this request with a Play directive for the next stream and set playBehavior to ENQUEUE or REPLACE_ENQUEUED. 
+        /// This adds the new stream to the queue without stopping the current playback.Alexa begins streaming the new audio item once the currently playing track finishes.
+        /// </summary>
         PlaybackNearlyFinished,
+
+        /// <summary>
+        /// Sent when Alexa begins playing the audio stream previously sent in a Play directive. This lets your skill verify that playback began successfully.
+        /// This request is also sent when Alexa resumes playback after pausing it for a voice request.
+        /// </summary>
         PlaybackStarted,
+
+        /// <summary>
+        /// Sent when Alexa stops playing an audio stream in response to one of the following AudioPlayer directives: Stop
+        /// Play with a playBehavior of REPLACE_ALL. ClearQueue with a clearBehavior of CLEAR_ALL. 
+        /// This request is also sent if the user makes a voice request to Alexa, since this temporarily pauses the playback. 
+        /// In this case, the playback begins automatically once the voice interaction is complete.
+        /// </summary>
         PlaybackStopped,
 
         PlaybackController,

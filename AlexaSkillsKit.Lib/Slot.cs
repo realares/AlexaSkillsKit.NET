@@ -65,7 +65,7 @@ namespace Ra.AlexaSkillsKit
         public TimeSpan ParseAs_AMAZON_DURATION()
         {
             if (string.IsNullOrWhiteSpace(Value))
-                return new TimeSpan();
+                return TimeSpan.Zero;
             return XmlConvert.ToTimeSpan(Value);
         }
     }
