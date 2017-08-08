@@ -94,7 +94,7 @@ namespace Ra.AlexaSkillsKit
         /// </summary>
         /// <param name="requestEnvelope"></param>
         /// <returns></returns>
-        private async Task<string> DoProcessRequestAsync(SpeechletRequestEnvelope requestEnvelope)
+        public async Task<string> DoProcessRequestAsync(SpeechletRequestEnvelope requestEnvelope)
         {
          
             Session session = requestEnvelope.Session;
@@ -165,15 +165,15 @@ namespace Ra.AlexaSkillsKit
             return Task.Run(()=> result == SpeechletRequestValidationResult.OK);
         }
 
-        public virtual Task OnRequestIncomeAsync(RequestHeader header) { return null; }
+        public virtual Task OnRequestIncomeAsync(RequestHeader header) { return Task.FromResult(0); }
 
-        public virtual Task OnResponseOutgoingAsync(string msg) { return null; }
+        public virtual Task OnResponseOutgoingAsync(string msg) { return Task.FromResult(0); }
 
-        public virtual Task OnParsingErrorAsync(Exception exception) { return null; }
+        public virtual Task OnParsingErrorAsync(Exception exception) { return Task.FromResult(0); }
 
-        public virtual Task OnSessionStartedAsync(SpeechletRequestEnvelope requestEnvelope) { return null; }
+        public virtual Task OnSessionStartedAsync(SpeechletRequestEnvelope requestEnvelope) { return Task.FromResult(0); }
 
-        public virtual Task OnSessionEndedAsync(SessionEndedRequest sessionEndedRequest, Session session, Context context) { return null; }
+        public virtual Task OnSessionEndedAsync(SessionEndedRequest sessionEndedRequest, Session session, Context context) { return Task.FromResult(0); }
 
 
         public abstract Task<SpeechletResponse> OnIntentAsync(IntentRequest intentRequest, Session session, Context context);

@@ -84,6 +84,11 @@
       <Compile Include="GetAdressResultEnum.cs" />
       <Compile Include="RequestHeader.cs" />
       <Compile Include="Requests\Display_ElementSelected.cs" />
+      <Compile Include="Requests\PlaybackControllerRequest_NextCommandIssued.cs" />
+      <Compile Include="Requests\PlaybackControllerRequest_PauseCommandIssued.cs" />
+      <Compile Include="Requests\PlaybackControllerRequest_PlayCommandIssued.cs" />
+      <Compile Include="Requests\PlaybackControllerRequest_PreviousCommandIssued.cs" />
+      <Compile Include="Requests\RequestTypeEnum.cs" />
       <Compile Include="SpeechletAppAsync.cs" />
       <Compile Include="UI\Cards\PermissionTypeEnum.cs" />
       <Compile Include="UI\Cards\CardTypeEnum.cs" />
@@ -115,7 +120,7 @@
       <Compile Include="Json\SpeechletResponseEnvelope.cs" />
       <Compile Include="Permissions.cs" />
       <Compile Include="Reprompt.cs" />
-      <Compile Include="Requests\AudioPlayerRequest.cs" />
+      <Compile Include="Requests\AudioPlayerBaseRequest.cs" />
       <Compile Include="Requests\AudioPlayerRequest_PlaybackFailed.cs" />
       <Compile Include="Requests\AudioPlayerRequest_PlaybackFinished.cs" />
       <Compile Include="Requests\AudioPlayerRequest_PlaybackNearlyFinished.cs" />
@@ -123,7 +128,7 @@
       <Compile Include="Requests\AudioPlayerRequest_PlaybackStopped.cs" />
       <Compile Include="Requests\IntentRequest.cs" />
       <Compile Include="Requests\LaunchRequest.cs" />
-      <Compile Include="Requests\PlaybackControllerRequest.cs" />
+      <Compile Include="Requests\AudioPlayerRequest.cs" />
       <Compile Include="Requests\SessionEndedRequest.cs" />
       <Compile Include="Requests\SpeechletRequest.cs" />
       <Compile Include="Requests\AudioPlayerRequest_System_ExceptionEncountered.cs" />

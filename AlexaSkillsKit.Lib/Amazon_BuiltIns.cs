@@ -29,11 +29,43 @@ namespace Ra.AlexaSkillsKit
         public const string LoopOffIntent = "AMAZON.LoopOffIntent";
         public const string LoopOnIntent = "AMAZON.LoopOnIntent";
         public const string NextIntent = "AMAZON.NextIntent";
+
+        /// <summary>
+        /// Let the user go back to a previous item in a list.
+        /// For skills that stream audio using the AudioPlayer interface, 
+        /// users can invoke this intent without using your invocation name if your skill is currently playing audio or was the most recent skill to play audio.
+        /// The intent is sent to your skill in this case even if AMAZON.PreviousIntent is not in your intent schema.
+        /// <para>English: "go back", "skip back", "back up"</para>
+        /// <para>German: "vorheriges", "spiele das letzte"</para>
+        /// </summary>
         public const string PreviousIntent = "AMAZON.PreviousIntent";
+
+        /// <summary>
+        /// Let the user request to repeat the last action.
+        /// For skills that stream audio using the AudioPlayer interface, 
+        /// users can invoke this intent without using your invocation name if your skill is currently playing audio or was the most recent skill to play audio.
+        /// The intent is sent to your skill in this case even if AMAZON.RepeatIntent is not in your intent schema.
+        /// <para>English: "repeat", "say that again", "repeat that"</para>
+        /// <para>German: "wiederhole(bitte)", "wiederhole das(bitte)", "sag das noch mal(bitte)"</para>
+        /// </summary>
         public const string RepeatIntent = "AMAZON.RepeatIntent";
 
-        // For AudioPlayer
+        /// <summary>
+        /// Let the user pause an action in progress, such as pausing a game or pausing an audio track that is playing.
+        /// You must implement this intent if your skill streams audio using the AudioPlayer interface. 
+        /// Users can invoke this intent without using your invocation name if your skill is currently playing audio or was the most recent skill to play audio.
+        /// <para>English: "pause", "pause that"</para>
+        /// <para>German: "pause (bitte)", "unterbrechung", "pausieren"</para>
+        /// </summary>
         public const string PauseIntent = "AMAZON.PauseIntent";
+
+        /// <summary>
+        /// Let the user resume or continue an action.
+        /// You must implement this intent if your skill streams audio using the AudioPlayer interface. 
+        /// Users can invoke this intent without using your invocation name if your skill is currently playing audio or was the most recent skill to play audio.
+        /// <para>English: "resume", "continue", "keep going"</para>
+        /// <para>German: "mach weiter", "weiterlesen"</para>
+        /// </summary>
         public const string ResumeIntent = "AMAZON.ResumeIntent";
 
 

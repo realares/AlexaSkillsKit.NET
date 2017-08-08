@@ -32,7 +32,7 @@ namespace Ra.AlexaSkillsKit
         [JsonProperty("currentPlaybackState")]
         public AudioPlayer CurrentPlaybackState { get; set; }
 
-        public override RequestTypeEnum Type => RequestTypeEnum.PlaybackFailed;
+        public override RequestTypeEnum Type => RequestTypeEnum.AudioPlayer_PlaybackFailed;
     }
 }
  
