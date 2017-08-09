@@ -121,21 +121,19 @@ namespace Ra.AlexaSkillsKit.WebSample.AlexaApps
 
             switch (audioRequest.Type)
             {
-                case RequestTypeEnum.PlaybackFailed:
+                case RequestTypeEnum.AudioPlayer_PlaybackFailed:
                     var request = audioRequest as AudioPlayerRequest_PlaybackFailed;
                     log.Error(request.Error.Message);
                     break;
 
-                case RequestTypeEnum.PlaybackFinished:
-                    break;
-                case RequestTypeEnum.PlaybackNearlyFinished:
-                    break;
-                case RequestTypeEnum.PlaybackStarted:
-                    break;
-                case RequestTypeEnum.PlaybackStopped:
-                    break;
-                case RequestTypeEnum.PlaybackController:
-                    break;
+                case RequestTypeEnum.AudioPlayer_PlaybackFinished:
+                case RequestTypeEnum.AudioPlayer_PlaybackNearlyFinished:
+                case RequestTypeEnum.AudioPlayer_PlaybackStarted:
+                case RequestTypeEnum.AudioPlayer_PlaybackStopped:
+                case RequestTypeEnum.PlaybackController_NextCommandIssued:
+                case RequestTypeEnum.PlaybackController_PauseCommandIssued:
+                case RequestTypeEnum.PlaybackController_PlayCommandIssued:
+                case RequestTypeEnum.PlaybackController_PreviousCommandIssued:
                 default:
                     break;
             }

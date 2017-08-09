@@ -243,6 +243,36 @@ namespace Ra.AlexaSkillsKit
             return response;
         }
 
+        /// <summary>
+        /// Sends Alexa a command to confirm the all the information the user has provided for the intent before the skill takes action.
+        /// Provide a prompt to ask the user for confirmation in an OutputSpeech object in the response. Be sure to repeat back all the values the user needs to confirm in the prompt.
+        /// If your skill does not meet the requirements to use the Dialog directives, returning Dialog.ConfirmIntent causes an error
+        /// </summary>
+        /// <returns></returns>
+        public SpeechletResponse DialogConfirmIntent(OutputSpeech outputSpeech)
+        {
+
+            var intentRequest = (RequestEnvelope.Request as IntentRequest);
+            if (intentRequest == null) throw new SpeechletException("IntentRequest required");
+
+            var response = new SpeechletResponse()
+            {
+                Directives = new List<Directive>()
+                 {
+                     new DialogConfirmIntentDirective()
+                     {
+                          //UpdatedIntent = intentRequest.Intent
+                     }
+                 },
+                OutputSpeech = outputSpeech,
+                ShouldEndSession = false
+            };
+
+            return response;
+        }
+
+        
+
         public SpeechletResponse DialogElicitSlot(Slot slotToElicit, OutputSpeech outputSpeech = null)
         {
             var intentRequest = (RequestEnvelope.Request as IntentRequest);

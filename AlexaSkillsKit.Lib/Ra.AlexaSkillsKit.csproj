@@ -67,6 +67,7 @@
       <Compile Include="Authentication\LocalCertCache.cs" />
       <Compile Include="Authentication\SpeechletRequestTimestampVerifier.cs" />
       <Compile Include="Authentication\SpeechletRequestValidationResult.cs" />
+      <Compile Include="Directives\DialogConfirmIntentDirective.cs" />
       <Compile Include="Directives\DisplayRenderTemplateDirective.cs" />
       <Compile Include="Directives\RenderTemplates\BodyTemplate.cs" />
       <Compile Include="Directives\HintDirective.cs" />
