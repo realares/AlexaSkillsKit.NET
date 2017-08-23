@@ -19,6 +19,7 @@ using JsonSubTypes;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using Ra.AlexaSkillsKit.Ressources;
 
 namespace Ra.AlexaSkillsKit
 {
@@ -68,5 +69,23 @@ namespace Ra.AlexaSkillsKit
             get;
             set;
         }
+
+
+        private string _locale;
+
+        [JsonProperty("locale")]
+        public string Locale
+        {
+            get => _locale;
+
+            set
+            {
+                if (!String.IsNullOrWhiteSpace(value))
+                    Resource.Culture = new System.Globalization.CultureInfo(value);
+                _locale = value;
+            }
+        }
+
+
     }
 }

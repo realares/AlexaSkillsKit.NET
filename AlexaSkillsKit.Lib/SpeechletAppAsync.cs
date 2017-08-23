@@ -12,6 +12,7 @@ using System.Text;
 using Ra.AlexaSkillsKit.Authentication;
 using Ra.AlexaSkillsKit.Json;
 using System.Threading.Tasks;
+using Ra.AlexaSkillsKit.Ressources;
 
 namespace Ra.AlexaSkillsKit
 {
@@ -52,7 +53,6 @@ namespace Ra.AlexaSkillsKit
 
                 if (!SpeechletRequestTimestampVerifier.VerifyRequestTimestamp(RequestEnvelope, now))
                     validationResult = validationResult | SpeechletRequestValidationResult.InvalidTimestamp;
-
             }
             catch (Exception e1)
             {
