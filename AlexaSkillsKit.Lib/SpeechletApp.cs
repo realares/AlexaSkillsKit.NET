@@ -77,6 +77,7 @@ namespace Ra.AlexaSkillsKit
                 if (alexaResponsejson == null)
                 {
                     OnResponseOutgoing("->alexaResponsejson == null");
+                   
                     return null;
                 }                    
 
@@ -155,7 +156,14 @@ namespace Ra.AlexaSkillsKit
             }
 
             if (response == null)
-                return null;
+            {
+                return new SpeechletResponseEnvelope
+                {
+                    Version = requestEnvelope.Version,
+                    Response = new SpeechletResponse() { ShouldEndSession = null}             
+                }.ToJson();
+            }
+                
             
             var responseEnvelope = new SpeechletResponseEnvelope
             {
