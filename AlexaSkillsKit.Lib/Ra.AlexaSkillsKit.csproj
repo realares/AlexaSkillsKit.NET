@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
     <PropertyGroup>
         <TargetFrameworks>netstandard1.4;netstandard1.6;netstandard2.0;net45;net462</TargetFrameworks>
-        <Version>2.2.1</Version>
+        <Version>2.3.0</Version>
         <Authors>Frank Kuchta</Authors>
         <Company>Frank Kuchta</Company>
         <Title>Ra.AlexaSkillsKit</Title>
@@ -143,7 +143,6 @@
       <Compile Include="Session.cs" />
       <Compile Include="Slot.cs" />
       <Compile Include="SpeechletApp.cs" />
-      <Compile Include="SpeechletAsync.cs" />
       <Compile Include="SpeechletException.cs" />
       <Compile Include="SpeechletResponse.cs" />
       <Compile Include="SpeechletSystem.cs" />
